@@ -16,9 +16,7 @@ Se trata de una especie de tormentas de ideas con dos preguntas
 
 
 
-#11/10/2023
-
-
+# 11/10/2023
 
 Hacer una máquina virtual con PostgreSQL
 
