@@ -73,15 +73,17 @@ Para hacer una prueba, conectamos de nuevo las mismas tablas que en el caso ante
 - FactInternetSales
 
 Pero ahora de forma directa y seguimos los siguientes pasos:
-1. Creamos una medida rápida. <div align="center">
+1. Creamos una medida rápida. 
+2. 
+   <div align="center">
     <img src="../img/DemoSQLDirect01.png" alt="Demo Direct" width="30%" />
 </div>
-2. Lo anterior, parece que antes daba problemas y solo se podía hacer por ImporQuery, pero ahora parece que ya va sin problemas
+1. Lo anterior, parece que antes daba problemas y solo se podía hacer por ImporQuery, pero ahora parece que ya va sin problemas
    1. En la parte inferior, en la barra de status, tenemos la opción de cambiar de Direct a Import (no se puede al revés).
    2. Realmente, lo que pasa es que esta haciendo una copia tipo `import` de la tabla para poder hacer esta *medida*. Esto se verá mas tarde, porque si intentamos utilizar este campo, no se actualizarán los datos, y si no lo utilizamos se actualizarán.
-3. Hacemos el mismo ejemplo que antes y mostramos las ventas por categoría.
-4. Ahora modificamos de nuevo los datos de SQL Server.
-5. Como se ha comentado, los datos se actualizan directamente, salvo que se utilicen datos como el de *medida* creado anteriormente.
+2. Hacemos el mismo ejemplo que antes y mostramos las ventas por categoría.
+3. Ahora modificamos de nuevo los datos de SQL Server.
+4. Como se ha comentado, los datos se actualizan directamente, salvo que se utilicen datos como el de *medida* creado anteriormente.
 
 Veamos las difernecias ente los dos sistemas:
 
