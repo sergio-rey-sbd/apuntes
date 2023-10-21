@@ -21,9 +21,9 @@
 
 title: Sistemas de Big Data
 description: >- # this means to ignore newlines until "baseurl:"
-  Apuntes de Sistemas de Big Data para el Curso de especialización
-  de Inteligencia Artificial y Big Data.
-  Apuntes de elaborados por Sergio Rey, profesor
+  Apuntes de Sistemas de Big Data para el 
+  Curso de especialización de Inteligencia Artificial y Big Data.
+  Apuntes de elaborados por Sergio Rey, profesor ciclos formativos.
   (Xàtiva, Valencia)
 baseurl: "/apuntes" # the subpath of your site, e.g. /blog
 url: "https://sergio-rey-sbd.github.io" # the base hostname & protocol for your site, e.g. http://example.com
