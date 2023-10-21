@@ -12,7 +12,16 @@ permalink: /nifi/
 
 <h3>Tabla de contenidos</h3>
 
-# Instalación Apache Nifi
+- [1. Instalación `Apache Nifi`](#1-instalación-apache-nifi)
+- [2. Terminologia NiFi](#2-terminologia-nifi)
+	- [2.1. DataFlow](#21-dataflow)
+	- [2.2. FlowFile](#22-flowfile)
+	- [2.3. Processors](#23-processors)
+	- [2.4. Conexiones](#24-conexiones)
+	- [2.5. Process Groups](#25-process-groups)
+
+
+# 1. Instalación `Apache Nifi`
 
 Para la instalación de NiFi, descargamos la última versión desde la web; archivo binario.
 
@@ -54,12 +63,12 @@ export JAVA_HOME=/lib/jvm/java-1.11.0-openjdk-amd64/
 Más información en la [web de apache nifi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html#downloading-and-installing-nifi)
 
 
-# Terminologia NiFi
+# 2. Terminologia NiFi
 
 `Nifi` esta basado en FBP (Flow Based Programming), que es un paradigma de programación que define aplicación como cajas negras (procesos), los cuales intercambian datos entre conexiones predefinidas.
 Estas cajas negras (procesos) pueden ser combinados en dataflows. 
 
-## DataFlow
+## 2.1. DataFlow
 
 - `Dataflow` o `flujo de dato` son los pasos de los datos desde el origen al destino, con o sin transformación en medio.
 
@@ -73,7 +82,7 @@ Esta basada en la **programación basada en flujo**, basada en unos procesadores
 
 Estos procesadores son como cajas negras, y los conectores cogen los datos de un procesador y lo entregan a otro, de forma que a los procesadores no les interesa la salida, solo el proceso
 
-## FlowFile
+## 2.2. FlowFile
 
 Los ficheros que se generan entre diferentes procesadores se llaman `flowfiles`, con paquetes de datos (como ficheros) compuesto por contenido y atributos o metadatos. Los atributos contienen información del contenido; fecha de creación, nombre, o información que añadamos.
 
@@ -85,7 +94,7 @@ Tiene dos componentes:
 	
 Son ficheros persistentes en disco
 
-## Processors
+## 2.3. Processors
 
 - `Processor`: un Processor puede generar un nuevo "FlowFile" para procesar o ingestar un existente FlowFile desde cualquier origen. Todos los processors pueden ser conectados con otros. Estos, son enlazados vía conexiones con links. Cada conexión tendrá una cola "Queue for FlowFiles".
 
@@ -220,11 +229,11 @@ Apache Nifi ofrece diferentes tipos de **procesadores**, y los más utilizados o
 	PutDynamoDB
 	PutLambda
 
-## Conexiones
+## 2.4. Conexiones
 
 Las **Conexiones** permiten transmitir flowFiles entre procesadores. Se encargan de controlar colas y su caducidad, por ejemplo ante procesadores que van a diferentes velocidades, o encola o deciden que datos tienen más prioridad o que datos ya han quedado obsoletos.
 
-## Process Groups
+## 2.5. Process Groups
 
 Los **Process Groups** es la unión de varios procesadores que tiene una tarea de forma agrupada.
 
