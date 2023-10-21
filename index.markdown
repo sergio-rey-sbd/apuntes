@@ -13,11 +13,12 @@ Apuntes de **Sistemas de Big Data**  para el Curso de Especialización de *Intel
 Apartados:
 
 - [Notas de `Apache NiFi`](./nifi/)
-- [Notas sobre `PostgreSQL`](./postgres/)
-- [Notas de `PowerBI`](./powerbi/)
+- [Notas de `PostgreSQL`](./postgres/)
+
 
 {% comment %} 
 
+- [Notas de `PowerBI`](./powerbi/)
 
 Prueba de [slide](./md/es/slides/00.html)
 

@@ -4,15 +4,21 @@ description: Notas sobre el uso de Postgres en el módulo de SBD
 permalink: /postgres/
 ---
 
-<h1>PostgreSQL</h1>
+<h1>PostgreSQL
+
+<div align="center">
+    <img src="../img/postgres_logo.png" alt="Logo PostgreSQL" width="15%"/>
+</div>
+</h1>
 
 <h3>Tabla de contenidos</h3>
 
 - [1. Introducción](#1-introducción)
 - [2. Instalación de `PostgreSQL`](#2-instalación-de-postgresql)
-  - [2.1. Instalación en CentOS (derivados Red Hat)](#21-instalación-en-centos-derivados-red-hat)
-  - [2.2. Instalación en Ubuntu (derivados Debian)](#22-instalación-en-ubuntu-derivados-debian)
-  - [2.3. Creación y acceso de roles/usuarios y bases de datos](#23-creación-y-acceso-de-rolesusuarios-y-bases-de-datos)
+	- [2.1. Instalación en CentOS (derivados Red Hat)](#21-instalación-en-centos-derivados-red-hat)
+	- [2.2. Instalación en Ubuntu (derivados Debian)](#22-instalación-en-ubuntu-derivados-debian)
+	- [2.3. Creación y acceso de roles/usuarios y bases de datos](#23-creación-y-acceso-de-rolesusuarios-y-bases-de-datos)
+	- [Acceso remoto](#acceso-remoto)
 - [3. DBeaver](#3-dbeaver)
 - [4. Notas Práctica 7 de `Nifi`](#4-notas-práctica-7-de-nifi)
 
@@ -25,7 +31,7 @@ Los datos de los sistemas de Big Data se pueden guardar de formas diferentes. Pa
 
 # 2. Instalación de `PostgreSQL`
 
-## 2.1. Instalación en CentOS (derivados Red Hat)
+## 2.1. Instalación en *CentOS* (derivados *Red Hat*)
 
 Para la instalación de `Postgres` en `CentOS` seguiremos el siguiente [Articulo: How to install PostgreSQL on CentOS](https://www.commandprompt.com/education/how-to-install-postgresql-on-centos/)
 
@@ -39,7 +45,7 @@ Observar en la imagen que se ha cambiado *peer* e *ident* por ***md5*** para las
 
 Nota: Si este cambio no se realiza, al intentar conectarnos, encontraremos un error del tipo: `PSQLException: FATAL: la autentificación Ident falló para el usuario «sergio»`
 
-## 2.2. Instalación en Ubuntu (derivados Debian)
+## 2.2. Instalación en *Ubuntu* (derivados *Debian*)
 
 En este caso, simplemente realizamos el paso de la instalación y el sistema estará preparado: 
 
@@ -48,11 +54,13 @@ $ sudo apt install postgresql postgresql-contrib    # instalación
 $ sudo postgresql-setup initdb                      # inicialización
 ```
 
-Como norma general, el sistema se inicia automáticamente, si no, debemos revisar el servicio tal y como se indica en la instalación en *CentOS*
+Como norma general, el sistema se inicia automáticamente, si no, debemos revisar el servicio tal y como se indica en la instalación en *CentOS*.
+
+Debemos tener en cuenta, que el archivo de configuración `pg_hba.conf` en los sistemad *Debian* se encuentran en otra ruta : `/etc/postgresql/<versión>/main/pg_hba.conf` (donde <version> es la version instalada, por ejemplo 14 o 15)
 
 ## 2.3. Creación y acceso de roles/usuarios y bases de datos
 
-Por defecto, la autentificación es mediante *roles*. Al pincipio se asocia un rol a una cuenta existente en nuestro sistema Linux. Esta cuenta tiene nombre de **postgres** y se crea automáticamente al instalar `PostgreSQL`. Por lo tanto, para comenzar la primera vez en el terminal de la base de datos PostgreSQL, debemos cambiarnos a este usuario **postgres**:
+Por defecto, la autentificación es mediante *roles*. Al principio se asocia un rol a una cuenta existente en nuestro sistema Linux. Esta cuenta tiene nombre de **postgres** y se crea automáticamente al instalar `PostgreSQL`. Por lo tanto, para comenzar la primera vez en el terminal de la base de datos PostgreSQL, debemos cambiarnos a este usuario **postgres**:
 
 ```bash
 $ sudo -i -u postgres   # cambiamos al usuario postgres 
@@ -98,11 +106,11 @@ $ createdb pruebas
 ```postgres
 postgres=# CREATE ROLE sergio LOGIN PASSWORD 'sergio';
 CREATE ROLE
-postgres=# CREATE DATABASE pruebasNiFi WITH OWNER = sergio;
+postgres=# CREATE DATABASE pruebasnifi WITH OWNER = sergio;
 CREATE DATABASE
 ```
 
-Nota: Normalmente, si creamos un rol en Postgres, debemos tener un usuario con el mismo nombre en nuestro sistemas Linux, de forma que ambos estan ligados.
+Nota: Normalmente, si creamos un rol en Postgres, debemos tener un usuario con el mismo nombre en nuestro sistemas Linux, de forma que ambos están ligados.
 
 Para entrar en una base de datos desde el terminal
 
@@ -120,20 +128,42 @@ sudo passwd sergio              # le damos contraseña para activarlo.
 sudo usermod -aG wheel sergio   # para hacer meter el usuario en el grupo "sudo". Esto no es necesario.
 ```
 
+Desde aquí, ya podemos crear tablas, y trabajar datos desde este terminal.
+
+## Acceso remoto 
+
+Para permitir el acceso remoto a nuestro servidor `Postgres` debemos realizar un par de cambios en los ficheros de configuración:
+
+1. En primer lugar, debemos establecer un rango de direcciones de confianza a las que permitimos conectar, para ello editamos de nuevo el fichero de configuración `/var/lib/pgsql/data/pg_hba.conf` (para derivados *Red Hat*) o `/etc/postgresql/14/main/pg_hba.conf` (para *Debian* y version 14) y añadimos una nueva línea junto a la modificada en el primer punto. 
+
+```
+host    all             all             192.168.0.0/24           trust
+```
+
+Tal y como se puede deducir, debemos indicar la red donde nos encontramos o la red en que la que confiemos (***trust***)
+
+2. Posteriormente debemos configurar un nuevo fichero, en este caso llamado `postgresql.conf`, que se encuentra en la misma carpeta que el anterior. En este caso, modificamos una línea que permite a la base de datos atender peticiones de direcciones externas: 
+
+```
+listen_addresses = '*'
+```
+
+Una vez realizados estos cambios, reiniciamos el servicio de nuevo
+
+```
+sudo systemctl restart postgresql.service 
+```
+
+3. En caso de no poder acceder, revisamos en firewall. En el caso de *CentOS* sería:
+
+```bash
+sudo firewall-cmd --zone=public --add-port=5432/tcp --permanent
+firewall-cmd --reload
+```
+
 # 3. DBeaver
 
 `DBeaver` es una aplicación de software cliente de SQL y una herramienta de administración de bases de datos muy ligera y sencilla. Es menos pesada que herramientas como `pgAdmin`, y además mediante esta herramienta podemos **instalar los drivers necesarios** para la posterior conexión de `Apache NiFi` a nuestras bases de datos en `PostgreSQL`, por ejemplo, por lo que vamos a hacer uso de esta herramienta.
-
-Para su instalación descargar versión *Comunity* desde : https://dbeaver.io/download/
-
-Por supuesto descargamos el paquete adecuado a nuestro sistemas operativo.
-
-Después, abrimos un terminal y instalamos y ejecutamos (en CentOS):
-
-```bash
-sudo rpm -ivh dbeaver-<version>.rpm.    # instalación 
-dbeaver &                               # ejecución de dbeaver
-```
 
 Para acceder a `PostgreSQL` con `NiFi`, tal y como se ha comentado, necesitamos un *driver* que lo podemos encontrar entre los drivers facilitados por la herramienta en https://dbeaver.com/docs/wiki/Database-drivers/. En este enlace tenemos un tutorial que nos indica como descargar y configurar el driver necesario, en nuestro caso el de Postgres.
 
@@ -145,6 +175,20 @@ Es interesante **probar la conexión** que hemos establecido para verificar que 
 psql -d postgresql://127.0.0.1:5432/pruebasnifi?user=sergio
 ```
 donde especificamos la base de datos y el usuario, en este ejemplo son *pruebasnifi* y *sergio* respectivamente 
+
+Una vez visto cómo descargar los drivers para su uso, también podemos descargar la herramientas que nos sirve como front-end gráfico para gestionar las bases de datos Postgres o cualquier otra. 
+
+Para su **instalación** descargar versión *Comunity* desde : https://dbeaver.io/download/
+
+Por supuesto descargamos el paquete adecuado a nuestro sistemas operativo.
+
+Después, abrimos un terminal y instalamos y ejecutamos (en CentOS):
+
+```bash
+sudo rpm -ivh dbeaver-<version>.rpm.    # instalación 
+dbeaver &                               # ejecución de dbeaver
+```
+
 
 # 4. Notas Práctica 7 de `Nifi`
 
