@@ -10,11 +10,13 @@ title: Apuntes de Sistemas de BigData
 
 Apuntes de **Sistemas de Big Data**  para el Curso de Especialización de *Inteligencia Artificial* y *Big Data*
 
-{% comment %} 
 Apartados:
 
-- [Notas de PowerBI](./PowerBI/)
+- [Notas de `Apache NiFi`](./nifi/)
+- [Notas sobre `PostgreSQL`](./postgres/)
+- [Notas de `PowerBI`](./powerbi/)
 
+{% comment %} 
 
 
 Prueba de [slide](./md/es/slides/00.html)
