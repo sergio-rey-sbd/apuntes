@@ -25,3 +25,9 @@ En ejemplo de diseño de un cubo; modelado de datos en base de datos multidimien
 
 
 ETL y ELT, ELT es una alternativa que hace la carga antes de la transformación.
+
+
+# 18/10/2023
+
+Comenzamos la clase, dando tiempo para la 
+
