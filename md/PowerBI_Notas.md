@@ -1,10 +1,10 @@
 ---
 title: PowerBI
 description: PowerBI
-permalink: /PowerBI/
+permalink: /powerbi/
 ---
 
-<h1>Bash Script</h1>
+<h1>PowerBI</h1>
 
 <h3>Tabla de contenidos</h3>
 
@@ -85,7 +85,7 @@ Pero ahora de forma directa y seguimos los siguientes pasos:
 3. Ahora modificamos de nuevo los datos de SQL Server.
 4. Como se ha comentado, los datos se actualizan directamente, salvo que se utilicen datos como el de *medida* creado anteriormente.
 
-Veamos las difernecias ente los dos sistemas:
+Veamos las diferencias ente los dos sistemas:
 
 <div align="center">
     <img src="../img/DiferenciasSQL-Import-Direct.png" alt="Demo Direct" width="70%" />
