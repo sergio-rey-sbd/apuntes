@@ -29,5 +29,11 @@ ETL y ELT, ELT es una alternativa que hace la carga antes de la transformación.
 
 # 18/10/2023
 
-Comenzamos la clase, dando tiempo para la 
+Comenzamos la clase, dando tiempo para la practica de modelado
 
+Ponemos en marcha Nifi y hacemos Actividad 1 
+
+
+En casa: Web API genera nombres de forma automática
+- https://randomuser.me/api/
+- https://randomuser.me/api/0.8
