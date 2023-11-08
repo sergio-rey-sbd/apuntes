@@ -37,6 +37,12 @@ Ponemos en marcha Nifi y hacemos Actividad 1
 
 Seguimos haciendo actividades de NiFi desde la 2 hasta la 6. La mayoría de la gente no llega al final.
 
+
+# 08/11/2023
+
+Comenzamos la clase instalando PostgreSQL para poder hacer las actividades 7 y 8
+
+
 ---
 ---
 ---

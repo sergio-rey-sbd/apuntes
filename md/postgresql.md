@@ -17,7 +17,7 @@ permalink: /postgres/
 	- [2.1. Instalación en *CentOS* (derivados *Red Hat*)](#21-instalación-en-centos-derivados-red-hat)
 	- [2.2. Instalación en *Ubuntu* (derivados *Debian*)](#22-instalación-en-ubuntu-derivados-debian)
 	- [2.3. Creación y acceso de roles/usuarios y bases de datos](#23-creación-y-acceso-de-rolesusuarios-y-bases-de-datos)
-	- [Acceso remoto](#acceso-remoto)
+	- [2.4. Acceso remoto](#24-acceso-remoto)
 - [3. DBeaver](#3-dbeaver)
 
 
@@ -50,6 +50,8 @@ En este caso, simplemente realizamos el paso de la instalación y el sistema est
 ```bash
 $ sudo apt install postgresql postgresql-contrib    # instalación
 $ sudo postgresql-setup initdb                      # inicialización
+$ sudo postgresql10.initialize initdb               # inicialización para algunas versiones, si falla el comando anterior.
+
 ```
 
 Como norma general, el sistema se inicia automáticamente, si no, debemos revisar el servicio tal y como se indica en la instalación en *CentOS*.
@@ -132,7 +134,7 @@ sudo usermod -aG wheel sergio   # para hacer meter el usuario en el grupo "sudo"
 
 Desde aquí, ya podemos crear tablas, y trabajar datos desde este terminal.
 
-## Acceso remoto 
+## 2.4. Acceso remoto 
 
 Para permitir el acceso remoto a nuestro servidor `Postgres` debemos realizar un par de cambios en los ficheros de configuración:
 
