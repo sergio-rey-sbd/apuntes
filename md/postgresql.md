@@ -162,15 +162,6 @@ sudo systemctl restart postgresql.service
 sudo firewall-cmd --zone=public --add-port=5432/tcp --permanent
 firewall-cmd --reload
 ```
-
-# 3. DBeaver
-
-`DBeaver` es una aplicación de software cliente de SQL y una herramienta de administración de bases de datos muy ligera y sencilla. Es menos pesada que herramientas como `pgAdmin`, y además mediante esta herramienta podemos **instalar los drivers necesarios** para la posterior conexión de `Apache NiFi` a nuestras bases de datos en `PostgreSQL`, por ejemplo, por lo que vamos a hacer uso de esta herramienta.
-
-Para acceder a `PostgreSQL` con `NiFi`, tal y como se ha comentado, necesitamos un *driver* que lo podemos encontrar entre los drivers facilitados por la herramienta en https://dbeaver.com/docs/wiki/Database-drivers/. En este enlace tenemos un tutorial que nos indica como descargar y configurar el driver necesario, en nuestro caso el de Postgres.
-
-Con estos drivers, en `NiFi` configuraremos dentro del correspondiente *Processor* en la propiedad ***DBCPConnectionPool***
-
 Es interesante **probar la conexión** que hemos establecido para verificar que funciona, se podría hacer desde el terminal, mediante el comando `psql`:
 
 ```bash
@@ -180,7 +171,19 @@ donde especificamos la base de datos y el usuario, en este ejemplo son *pruebasn
 
 Una vez visto cómo descargar los drivers para su uso, también podemos descargar la herramientas que nos sirve como front-end gráfico para gestionar las bases de datos Postgres o cualquier otra. 
 
-Para su **instalación** descargar versión *Comunity* desde : https://dbeaver.io/download/
+Para acceder a `PostgreSQL` con `NiFi`, tal y como se ha comentado, necesitamos un *driver* que lo podemos encontrar entre los drivers facilitados por la herramienta en [https://dbeaver.com/docs/wiki/Database-drivers/](https://dbeaver.com/docs/wiki/Database-drivers/). En este enlace tenemos un tutorial que nos indica como descargar y configurar el driver necesario, en nuestro caso el de Postgres. 
+
+
+Con estos drivers, en `NiFi` configuraremos dentro del correspondiente *Processor* en la propiedad ***DBCPConnectionPool***
+
+> **Nota**: Las últimas versiones de NiFi descargan directamente el driver, por lo que este último paso no suele ser necesario
+
+
+# 3. DBeaver
+
+`DBeaver` es una aplicación de software cliente de SQL y una herramienta de administración de bases de datos muy ligera y sencilla. Es menos pesada que herramientas como `pgAdmin`, y además mediante esta herramienta podemos **instalar los drivers necesarios** para la posterior conexión de `Apache NiFi` a nuestras bases de datos en `PostgreSQL`, por ejemplo, por lo que vamos a hacer uso de esta herramienta.
+
+Para su **instalación** descargar versión *Comunity* desde : [https://dbeaver.io/download/](https://dbeaver.io/download/)
 
 Por supuesto descargamos el paquete adecuado a nuestro sistemas operativo.
 
