@@ -13,12 +13,14 @@ permalink: /nifi/
 <h3>Tabla de contenidos</h3>
 
 - [1. Instalación `Apache Nifi`](#1-instalación-apache-nifi)
-- [2. Terminologia NiFi](#2-terminologia-nifi)
+- [2. Terminología NiFi](#2-terminología-nifi)
 	- [2.1. DataFlow](#21-dataflow)
 	- [2.2. FlowFile](#22-flowfile)
 	- [2.3. Processors](#23-processors)
 	- [2.4. Conexiones](#24-conexiones)
 	- [2.5. Process Groups](#25-process-groups)
+- [Apache NiFi Expression Language](#apache-nifi-expression-language)
+- [Expresiones regulares](#expresiones-regulares)
 
 
 # 1. Instalación `Apache Nifi`
@@ -63,7 +65,7 @@ export JAVA_HOME=/lib/jvm/java-1.11.0-openjdk-amd64/
 Más información en la [web de apache nifi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html#downloading-and-installing-nifi)
 
 
-# 2. Terminologia NiFi
+# 2. Terminología NiFi
 
 `Nifi` esta basado en FBP (Flow Based Programming), que es un paradigma de programación que define aplicación como cajas negras (procesos), los cuales intercambian datos entre conexiones predefinidas.
 Estas cajas negras (procesos) pueden ser combinados en dataflows. 
@@ -238,3 +240,114 @@ Las **Conexiones** permiten transmitir flowFiles entre procesadores. Se encargan
 Los **Process Groups** es la unión de varios procesadores que tiene una tarea de forma agrupada.
 
 Son conjuntos de componentes Processor combinados. Ayudan a mantener un gran y complejo dataflow.
+
+
+# Apache NiFi Expression Language
+
+El lenguaje de expresiones en Apache NiFi es una forma de especificar patrones de texto que se pueden utilizar para buscar, reemplazar o extraer información de los atributos y el contenido de los archivos de flujo. El lenguaje de expresiones de NiFi permite referenciar estos atributos, compararlos con otros valores y manipular sus valores. 
+
+El lenguaje de expresiones de NiFi siempre comienza con el delimitador de inicio `${` y termina con el delimitador final `}`. Entre los delimitadores se encuentra el texto de la expresión en sí. En su forma más básica, la expresión puede consistir en solo un nombre de atributo. 
+
+Por ejemplo, `${filename}` devolverá el valor del atributo filename. En un ejemplo un poco más complejo, podemos devolver una manipulación de este valor. Podemos, por ejemplo, devolver una versión en mayúsculas del nombre de archivo llamando a la función `${filename:toUpper()}`. En este caso, referenciamos el atributo y luego manipulamos este valor usando la función toUpper. 
+
+Otro ejemplo de uso de este tipo de expresiones lo encontramos en la práctica 8, de forma que generamos un fichero json con valores aleatorios
+
+```
+{
+	"title": "mr",
+	"first": "John ${random():mod(10):plus(1)}",
+	"last": "Doe ${random():mod(10):plus(1)}",
+	"email": "johndoe${random():mod(10):plus(1)}nail.com",
+	"created_on": "${now():toNumber()}"
+}
+```
+
+Sirva como base el documento [Apache Nifi Expression Language Cheat Sheet](https://www.nifi.rocks/documents/nifi-expression-language-cheat-sheet.pdf)
+
+Mas Información en [Apache NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.htm)
+
+# Expresiones regulares
+
+Las expresiones regulares son una forma de especificar patrones de texto que se pueden utilizar para buscar, reemplazar o extraer información de cadenas. Apache NiFi es una plataforma de gestión de flujos de datos que permite procesar y distribuir datos de forma eficiente y fiable. NiFi tiene su propio lenguaje de expresión, que se puede utilizar para referenciar y manipular los atributos y el contenido de los archivos de flujo. El lenguaje de expresión de NiFi soporta el uso de expresiones regulares para realizar operaciones como:
+
+- Validar el formato o el contenido de un atributo o una cadena usando la función matchesRegex.
+- Extraer una parte de un atributo o una cadena usando la función replaceRegex.
+- Reemplazar una parte de un atributo o una cadena usando la función replaceAll.
+- Dividir un atributo o una cadena en una lista usando la función split.
+
+Algunos ejemplos de uso de expresiones regulares en NiFi son:
+
+- Para extraer el nombre de dominio de una URL, se puede usar la expresión `${url:replaceRegex('^(?:https?://)?([^/]+)(.*)$', '$1')}`. Por ejemplo, si el atributo `url` tiene el valor https://nifi.apache.org/some%20value%20with%20spaces, la expresión devolverá *nifi.apache.org*.
+    
+- Para validar que un atributo email tiene un formato válido, se puede usar la expresión `${email:matchesRegex('^[\\w.-]+@[\\w.-]+\\.[\\w]{2,}$')}`. Por ejemplo, si el atributo email tiene el valor *user@example.com*, la expresión devolverá true.
+
+- Para reemplazar los espacios por guiones en un atributo filename, se puede usar la expresión `${filename:replaceAll('\\s', '-')}`. Por ejemplo, si el atributo *filename* tiene el valor *my document.txt*, la expresión devolverá *my-document.txt*.
+
+- Para dividir un atributo tags en una lista separada por comas, se puede usar la expresión `${tags:split(',')}`. Por ejemplo, si el atributo tags tiene el valor *nifi,data,regex*, la expresión devolverá *[nifi, data, regex]*.
+
+Ante cualquier duda, las expresiones regulares de Apache NiFi siguen las nomenclatura de Java
+
+A continuación, te presento una tabla con algunos ejemplos de expresiones regulares de Java y su descripción:
+
+| Expresión regular | Descripción | 
+| --- | --- |
+| \\d | Coincide con un dígito del 0 al 9 |
+| \\w | Coincide con una letra, un dígito o un guión bajo |
+| \\s | Coincide con un espacio en blanco |
+| . | Coincide con cualquier carácter excepto el salto de línea |
+| [abc] | Coincide con cualquiera de los caracteres a, b o c |
+| [^abc] | Coincide con cualquier carácter que no sea a, b o c |
+| [a-z] | Coincide con cualquier letra minúscula del alfabeto inglés |
+| [A-Z] | Coincide con cualquier letra mayúscula del alfabeto inglés |
+| [0-9] | Coincide con cualquier dígito del 0 al 9 |
+| [a-zA-Z0-9] | Coincide con cualquier letra o dígito |
+| ^ | Coincide con el inicio de la cadena o de la línea |
+| $ | Coincide con el final de la cadena o de la línea |
+| ? | Indica que el carácter o la expresión anterior puede aparecer cero o una vez |
+| + | Indica que el carácter o la expresión anterior puede aparecer una o más veces |
+| * | Indica que el carácter o la expresión anterior puede aparecer cero o más veces |
+| {n} | Indica que el carácter o la expresión anterior debe aparecer exactamente n veces |
+| {n,m} | Indica que el carácter o la expresión anterior debe aparecer entre n y m veces, ambos inclusive |
+| {n,} | Indica que el carácter o la expresión anterior debe aparecer al menos n veces |
+| {,m} | Indica que el carácter o la expresión anterior debe aparecer como máximo m veces |
+` 	` |
+| ( ) | Agrupa una subexpresión dentro de la expresión regular |
+| \\ | Escapa el carácter siguiente para que se interprete como un carácter normal |
+
+Por ejemplo, para validar que una cadena es una dirección de correo electrónico válida, se puede usar la siguiente expresión regular:
+
+``` 
+^[\\w.-]+@[\\w.-]+\\.[\\w]{2,}$
+```
+
+Esta expresión regular significa lo siguiente:
+
+- ^: coincide con el inicio de la cadena.
+- [\\w.-]+: coincide con una o más repeticiones de letras, dígitos, puntos o guiones.
+- @: coincide con el símbolo arroba.
+- [\\w.-]+: coincide con una o más repeticiones de letras, dígitos, puntos o guiones.
+- \\.: coincide con un punto literal.
+- [\\w]{2,}: coincide con dos o más repeticiones de letras o dígitos.
+- $: coincide con el final de la cadena.
+
+Una expresión regular en Java para identificar un fichero con extensión `.json` sería la siguiente:
+
+```
+.*\.json
+```
+
+Esta expresión regular significa lo siguiente:
+
+- .*: coincide con cualquier número de caracteres, excepto el salto de línea.
+- \.: coincide con un punto literal. Se usa el carácter \ para escapar el punto, ya que este es un metacarácter que tiene otro significado en las expresiones regulares.
+- json: coincide con la cadena literal “json”.
+
+De esta forma, la expresión regular coincide con cualquier fichero que termine en “.json”, como por ejemplo “datos.json” o “configuracion.json”.
+En la tabla siguiente se muestran otros ejemplos de expresiones regulares en Java y su descripción:
+
+| Expresión regular | Descripción |
+| --- | --- |
+| ^\\\d{9}-[A-Z]$ | Coincide con un NIF formado por 9 dígitos, un guión y una letra mayúscula. |
+| ^\\\d{2}/\\\d{2}/\\\d{4}$ | Coincide con una fecha en formato dd/mm/aaaa. |
+| ^\\\+?\\\d{1,3}-\\\d{3}-\\\d{3}-\\\d{3}$ | Coincide con un número de teléfono internacional con código de país opcional. |
+| ^(?=.\*[A-Z])(?=.\*[a-z])(?=.\*[0-9])(?=.\*[@#$%^&+=]).{8,}$ | Coincide con una contraseña que tenga al menos 8 caracteres, una letra mayúscula, una letra minúscula, un dígito y un carácter especial. |

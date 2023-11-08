@@ -4,23 +4,21 @@ description: Notas sobre el uso de Postgres en el módulo de SBD
 permalink: /postgres/
 ---
 
-<h1>PostgreSQL
+<h1>PostgreSQL</h1>
 
 <div align="center">
     <img src="../img/postgres_logo.png" alt="Logo PostgreSQL" width="15%"/>
 </div>
-</h1>
 
 <h3>Tabla de contenidos</h3>
 
 - [1. Introducción](#1-introducción)
 - [2. Instalación de `PostgreSQL`](#2-instalación-de-postgresql)
-	- [2.1. Instalación en CentOS (derivados Red Hat)](#21-instalación-en-centos-derivados-red-hat)
-	- [2.2. Instalación en Ubuntu (derivados Debian)](#22-instalación-en-ubuntu-derivados-debian)
+	- [2.1. Instalación en *CentOS* (derivados *Red Hat*)](#21-instalación-en-centos-derivados-red-hat)
+	- [2.2. Instalación en *Ubuntu* (derivados *Debian*)](#22-instalación-en-ubuntu-derivados-debian)
 	- [2.3. Creación y acceso de roles/usuarios y bases de datos](#23-creación-y-acceso-de-rolesusuarios-y-bases-de-datos)
 	- [Acceso remoto](#acceso-remoto)
 - [3. DBeaver](#3-dbeaver)
-- [4. Notas Práctica 7 de `Nifi`](#4-notas-práctica-7-de-nifi)
 
 
 # 1. Introducción
@@ -56,11 +54,15 @@ $ sudo postgresql-setup initdb                      # inicialización
 
 Como norma general, el sistema se inicia automáticamente, si no, debemos revisar el servicio tal y como se indica en la instalación en *CentOS*.
 
-Debemos tener en cuenta, que el archivo de configuración `pg_hba.conf` en los sistemad *Debian* se encuentran en otra ruta : `/etc/postgresql/<versión>/main/pg_hba.conf` (donde <version> es la version instalada, por ejemplo 14 o 15)
+Debemos tener en cuenta, que el archivo de configuración `pg_hba.conf` en los sistemas *Debian* se encuentran en otra ruta : `/etc/postgresql/<versión>/main/pg_hba.conf` (donde <version> es la version instalada, por ejemplo 14 o 15)
 
 ## 2.3. Creación y acceso de roles/usuarios y bases de datos
 
-Por defecto, la autentificación es mediante *roles*. Al principio se asocia un rol a una cuenta existente en nuestro sistema Linux. Esta cuenta tiene nombre de **postgres** y se crea automáticamente al instalar `PostgreSQL`. Por lo tanto, para comenzar la primera vez en el terminal de la base de datos PostgreSQL, debemos cambiarnos a este usuario **postgres**:
+Por defecto, la autentificación es mediante *roles*. Al principio se asocia un rol a una cuenta existente en nuestro sistema Linux. Esta cuenta tiene el nombre de **postgres** y se crea automáticamente al instalar `PostgreSQL`. 
+
+No hay una contraseña por defecto del rol **postgres**. El modo de autenticación por defecto para `PostgreSQL` está configurado como `ident`, no como sql DB user/password. Lo que realmente significa es que para conectarse correctamente a `PostgreSQL` debe iniciar sesión como el usuario correcto del sistema operativo que se utilizó para instalarlo. Prácticamente se autentifica con el usuario del SO.
+
+Por lo tanto, para comenzar la primera vez en el terminal de la base de datos PostgreSQL, debemos cambiarnos a este usuario **postgres**:
 
 ```bash
 $ sudo -i -u postgres   # cambiamos al usuario postgres 
@@ -78,7 +80,7 @@ postgres=# \d               # listado de tablas de base de datos activa
 postgres=# \c <database>    # para cambiar de base de datos
 ```
 
-El ros de `postgres` es administrado, y no es correcto utilizarlo para acceder al sistema, es mejor crear nuevos roles, e incluso crear un rol para cada base de datos nueva que utilicemos.
+El rol de `postgres` es administrador, y aunque nosotros podemos utilizarlo, cabe indicar que no es correcto utilizarlo para acceder al sistema, es mejor crear nuevos roles, e incluso crear un rol para cada base de datos nueva que utilicemos.
 
 Para **crear nuevos roles**, tenemos dos opciones:
 
@@ -106,7 +108,7 @@ $ createdb pruebas
 ```postgres
 postgres=# CREATE ROLE sergio LOGIN PASSWORD 'sergio';
 CREATE ROLE
-postgres=# CREATE DATABASE pruebasnifi WITH OWNER = sergio;
+postgres=# CREATE DATABASE pruebas WITH OWNER = sergio;
 CREATE DATABASE
 ```
 
@@ -150,7 +152,7 @@ listen_addresses = '*'
 
 Una vez realizados estos cambios, reiniciamos el servicio de nuevo
 
-```
+``` bash
 sudo systemctl restart postgresql.service 
 ```
 
@@ -189,24 +191,3 @@ sudo rpm -ivh dbeaver-<version>.rpm.    # instalación
 dbeaver &                               # ejecución de dbeaver
 ```
 
-
-# 4. Notas Práctica 7 de `Nifi`
-
-En la práctica 7 de Nifi, donde insertamos en una tabla de PostgreSQL, tenemos que crear una tabla, por ejemplo como la siguiente: 
-
-```sql
-create table public.tbl_users(
-	id serial PRIMARY KEY,
-	title VARCHAR ( 20 )  NOT NULL,
-	"first" VARCHAR ( 20 )  NOT NULL,
-	"last" VARCHAR ( 20 )  ,
-	email VARCHAR ( 255 ) NOT NULL,
-	created_on TIMESTAMP NOT NULL);
-```
-
-También podemos probar que funciona la tabla mediante la sentencia:
-
-```sql
-insert into tbl_users (title, first, last, email, created_on)
-values( 'Sergio', 'Rey', 'Martinez', 'a@a.a', NOW());
-```
