@@ -206,7 +206,7 @@ Apache Nifi ofrece diferentes tipos de **procesadores**, y los más utilizados o
 	
 **Agregaciones y Splits**
 	
-  SplitText
+    SplitText
 	SplitJson
 	SplitXml
 	SplitRecord
