@@ -12,18 +12,23 @@ permalink: /nifi/
 
 <h3>Tabla de contenidos</h3>
 
-- [1. Instalación `Apache Nifi`](#1-instalación-apache-nifi)
-- [2. Terminología NiFi](#2-terminología-nifi)
-	- [2.1. DataFlow](#21-dataflow)
-	- [2.2. FlowFile](#22-flowfile)
-	- [2.3. Processors](#23-processors)
-	- [2.4. Conexiones](#24-conexiones)
-	- [2.5. Process Groups](#25-process-groups)
-- [Apache NiFi Expression Language](#apache-nifi-expression-language)
-- [Expresiones regulares](#expresiones-regulares)
+- [1. Introducción](#1-introducción)
+- [2. Instalación `Apache Nifi`](#2-instalación-apache-nifi)
+- [3. Terminología NiFi](#3-terminología-nifi)
+	- [3.1. DataFlow](#31-dataflow)
+	- [3.2. FlowFile](#32-flowfile)
+	- [3.3. Processors](#33-processors)
+	- [3.4. Processors más usados](#34-processors-más-usados)
+	- [3.5. Conexiones](#35-conexiones)
+	- [3.6. Process Groups](#36-process-groups)
+	- [3.7. Controller Services](#37-controller-services)
+- [4. Apache NiFi Expression Language](#4-apache-nifi-expression-language)
+- [5. Expresiones regulares](#5-expresiones-regulares)
+
+# 1. Introducción
 
 
-# 1. Instalación `Apache Nifi`
+# 2. Instalación `Apache Nifi`
 
 Para la instalación de NiFi, descargamos la última versión desde la web; archivo binario.
 
@@ -65,12 +70,12 @@ export JAVA_HOME=/lib/jvm/java-1.11.0-openjdk-amd64/
 Más información en la [web de apache nifi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html#downloading-and-installing-nifi)
 
 
-# 2. Terminología NiFi
+# 3. Terminología NiFi
 
 `Nifi` esta basado en FBP (Flow Based Programming), que es un paradigma de programación que define aplicación como cajas negras (procesos), los cuales intercambian datos entre conexiones predefinidas.
 Estas cajas negras (procesos) pueden ser combinados en dataflows. 
 
-## 2.1. DataFlow
+## 3.1. DataFlow
 
 - `Dataflow` o `flujo de dato` son los pasos de los datos desde el origen al destino, con o sin transformación en medio.
 
@@ -84,7 +89,7 @@ Esta basada en la **programación basada en flujo**, basada en unos procesadores
 
 Estos procesadores son como cajas negras, y los conectores cogen los datos de un procesador y lo entregan a otro, de forma que a los procesadores no les interesa la salida, solo el proceso
 
-## 2.2. FlowFile
+## 3.2. FlowFile
 
 Los ficheros que se generan entre diferentes procesadores se llaman `flowfiles`, con paquetes de datos (como ficheros) compuesto por contenido y atributos o metadatos. Los atributos contienen información del contenido; fecha de creación, nombre, o información que añadamos.
 
@@ -94,15 +99,16 @@ Tiene dos componentes:
 - Content:  contiene los datos actuales.
 - Attributes: representa los metadatos del fichero
 	
-Son ficheros persistentes en disco
+Son ficheros persistentes en disco.
 
-## 2.3. Processors
+Este paquete de datos que viaja por el flow entre los procesadores está compuesto por un puntero al propio dato útil o contenido (un array de bytes) y metadatos asociados llamados atributos. Los atributos pares clave-valor editables y NiFi los usa para enriquecer la información de provenance. Los metadatos más importantes son el identificador (uuid), el nombre del fichero (filename) y el path. Para acelerar el rendimiento del sistema, el flowfile no contiene el propio dato, sino que apunta al dato en el almacenamiento local. Muchas de las operaciones que se realizan en NiFi no alteran el propio dato ni necesitan cargarlo en memoria. En concreto, el dato se encuentra en el llamado repositorio de contenido (Content Repository) Flowfile de Apache NiFi.
+
+## 3.3. Processors
 
 - `Processor`: un Processor puede generar un nuevo "FlowFile" para procesar o ingestar un existente FlowFile desde cualquier origen. Todos los processors pueden ser conectados con otros. Estos, son enlazados vía conexiones con links. Cada conexión tendrá una cola "Queue for FlowFiles".
 
 Puede añadir, actualizar y borrar atributos de un FlowFile
 Puede cambiar el contenido a un FlowFile.
-		
 
 - Input/Output: entrada y salida són utilizados para mover datos entre "Process Group".
 
@@ -110,6 +116,9 @@ Puede cambiar el contenido a un FlowFile.
 conexiones con bases de datos. Por ejemplo, CSV Reader, JSON Writer, etc.
 
 Los procesadores son los encargados de realizar las transformaciones o acciones sobre los datos. Se pueden configurar para que se ejecuten según una temporización, tipo cron. Proporcionan una interface para acceder a los flowfiles. Hay procesadores ya creados y publicados o podemos crear nuevos, utilizando java.
+
+
+## 3.4. Processors más usados
 
 Apache Nifi ofrece diferentes tipos de **procesadores**, y los más utilizados o importantes son: 
 
@@ -231,18 +240,24 @@ Apache Nifi ofrece diferentes tipos de **procesadores**, y los más utilizados o
 	PutDynamoDB
 	PutLambda
 
-## 2.4. Conexiones
+## 3.5. Conexiones
 
 Las **Conexiones** permiten transmitir flowFiles entre procesadores. Se encargan de controlar colas y su caducidad, por ejemplo ante procesadores que van a diferentes velocidades, o encola o deciden que datos tienen más prioridad o que datos ya han quedado obsoletos.
 
-## 2.5. Process Groups
+## 3.6. Process Groups
 
 Los **Process Groups** es la unión de varios procesadores que tiene una tarea de forma agrupada.
 
 Son conjuntos de componentes Processor combinados. Ayudan a mantener un gran y complejo dataflow.
 
 
-# Apache NiFi Expression Language
+##  3.7. Controller Services
+
+Los `Controller Services` en Apache `NiFi` son **servicios compartidos** que pueden ser utilizados por los procesadores, tareas de informes y otros servicios de controlado. Estos servicios proporcionan una funcionalidad común que puede ser utilizada por varios componentes de NiFi. 
+
+Algunos ejemplos de servicios de controlador incluyen servicios de autenticación, servicios de encriptación y servicios de base de datos.
+
+# 4. Apache NiFi Expression Language
 
 El lenguaje de expresiones en Apache NiFi es una forma de especificar patrones de texto que se pueden utilizar para buscar, reemplazar o extraer información de los atributos y el contenido de los archivos de flujo. El lenguaje de expresiones de NiFi permite referenciar estos atributos, compararlos con otros valores y manipular sus valores. 
 
@@ -266,7 +281,7 @@ Sirva como base el documento [Apache Nifi Expression Language Cheat Sheet](https
 
 Mas Información en [Apache NiFi Expression Language Guide](https://nifi.apache.org/docs/nifi-docs/html/expression-language-guide.htm)
 
-# Expresiones regulares
+# 5. Expresiones regulares
 
 Las expresiones regulares son una forma de especificar patrones de texto que se pueden utilizar para buscar, reemplazar o extraer información de cadenas. Apache NiFi es una plataforma de gestión de flujos de datos que permite procesar y distribuir datos de forma eficiente y fiable. NiFi tiene su propio lenguaje de expresión, que se puede utilizar para referenciar y manipular los atributos y el contenido de los archivos de flujo. El lenguaje de expresión de NiFi soporta el uso de expresiones regulares para realizar operaciones como:
 
