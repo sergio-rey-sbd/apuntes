@@ -27,6 +27,22 @@ permalink: /nifi/
 
 # 1. Introducción
 
+`Apache NiFi` es una plataforma de procesamiento y logística de datos en tiempo real, que permite automatizar el movimiento de datos entre diferentes sistemas. 
+
+Es un sistema distribuido, Open Source y desarrollado por la ***Apache Software Foundation***. 
+
+`Apache NiFi` ofrece una gestión de flujos de datos complejos, con trazabilidad y control de los datos que se reciben, transforman, envían o descartan34.
+
+En la web del proyecto podemos encontrar la siguiente definición:
+
+    An easy to use, powerful, and reliable system to process and distribute data.
+
+`NiFi` (o Ni-Fi) ha sido diseñado para poder automatizar de una manera eficiente y visual los flujos de datos entre distintos sistemas: ingesta, enrutado y gestión. Para ello, cuenta con más de 300 conectores externos ya implementados y además es posible añadir conectores a medida.
+
+Uno de los puntos fuertes de `NiFi` es la capacidad para programar flujos de datos arrastrando y conectando los componentes necesarios sobre los canvas de la web de administración. No es necesario por tanto tener conocimientos de programación específicos, sino entender y configurar correctamente cada uno de los componentes que se quieren usar.
+
+Aunque se pueda considerar una herramienta **ETL**, `NiFi` no está realmente optimizado para realizar transformaciones de datos complejas o pesadas. Es posible realizar transformaciones de datos ligeras pero no es un motor de transformaciones batch completo. Aún así es común su uso integrado en sistemas ***Big Data***, ya que ofrece muchas ventajas como herramienta de automatización de ingestas de datos y para realizar transformaciones y limpiezas sencillas.
+
 
 # 2. Instalación `Apache Nifi`
 
