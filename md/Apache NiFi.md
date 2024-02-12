@@ -50,7 +50,7 @@ Para la instalación de NiFi, descargamos la última versión desde la web; arch
 
 Lo descomprimimos y dejamos en la ubicación adecuada y ya podemos ejecutarlo.
 
-El usuario se puede crear vía comandos por cmd, o se puede coger el que genera automaticamente en el log NiFi, algo asi (fichero nifi-app.log):
+El usuario se puede crear vía comandos por cmd, o se puede coger el que genera automáticamente en el log NiFi, algo asi (fichero nifi-app.log):
 
 ```bash 
 $ cat logs/nifi-app.log | grep Generated
@@ -77,11 +77,15 @@ Tarda un poco en ponerse en marcha, hasta 5 minutos.
 
 Luego accedemos en `https://localhost:8443/nifi`
 
-> Nota: Para su funcionamiento **es necesaria una máquina Java**. En ocasiones hay problemas con *java* y es necesario establecer la ubicación de Java, esto se hace en el fichero `./bin/nifi-env.sh` añadiendo antes de la definición de variable como la de NIFI_HOME
-
-```bash
-export JAVA_HOME=/lib/jvm/java-1.11.0-openjdk-amd64/
-```
+> **Nota**: Para su funcionamiento **es necesaria una máquina Java**. En ocasiones hay problemas con *java* y es necesario establecer la ubicación de Java, esto se hace en el fichero `./bin/nifi-env.sh` añadiendo antes de la definición de la variable `NIFI_HOME`
+> 
+> ```bash
+> # Instalar jre. Para nifi 2.0, debe ser jdk-21 o superior
+> sudo apt install openjdk-21-jre
+> 
+> # Insertamos (descomentamos y actualizamos) la línea al inicio del fichero `nifi-env.sh`
+> export JAVA_HOME=/lib/jvm/java-21-openjdk-amd64/
+> ```
 
 Más información en la [web de apache nifi](https://nifi.apache.org/docs/nifi-docs/html/getting-started.html#downloading-and-installing-nifi)
 
