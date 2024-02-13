@@ -74,7 +74,11 @@ POST mi_indice/_doc
     "Edad": 25
 }
 ```
-En este caso, se crea el índice exactamente igual que con `PUT` de forma implicita. Con `PUT` podemos especificar la forma del índice y con `POST` elastic decide qué datos se desean introducir.
+La creación de un indice así como la inserción o actualización de documentos en el mismo se puede realizar mediante `PUT` o mediante `POST`. En los ejemplos anteriores, con `PUT` simplemente se crea un índice y con `POST` se introduce in documento en un índice, y en el caso de que el índice no exista, se crea.
+
+La principal diferencia entre `PUT` y `POST` en Elasticsearch radica en cómo manejan la identificación de documentos y la indexación. `PUT` se utiliza para operaciones de indexación o reindexación específicas con una *ID* explícita, mientras que `POST` se utiliza para operaciones de indexación más flexibles donde Elasticsearch puede generar automáticamente la *ID* del documento si no se especifica. Esto se traduce en que `PUT` es *idempotente*, mientras que `POST` no lo es.
+
+En todo caso, `PUT` se suele utilizar normalmente para la creación de índices y `POST` para la inserción y actualización de documentos.
 
 - **Consulta de los datos de un índice**
 ```json
