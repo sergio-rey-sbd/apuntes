@@ -1,20 +1,20 @@
 ---
 title: Elastic stack
-description: Elastic stack
-permalink: /elastic/
+description: Elastic stack. Instalación y compresión.
+permalink: /elastic_stack/
 ---
 
 <h1>Elastic stack</h1>
 
 <div align="center">
-    <img src="../img/ELK/ElasticLOGO.png" alt="Logo Elastic" width="15%" />
+    <img src="../img/ELK/ElasticStackLOGO.png" alt="Logo Elastic" width="15%" />
 </div>
 
 <h3>Tabla de contenidos</h3>
 
 - [1. Introducción](#1-introducción)
   - [1.1. ¿Qué es Elastic Stack?](#11-qué-es-elastic-stack)
-  - [1.2. ¿ Por qué ELK en Sistemas Big Data?](#12--por-qué-elk-en-sistemas-big-data)
+  - [1.2. ¿ Por qué Elastic Stack en Sistemas Big Data?](#12--por-qué-elastic-stack-en-sistemas-big-data)
 - [2. Elasticsearch](#2-elasticsearch)
   - [2.1. Características](#21-características)
   - [2.2. Almacenamiento de la información](#22-almacenamiento-de-la-información)
@@ -22,22 +22,22 @@ permalink: /elastic/
   - [2.4. Arquitectura: Lógica de funcionamiento:](#24-arquitectura-lógica-de-funcionamiento)
 - [3. Instalación de elastic](#3-instalación-de-elastic)
   - [3.1. Preparación para la instalación.](#31-preparación-para-la-instalación)
-  - [3.2. Instalación de docker, docker-compose y curl](#32-instalación-de-docker-docker-compose-y-curl)
+  - [3.2. Instalación de `docker`, `docker-compose` y `curl`](#32-instalación-de-docker-docker-compose-y-curl)
+    - [3.2.1. Un poco de `docker`](#321-un-poco-de-docker)
+    - [3.2.2. y un poco de `docker-compose`](#322-y-un-poco-de-docker-compose)
   - [3.3. Instalación de `Elasticsearch` en Ubuntu mediante `Docker`](#33-instalación-de-elasticsearch-en-ubuntu-mediante-docker)
-    - [3.3.1. Instalando ElasticSearch](#331-instalando-elasticsearch)
+    - [3.3.1. Instalando `ElasticSearch` en `docker`](#331-instalando-elasticsearch-en-docker)
     - [3.3.2. Comprobando la instalación](#332-comprobando-la-instalación)
-    - [3.3.3. y ahora qué, ¿más nodos?, ¿añadimos kibana?](#333-y-ahora-qué-más-nodos-añadimos-kibana)
-    - [3.3.4. Un poco de `docker`](#334-un-poco-de-docker)
+    - [3.3.3. y ahora qué, ¿más nodos?, ¿añadimos `kibana`?](#333-y-ahora-qué-más-nodos-añadimos-kibana)
   - [3.4. Instalación de un cluster `elasticsearch` y `kibana` utilizando `docker-compose`](#34-instalación-de-un-cluster-elasticsearch-y-kibana-utilizando-docker-compose)
     - [3.4.1. Accediendo desde el terminal para verificar el estado del cluster](#341-accediendo-desde-el-terminal-para-verificar-el-estado-del-cluster)
     - [3.4.2. Accediendo desde la interface de `Kibana`](#342-accediendo-desde-la-interface-de-kibana)
   - [3.5. Instalación de `Elasticsearch` en un servidor línux](#35-instalación-de-elasticsearch-en-un-servidor-línux)
-    - [3.5.1. Insgtalaciń de `Elastic`](#351-insgtalaciń-de-elastic)
+    - [3.5.1. Instalación de `Elastic`](#351-instalación-de-elastic)
     - [3.5.2. Instalación de `Kibana`](#352-instalación-de-kibana)
-    - [3.5.3. instalación de Logstash](#353-instalación-de-logstash)
-    - [3.5.4. Instalación de Filebeat](#354-instalación-de-filebeat)
+    - [3.5.3. instalación de `Logstash`](#353-instalación-de-logstash)
+    - [3.5.4. Instalación de `Filebeat`](#354-instalación-de-filebeat)
 - [4. Comprendiendo los conceptos de cluster, indices y shards](#4-comprendiendo-los-conceptos-de-cluster-indices-y-shards)
-- [5. Enlaces interesantes:](#5-enlaces-interesantes)
 
 
 # 1. Introducción
@@ -78,9 +78,9 @@ Estos son algunos de los componentes principales del Elastic Stack, pero Elastic
 Elastic Stack es especialmente popular en entornos de desarrollo de software, operaciones de sistemas (DevOps), análisis de seguridad, monitoreo de infraestructura y análisis de registros de aplicaciones. La combinación de Elasticsearch, Logstash y Kibana proporciona una solución completa y escalable para la recopilación, almacenamiento, análisis y visualización de datos.
 
 
-## 1.2. ¿ Por qué ELK en Sistemas Big Data?
+## 1.2. ¿ Por qué Elastic Stack en Sistemas Big Data?
 
-Existen varias razones que nos aconsejan dar un vistazo a ELK (Elasticsearch, Logstash, Kibana) para comprender los Sistemas de Big Data: 
+Existen varias razones que nos aconsejan dar un vistazo a Elastic Stack (Elasticsearch, Logstash, Kibana) para comprender los Sistemas de Big Data: 
 
 1. **Escalabilidad y rendimiento**: Elasticsearch, como parte de ELK, está diseñado para ser altamente escalable y eficiente en términos de rendimiento. Estudiar cómo Elasticsearch maneja grandes volúmenes de datos y consultas en tiempo real proporciona una comprensión práctica de cómo los sistemas de Big Data pueden escalar y procesar datos de manera eficiente.
 
@@ -190,7 +190,7 @@ En Elasticsearch, los nodos son las instancias individuales que forman parte de 
 ## 2.4. Arquitectura: Lógica de funcionamiento: 
 
 <div align="center">
-    <img src="../img/ELK/ELK06.png" alt="ELK" width="60%" />
+    <img src="../img/ELK/ELK06.png" alt="ELK" width="70%" />
 </div>
 
 
@@ -231,11 +231,24 @@ También es interesante habilitar el usuario root y trabajar con este usuario
 
 Ahora ya, vamos a ver diferentes instalaciones. Realizaremos dos: en primer lugar sobre la máquina en si, y posteriormente instalaremos un cluster aprovechando la tecnología **Docker**
 
-## 3.2. Instalación de docker, docker-compose y curl
+## 3.2. Instalación de `docker`, `docker-compose` y `curl`
+
+
+<div align="center">
+    <img src="../img/ELK/ELK02.webp" alt="ELK" width="40%" />
+</div>
 
 **Docker** es una plataforma de código abierto diseñada para facilitar la creación, implementación y ejecución de aplicaciones en contenedores. Un contenedor es una unidad ligera de software que contiene todo lo necesario para ejecutar una aplicación, incluidas las bibliotecas, las herramientas del sistema, el código y las dependencias. **Docker** proporciona una forma estandarizada de empaquetar y distribuir aplicaciones, lo que facilita la creación de entornos de desarrollo consistentes y portátiles.
 
+<div align="center">
+    <img src="../img/ELK/ELK35.png" alt="ELK" width="40%" />
+</div>
+
 **Docker Compose**, por otro lado, es una herramienta que permite definir y gestionar aplicaciones ***multi-contenedor***. Con Docker Compose, se puede definir la configuración de una aplicación en un archivo YAML, especificando los servicios, imágenes de contenedor, volúmenes, redes y otros detalles necesarios para ejecutar tu aplicación. Docker Compose simplifica la gestión de aplicaciones complejas al permitirte definir y controlar todos los componentes de tu aplicación desde un solo lugar.
+
+<div align="center">
+    <img src="../img/ELK/ELK03.webp" alt="ELK" width="40%" />
+</div>
 
 Para instalar Docker y Docker Compose en Ubuntu 22.04, puedes seguir estos pasos:
 
@@ -304,7 +317,7 @@ sudo usermod -aG docker $USER
     <img src="../img/ELK/ELK08.png" alt="ELK" width="50%" />
 </div>
 
-Ya que nos estamos preparando, podemos instalar tambien curl, que nos permitirá contactar desde la línea de comandos con el servidor Elasticsearh.
+Ya que nos estamos preparando, podemos instalar también `curl`, que nos permitirá contactar desde la línea de comandos con el servidor Elasticsearh.
 
 Para ello :
 
@@ -312,7 +325,90 @@ Para ello :
 sudo apt install curl
 ```
 
-Más información sobre curl en la [Wikipedia](https://es.wikipedia.org/wiki/CURL) o en la red
+Más información sobre `curl` en la [Wikipedia](https://es.wikipedia.org/wiki/CURL) o en la red
+
+
+### 3.2.1. Un poco de `docker`
+
+Aquí tienes una tabla que muestra algunas opciones típicas del comando `docker`:
+
+
+| Comando y Opción | Descripción |
+|-------------------|-------------|
+| `docker run <imagen>` | Crea y ejecuta un nuevo contenedor basado en la imagen especificada. |
+| `docker ps` | Muestra una lista de los contenedores en ejecución. |
+| `docker images` | Lista las imágenes Docker descargadas en el sistema. |
+| `docker pull <imagen>` | Descarga una imagen de Docker del registro público o privado. |
+| `docker build <ruta>` | Construye una imagen Docker desde un Dockerfile ubicado en la ruta especificada. |
+| `docker push <imagen>` | Sube una imagen de Docker al registro remoto. |
+| `docker stop <contenedor>` | Detiene un contenedor en ejecución. |
+| `docker start <contenedor>` | Inicia un contenedor detenido. |
+| `docker rm <contenedor>` | Elimina uno o varios contenedores. |
+| `docker rmi <imagen>` | Elimina una o varias imágenes de Docker del sistema. |
+| `docker exec -it <contenedor> <comando>` | Ejecuta un comando dentro de un contenedor en ejecución. Ej. `docker exec --user='root' -it es01 /bin/bash` |
+| `docker logs <contenedor>` | Muestra los registros de salida de un contenedor en ejecución. |
+| `docker inspect <objeto>` | Muestra información detallada sobre un contenedor, imagen o red de Docker. |
+
+
+<div align="center">
+    <img src="../img/ELK/ELK36.png" alt="ELK" width="50%" />
+</div>
+
+Ejemplos de uso de comando `docker`
+
+ - listar contenedores activos
+```bash
+docker ps
+```
+
+- operaciones con contenedores
+```bash
+docker start es01
+docker stop es01
+docker restart es01
+docker rm es01
+docker kill es01
+```
+
+- entrar en el terminal de un contenedor 
+```bash
+docker exec -it es01 /bin/bash
+```
+
+- copiar desde y hacia un contenedor.
+```bash
+docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
+docker cp elasticsearch.yml es01:/usr/share/elasticsearch/config/elasticsearch.yml 
+```
+
+- eliminar y crear interfaces de red
+```bash
+docker network create elastic
+docker network rm elastic
+```
+
+### 3.2.2. y un poco de `docker-compose`
+
+
+Aquí tienes algunos usos típicos de comandos docker-compose:
+
+| Comando | Descripción |
+|---------|-------------|
+| `docker-compose up` | Construye, crea y arranca todos los servicios definidos en el archivo `docker-compose.yml`. Si no existe, Docker Compose construirá las imágenes necesarias. |
+| `docker-compose up -d` | Similar a `docker-compose up`, pero ejecuta los servicios en segundo plano (modo detached). Útil para ejecutar servicios en el fondo sin bloquear la terminal. |
+| `docker-compose down` | Detiene y elimina todos los contenedores, redes y volúmenes creados por `docker-compose up`. |
+| `docker-compose ps` | Muestra el estado de los servicios definidos en el archivo `docker-compose.yml`. Proporciona información sobre los contenedores en ejecución, sus puertos mapeados y el estado. |
+| `docker-compose logs` | Muestra los logs de todos los servicios o de un servicio específico definido en `docker-compose.yml`. Puedes usar banderas adicionales para controlar el formato y la salida de los logs. |
+| `docker-compose exec <servicio> <comando>` | Ejecuta un comando dentro de un contenedor de un servicio específico. Útil para ejecutar comandos en el contexto de un servicio en ejecución. |
+| `docker-compose build` | Construye o reconstruye los servicios definidos en `docker-compose.yml`. Útil cuando se realizan cambios en Dockerfiles o archivos de configuración y se necesita actualizar las imágenes. |
+| `docker-compose restart <servicio>` | Reinicia un servicio específico definido en `docker-compose.yml`. Esto detiene y vuelve a arrancar el contenedor del servicio. |
+| `docker-compose stop` | Detiene los contenedores de los servicios definidos en `docker-compose.yml` sin eliminarlos. Útil para detener servicios sin eliminar los recursos asociados. |
+| `docker-compose start` | Arranca todos los servicios previamente creados. Útil para volver a arrancar los contenedores del servicio. |
+
+<div align="center">
+   <img src="../img/ELK/ELK50.png" alt="docker-compose" width="90%" />
+</div>
+
 
 ## 3.3. Instalación de `Elasticsearch` en Ubuntu mediante `Docker`
 
@@ -329,8 +425,10 @@ sudo sysctl -w fs.file-max=65536
 podemos incluir todo esto en un fichero de configuración y ejecutar directamente. 
 
 
-### 3.3.1. Instalando ElasticSearch
-Para instalar elastic en docker: 
+
+### 3.3.1. Instalando `ElasticSearch` en `docker`
+
+Para instalar elastic en docker seguimos: 
 
 ```bash
 # instalamos elacticseach sobre docker
@@ -438,7 +536,7 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPOST https://localhost:
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET https://localhost:9200/test/_search?pretty
 ```
 
-### 3.3.3. y ahora qué, ¿más nodos?, ¿añadimos kibana?
+### 3.3.3. y ahora qué, ¿más nodos?, ¿añadimos `kibana`?
 
 Podríamos añadir más nodos, como se indica el manual con la siguiente instrucciones, pero nosotros de momento no lo vamos a hacer: 
 
@@ -480,60 +578,7 @@ docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollmen
 Sin embargo, pero las limitaciones de ejecución con muchas, por lo que vamos a continuar con una solución más completa
 
 
-### 3.3.4. Un poco de `docker`
 
-Aquí tienes una tabla que muestra algunas opciones típicas del comando `docker`:
-
-
-| Comando y Opción | Descripción |
-|-------------------|-------------|
-| `docker run <imagen>` | Crea y ejecuta un nuevo contenedor basado en la imagen especificada. |
-| `docker ps` | Muestra una lista de los contenedores en ejecución. |
-| `docker images` | Lista las imágenes Docker descargadas en el sistema. |
-| `docker pull <imagen>` | Descarga una imagen de Docker del registro público o privado. |
-| `docker build <ruta>` | Construye una imagen Docker desde un Dockerfile ubicado en la ruta especificada. |
-| `docker push <imagen>` | Sube una imagen de Docker al registro remoto. |
-| `docker stop <contenedor>` | Detiene un contenedor en ejecución. |
-| `docker start <contenedor>` | Inicia un contenedor detenido. |
-| `docker rm <contenedor>` | Elimina uno o varios contenedores. |
-| `docker rmi <imagen>` | Elimina una o varias imágenes de Docker del sistema. |
-| `docker exec -it <contenedor> <comando>` | Ejecuta un comando dentro de un contenedor en ejecución. Ej. `docker exec --user='root' -it es01 /bin/bash` |
-| `docker logs <contenedor>` | Muestra los registros de salida de un contenedor en ejecución. |
-| `docker inspect <objeto>` | Muestra información detallada sobre un contenedor, imagen o red de Docker. |
-
-
-Ejemplos de uso de comando `docker`
-
- - listar contenedores activos
-```bash
-docker ps
-```
-
-- operaciones con contenedores
-```bash
-docker start es01
-docker stop es01
-docker restart es01
-docker rm es01
-docker kill es01
-```
-
-- entrar en el terminal de un contenedor 
-```bash
-docker exec -it es01 /bin/bash
-```
-
-- copiar desde y hacia un contenedor.
-```bash
-docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
-docker cp elasticsearch.yml es01:/usr/share/elasticsearch/config/elasticsearch.yml 
-```
-
-- eliminar y crear interfaces de red
-```bash
-docker network create elastic
-docker network rm elastic
-```
 
 
 ## 3.4. Instalación de un cluster `elasticsearch` y `kibana` utilizando `docker-compose`
@@ -588,25 +633,9 @@ sudo docker-compose start   # si hemos parado, si hemos eliminado: up
 > </div>
 
 
-> **Nota**: Aquí tienes algunos usos típicos de comandos docker-compose:
-> 
-> | Comando | Descripción |
-> |---------|-------------|
-> | `docker-compose up` | Construye, crea y arranca todos los servicios definidos en el archivo `docker-compose.yml`. Si no existe, Docker Compose construirá las imágenes necesarias. |
-> | `docker-compose up -d` | Similar a `docker-compose up`, pero ejecuta los servicios en segundo plano (modo detached). Útil para ejecutar servicios en el fondo sin bloquear la terminal. |
-> | `docker-compose down` | Detiene y elimina todos los contenedores, redes y volúmenes creados por `docker-compose up`. |
-> | `docker-compose ps` | Muestra el estado de los servicios definidos en el archivo `docker-compose.yml`. Proporciona información sobre los contenedores en ejecución, sus puertos mapeados y el estado. |
-> | `docker-compose logs` | Muestra los logs de todos los servicios o de un servicio específico definido en `docker-compose.yml`. Puedes usar banderas adicionales para controlar el formato y la salida de los logs. |
-> | `docker-compose exec <servicio> <comando>` | Ejecuta un comando dentro de un contenedor de un servicio específico. Útil para ejecutar comandos en el contexto de un servicio en ejecución. |
-> | `docker-compose build` | Construye o reconstruye los servicios definidos en `docker-compose.yml`. Útil cuando se realizan cambios en Dockerfiles o archivos de configuración y se necesita actualizar las imágenes. |
-> | `docker-compose restart <servicio>` | Reinicia un servicio específico definido en `docker-compose.yml`. Esto detiene y vuelve a arrancar el contenedor del servicio. |
-> | `docker-compose stop` | Detiene los contenedores de los servicios definidos en `docker-compose.yml` sin eliminarlos. Útil para detener servicios sin eliminar los recursos asociados. |
-> | `docker-compose start` | Arranca todos los servicios previamente creados. Útil para volver a arrancar los contenedores del servicio. |
-
-
 ### 3.4.1. Accediendo desde el terminal para verificar el estado del cluster
 
-Si queremos acceder al elastic desde la línea de comando, ejecutamos una secuencia similar a la anterior, pero **ojo**, ahora la ubicación del certificado ha cambiado, tal y como se puede observar en el fichero de configuración `docker-compose.yml`.
+Si queremos acceder al elastic desde la línea de comando, ejecutamos una secuencia similar a la anterior, pero **ojo**, ahora la ubicación del certificado ha cambiado, tal y como se puede observar en el fichero de configuración [`docker-compose.yml`](https://github.com/elastic/elasticsearch/blob/8.12/docs/reference/setup/install/docker/docker-compose.yml).
 
 Así pues ejecutamos:
 
@@ -628,7 +657,7 @@ sudo curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:92
 y obtenemos la salida del estado:
 
 <div align="center">
-    <img src="../img/ELK/ELK20.png" alt="ELK" width="50%" />
+    <img src="../img/ELK/ELK20.png" alt="ELK" width="60%" />
 </div>
 
 Observar que si en algún momento cae alguno de los elementos del cluster, el estado se verá comprometido, y podrá incluso estar en riesgo de perdida de datos, tal y como se puede ver en la siguiente captura:
@@ -646,7 +675,7 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_c
 En esta captura podemos apreciar tatn los nodos que componen el cluster, las direcciones, ip, como porcentajes de memoria, cpu, de carga, los roles que tiene cada nodo y quién esta actuando de *nodo master*
 
 <div align="center">
-    <img src="../img/ELK/ELK24.png" alt="ELK" width="60%" />
+    <img src="../img/ELK/ELK24.png" alt="ELK" width="70%" />
 </div>
 
 Otra forma para comprobar el estado de salud del cluster sería mediante 
@@ -658,7 +687,7 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_c
 Aquí obtenemos el estado, así como la cantidad de nodos destinados a datos, *shards*, etc... 
 
 <div align="center">
-    <img src="../img/ELK/ELK25.png" alt="ELK" width="70%" />
+    <img src="../img/ELK/ELK25.png" alt="ELK" width="90%" />
 </div>
 
 
@@ -695,7 +724,7 @@ sudo apt-get install apt-transport-https
 echo "deb [signed-by=/usr/share/keyrings/elasticsearch-keyring.gpg] https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-8.x.list
 ```
 
-### 3.5.1. Insgtalaciń de `Elastic`
+### 3.5.1. Instalación de `Elastic`
 
 Una vez realizados los pasos anteriores, para la instalación de elastic
 
@@ -719,7 +748,7 @@ sudo nano /etc/elasticsearch/elasticsearch.yml
 ```
 e incluyendo las línea: 
 
-```yml
+```json
 action.auto_create_index: .monitoring*,.watches,.triggered_watches,.watcher-history*,.ml*
 network.host: 0.0.0.0
 ```
@@ -765,7 +794,7 @@ sudo nano /etc/kibana/kibana.yml
 ```
 y de nuevo 
 
-```yaml
+```json
 server.host: "0.0.0.0"
 ```
 y después habilitamos e iniciamos el servicio (o lo reiniciamos si ya esta activo)
@@ -795,7 +824,7 @@ sudo /usr/share/kibana/bin/kibana-verification-code
 
 Al introducir estos datos, ya nos permite entrar en el sistema, para lo cual nos pide el usuario: `elastic` y la contraseña, la que hemos obtenido tras las instalación de `Elastisearch`
 
-### 3.5.3. instalación de Logstash
+### 3.5.3. instalación de `Logstash`
 
 Siguiendo lo realzado en los puntos anteriores: 
 
@@ -812,7 +841,7 @@ sudo /usr/share/logstash/bin/logstash -e 'input { stdin { } } output { stdout {}
 Con esto, nos sale un terminal que replica las teclas que pulsemos.
 
 
-### 3.5.4. Instalación de Filebeat
+### 3.5.4. Instalación de `Filebeat`
 
 Filebeat se encuenta dento de lo que sería `Beats`, y para enviar registros y datos a Elasticsearch o Logstash para su posterior indexación, análisis y visualización
 
@@ -855,51 +884,92 @@ En Elasticsearch, existen varios conceptos clave que son fundamentales para comp
    - Los shards pueden ser primarios o réplicas. Cada índice tiene un conjunto de shards primarios y opcionalmente un conjunto de shards réplicas que proporcionan redundancia y alta disponibilidad.
    - La distribución de shards en un cluster de Elasticsearch permite escalar horizontalmente la capacidad de almacenamiento y la capacidad de procesamiento de datos.
 
+<div align="center">
+    <img src="../img/ELK/ELK37.png" alt="ELK" width="50%" />
+</div>
 
-
-Podemos comporbar los diferentes **shards** de cada uno de los índice que 
+Podemos comprobar los diferentes **shards** de cada uno de los índices que hay en el sistema 
 
 ```bash
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET 'https://localhost:9200/_cat/shards/'
+```
 
-# Hemos creado un índice llamado 'test' con dos shards y una replica por shard
-curl -XPUT http://172.19.0.3:9200/test -d ' { "settings": { "number_of_shards": 2, "number_of_replicas":1 }}' -H 'Content-Type: application/json'
+Ahora vamos a crear un índice llamado *test*, especificando que queremos almacenar los datos en dos **shards** primarios y tener una replica por *shard*:
 
-# Con esta petición comprobamos el estado y ubicación de los shards y las replicas
-curl -XGET http://172.17.0.3:9200/_cat/shards/
+```bash
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPUT https://localhost:9200/test -d' { "settings": { "number_of_shards": 2, "number_of_replicas":1 }}' -H 'Content-Type: application/json'
+```
 
-# Hemos añadido contenido al índice
-curl -XPOST 'localhost:9200/test/_bulk?pretty' -d'
+Podemos comprobar la distribución del índice *test* dentro de los nodos con el comando:
+
+```bash
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET https://localhost:9200/_cat/shards/test?v
+```
+El resultado puede ser similar a :
+
+<div align="center">
+    <img src="../img/ELK/ELK38.png" alt="ELK" width="70%" />
+</div>
+
+En esta imagen podemos ver que hemos utilizado tenemos dos shards primarios en dos de los nodos y que además en cada uno de estos nodos hay una replica. En este caso, como el cluster esta formado por los tres nodos, los datos de este índice distribuidos entre los 3 nodos de forma que tenemos shards primarios en los nodos 1 y 2 y tenemos replicas en los nodos 3 y 1, puesto que se indica que haya una replica de cada *shard*
+
+Así pues 
+- `number_of_shards` especifica el número de fragmentos en los que se dividirá el índice. Un fragmento es una parte de los datos de un índice y cada fragmento es un índice de *Lucene* independiente que puede estar alojado en un nodo diferente del clúster de Elasticsearch.
+   - Elasticsearch distribuye los datos entre los fragmentos según una función hash del identificador del documento. Cuantos más fragmentos haya, mayor será la distribución de los datos y más capacidad de escalabilidad tendrá el índice.
+   - Sin embargo, el exceso de fragmentos puede tener un impacto negativo en el rendimiento y en los recursos del clúster, por lo que es importante encontrar un equilibrio.
+
+- `number_of_replicas` especifica el número de réplicas de cada fragmento que se crearán en el clúster. Las réplicas son copias idénticas de los fragmentos primarios que se utilizan para garantizar la disponibilidad y la tolerancia a fallos.
+   - Las réplicas se distribuyen en los nodos del clúster de Elasticsearch de manera que estén balanceadas y garantizan que cada fragmento tenga sus réplicas en diferentes nodos.
+   - Al tener réplicas, si un nodo falla, Elasticsearch puede continuar sirviendo las consultas utilizando las réplicas disponibles, lo que mejora la disponibilidad del sistema.
+   - Sin embargo, el aumento del número de réplicas también aumenta el consumo de recursos, como almacenamiento y uso de CPU, por lo que es importante considerar estos aspectos al configurar las réplicas.
+
+Para que quede más claro, vamos a generar un nuevo índice llamado *test_shards* donde vamos a repartir los datos entre 3 *shards* y además le pedimos dos replicas en cada uno de los *shards*.
+
+El comando para generar el índice sería:
+
+```bash
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPUT https://localhost:9200/test_shards -d' { "settings": { "number_of_shards": 3, "number_of_replicas":2 }}' -H 'Content-Type: application/json'
+```
+
+y el resultado obtenido sería como sigue:
+
+<div align="center">
+    <img src="../img/ELK/ELK39.png" alt="ELK" width="70%" />
+</div>
+
+Se puede observar que estamos utilizando los 3 nodos para almacenar el índice, de forma que en todos ellos tenemos un *shard* principal (`p`) y otos dos de replica (`r`)
+
+Ahora, si añadimos datos al índice, estos deben almacenarse en los 3 *shards*. Vamos a insertar datos y veremos que es así: 
+
+Ejecutamos la orden siguiente que introduce dos documentos en el índice *test_shards*:
+
+```bash
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPOST https://localhost:9200/test_shards/_bulk?pretty -d'
 { "index" : {} }
 { "num": "2015/56", "cliente": 13, "importe":189 }
 { "index" : {} }
 { "num": "2015/57", "cliente": 45, "importe":190 }
 ' -H 'Content-Type: application/json'
-
-# Hemos buscado el contenido del índice
-curl -XGET  172.17.0.3:9200/test/_search
-
 ```
 
+y el resultado que tenemos de la inserción nos indica que se ha incluido en 3 shards: 
 
+<div align="center">
+    <img src="../img/ELK/ELK40.png" alt="ELK" width="40%" />
+</div>
 
-``
+En la imagen anterior: 
+1. Vemos que hay una sección de detalla dos datos de los *shards* de índice.
+2. En nuestro caso nos indica que se han insertado de forma exitosa en 3 *shards*
+3. **Pero** en esta imagen también podemos ver que tenemos una penalización en cuento a tiempo, puesto que ha tardado 31 ms en realizar la inserción. En teoría, el hecho de insertar en mas de un nodo beneficia la velocidad, sobre todo si se trata de una cantidad importante de datos puesto que se dividen entre todos ellos, pero en este caso real, recordemos que tenemos 3 nodos trabajando sobre la misma máquina y los datos son mínimos por lo tanto en este caso se puede ver perjudicado.
 
+> El término "took" en las respuestas de Elasticsearch indica el tiempo total en milisegundos que tomó ejecutar la consulta. Esta métrica incluye el tiempo de procesamiento de la consulta en Elasticsearch, así como cualquier tiempo adicional dedicado a la comunicación de red, procesamiento en el cliente, etc.
 
-# 5. Enlaces interesantes: 
+Por último, si realizamos un búsqueda de los datos, también nos dirá que se encuentran en los 3 *shards*
 
- - [Cluster ElasticSearch con Docker Paso a Paso](https://www.albertcoronado.com/2020/10/01/cluster-elasticsearch-con-docker-paso-a-paso/)
-Blog que monta un cluster con 3 dockers
+```bash
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET https://localhost:9200/test_shards/_search?pretty
+```
 
-- [Elasticsearch paso a paso 2023 - youtube](https://www.youtube.com/watch?v=dl8DSgq0y3Y&list=PLlNuLwK_vaGND4FMd7E55kM8JG7JpCgA0&index=3)
-
-- [Ejemplo de terremotos](https://github.com/elastic/examples/tree/master/Exploring%20Public%20Datasets/earthquakes)
-
-- [Instalar Docker compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04)
-
-- [Youtube: Montar un sistema docker-compose](https://www.youtube.com/watch?v=cC3spQXQKcQ)
-- [YouTube: Elasticsearch and Kibana Installation with Docker Compose | How to install Elasticsearch in docker](https://www.youtube.com/watch?v=UiJF5KFXE7U) 
-
-- [Kibana: Get up and running with sample data](https://www.elastic.co/guide/en/kibana/6.7/add-sample-data.html)
 
 
