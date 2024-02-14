@@ -84,7 +84,7 @@ En todo caso, `PUT` se suele utilizar normalmente para la creación de índices 
 ```json
 GET mi_indice/_search
 ```
-Obtenemos todos los registros del índice. Posteriormente profundizaremos sobre esta opción que es la más potente de elastic
+Obtenemos todos los ***hits*** (registros) del índice. Posteriormente profundizaremos sobre esta opción que es la más potente de elastic
 
 
 
@@ -245,7 +245,7 @@ A continuación, se presentan algunos ejemplos de cómo se puede utilizar el mé
 ```json
 GET mi_indice/_doc/1
 ```
-Esta solicitud recupera un documento específico de un índice por su ID.
+Esta solicitud recupera un *hit* (documento) específico de un índice por su ID.
 
 - **Obtener información sobre un índice:**
 ```json
@@ -257,7 +257,7 @@ Esta solicitud devuelve información sobre un índice específico, incluidos los
 ```json
 GET mi_indice/_search
 ```
-Esta solicitud realiza una búsqueda en un índice específico y devuelve los documentos que coinciden con los criterios de búsqueda especificados.
+Esta solicitud realiza una búsqueda en un índice específico y devuelve los *hits* (documentos) que coinciden con los criterios de búsqueda especificados.
 
 Más información sobre el [API `_search` en la documentación oficial de elastic](https://www.elastic.co/guide/en/elasticsearch/reference/current/search-search.html)
 
@@ -268,13 +268,13 @@ Así, en el ejemplo del apartado anterior, al ejecutar la consulta del índice i
 ```json
 GET vehiculos_test/_search
 ```
-el resultado es el siguiente, donde indica que hay más de 10.000 registros, y cómo podemos ver en el resultado si lo ejecutamos, sólo nos muestra unos 10 registros, o sea, no los muestra todos. Esto se hace por cuestiones de optimización.
+el resultado es el siguiente, donde indica que hay más de 10.000 *hits*, y cómo podemos ver en el resultado si lo ejecutamos, sólo nos muestra unos 10 *hits*, o sea, no los muestra todos. Esto se hace por cuestiones de optimización.
 
 <div align="center">
     <img src="../img/ELK/ELK30.png" alt="ELK" width="30%" />
 </div>
 
-Si dentro de la búsqueda incluimos el siguiente JSON indicando `track_total_hits`, entonces nos indicará exactamente la cantidad de registros. Ahora Elastic se tomará su tiempo, para calcular la cantidad exacta de registros, cosa que antes no ha hecho 
+Si dentro de la búsqueda incluimos el siguiente JSON indicando `track_total_hits`, entonces nos indicará exactamente la cantidad de registros. Ahora Elastic se tomará su tiempo, para calcular la cantidad exacta de *hits*, cosa que antes no ha hecho 
 
 ```json
 GET vehiculos_test/_search
@@ -284,13 +284,13 @@ GET vehiculos_test/_search
 }
 ```
 
-En el caso anterior, hemos añadido que nos muestre 5000 registros.
+En el caso anterior, hemos añadido que nos muestre 5000 *hits*.
 
 <div align="center">
     <img src="../img/ELK/ELK32.png" alt="ELK" width="30%" />
 </div>
 
-En este caso, se obtienen 5000 registros, pero por contra se han utilizado 25ms para obtener estos datos. Por este motivo, elastic esta preparado para ofrecer como máximo 10.000 documentos. Existe otra [API llamada `scroll`](https://www.elastic.co/guide/en/elasticsearch/reference/current/scroll-api.html) que permite recuperar todos los documentos, pero en bloques limitados, de forma que cada petición nos ofrece una cantidad de todos ellos.
+En este caso, se obtienen 5000 *hits*, pero por contra se han utilizado 25ms para obtener estos datos. Por este motivo, elastic esta preparado para ofrecer como máximo 10.000 documentos. Existe otra [API llamada `scroll`](https://www.elastic.co/guide/en/elasticsearch/reference/current/scroll-api.html) que permite recuperar todos los documentos, pero en bloques limitados, de forma que cada petición nos ofrece una cantidad de todos ellos.
 
 
 - **Obtener información sobre el cluster:**
@@ -357,7 +357,10 @@ Elasticsearch utiliza una puntuación (***score***) para determinar la clasifica
 
 
 ## 2.2. Consultas DSL
-Vamos a ver cómo podemos lanzar diferentes tipos de Query para obtener los registros que mas relevancia tienen para nosotros, para ello vamos a utilizar el índice que obtendremos de la ingesta del fichero [restaurantes_es.json](../files/restaurantes_es.json) 
+
+Elasticsearch posibilita usar JSON para definir consulta DSL (Lenguaje de Dominio Específico).
+
+Vamos a ver cómo podemos lanzar diferentes tipos de Query para obtener los *hits* que mas relevancia tienen para nosotros, para ello vamos a utilizar el índice que obtendremos de la ingesta del fichero [restaurantes_es.json](../files/restaurantes_es.json) 
 
 ```bash
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_bulk -H "Content-type: application/json" --data-binary @restaurantes_es.json 
@@ -365,12 +368,10 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_b
 
 Una vez introducidos los datos, verificamos y revisamos su estructura:
 
-
 ```json
 GET restaurantes/_search
 ```
 
-Las consultas DSL nos permiten realizar consultas con un formato JSON.
 
 ### 2.2.1. `match`
 

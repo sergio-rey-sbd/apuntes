@@ -113,7 +113,7 @@ Las características principales son:
 - Datos en tiempo real. Los datos están disponibles para su análisis segundos después de haber sido indexados (real time).
 - Alta disponibilidad. Datos replicados a lo largo de distintos nodos permite el fallo de alguno de estos dentro del clúster sin que se vea afectado el funcionamiento.
 - Multi-tenancy. Los índices donde se almacenan la información pueden ser consultados de manera independiente.
-- Búsquedas full-text. Usa ***Lucene*** aprovechando sus capacidades de búsqueda de texto, soportando geolocalización, autocompletado, expresiones regulares…
+- Búsquedas full-text. Usa ***Apache Lucene*** aprovechando sus capacidades de búsqueda de texto, soportando geolocalización, autocompletado, expresiones regulares…
 • API Restful. Proporciona una API sobre **JSON** para realizar consultas e interactuar con Elasticsearch.
 
 ## 2.2. Almacenamiento de la información
@@ -189,11 +189,16 @@ En Elasticsearch, los nodos son las instancias individuales que forman parte de 
 
 ## 2.4. Arquitectura: Lógica de funcionamiento: 
 
+La arquitectura de funcionamiento de un sistema elastic stack sería el representado por la siguiente imagen.
 <div align="center">
     <img src="../img/ELK/ELK06.png" alt="ELK" width="70%" />
 </div>
 
+Y en cuanto a las comunicaciones entre los diferentes elementos, debemos tener en cuenta : 
 
+<div align="center">
+    <img src="../img/ELK/ELK52.png" alt="ELK" width="40%" />
+</div>
 
 # 3. Instalación de elastic 
 
@@ -623,14 +628,25 @@ sudo docker-compose down    # esta opción elimina los contenedores
 sudo docker-compose down -v # además de eliminar los contenedores y los volúmenes de datos
 
 sudo docker-compose start   # si hemos parado, si hemos eliminado: up
+
 ```
 
-> **Nota**: Si no es posible autentificar puede ser por dos motivos principalmente.
-> 1. Puesto que estamos virtualizando, en ocasiones uno de los contenedores entra en problemas y se cierra por lo que debemos ejecutar de nuevo `sudo docker-compose up -d`
-> 2. Otras veces, de nuevo debido a la virtualización, no es posible coordinar 3 nodos como master por falta de recursos, por lo que una posible solución es indicar que el master será únicamente el primer nodo. Esto se hace en el fichero `docker-compose.yml` indicando el nodo 1 (`es01`) como master en los tres nodos:
-> <div align="center">
->    <img src="../img/ELK/ELK19.png" alt="ELK" width="50%" />
-> </div>
+**Corespondencia de Volumenes de los contenedores y datos en local**
+
+Mediante la definición del `volume`, podemos almacenar los datos de los nodos en local, con la finalidad de preservar los datos en caso de que los nodos tengan cualquier problema. Esto se aplica a este ejemplo tal como se puede ver en el fichero de configuración [.docker-compose.yml](https://github.com/elastic/elasticsearch/blob/8.12/docs/reference/setup/install/docker/docker-compose.yml). 
+
+Podemos comprobar dónde se encuentran mediante el comando: 
+
+```bash
+docker volume ps                        # listamos todos los volúmenes
+docker volume inspect elastic_esdata01  # inspeccionamos un volumen en concreto
+```
+
+<div align="center">
+   <img src="../img/ELK/ELK19.png" alt="ELK" width="50%" />
+</div>
+
+
 
 
 ### 3.4.1. Accediendo desde el terminal para verificar el estado del cluster

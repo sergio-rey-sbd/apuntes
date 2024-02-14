@@ -12,8 +12,16 @@ permalink: /kibana/
 
 <h3>Tabla de contenidos</h3>
 
+- [1. ¿Qué es `kibana`?](#1-qué-es-kibana)
+- [2. Primera visualización de datos en Kibana. `data view` y `discover`](#2-primera-visualización-de-datos-en-kibana-data-view-y-discover)
+- [3. Visualizaciones en `kibana`](#3-visualizaciones-en-kibana)
+- [4. Dashboards en `kibana`](#4-dashboards-en-kibana)
+  - [Creación y gestión de `dashboards`](#creación-y-gestión-de-dashboards)
+  - [Espacios de trabajo](#espacios-de-trabajo)
 
-# ¿Qué es `kibana`?
+
+
+# 1. ¿Qué es `kibana`?
 
 `Kibana` es una herramienta de visualización de datos y análisis para Elasticsearch. Forma parte del Elastic (Elasticsearch, Logstash, Kibana) y se utiliza comúnmente para explorar, visualizar y analizar datos almacenados en Elasticsearch.
 
@@ -43,7 +51,7 @@ Para nosotros en concretos, Kibana representa el framework visual de elasticsear
 - Crear **Dashboards** a partir de las *Visualizaciones*
 
 
-# Primera visualización de datos en Kibana. `data view` y `discover`
+# 2. Primera visualización de datos en Kibana. `data view` y `discover`
 
 Para visualizar datos en Kibana, en primer lugar debemos habilitar un índice de elasticsearch (en nuestro caso el de *restaurantes*) para poder ser tratado desde kibana. Esto se hace creando un **Data View** (anteriormente *index pattern*)
 
@@ -52,7 +60,7 @@ Un **Data View** en Kibana se refiere al proceso de explorar, visualizar y manip
 Para gestionar los **Data Views**, vamos en la interface de Kibana a buscar la entrada de `Stack Management` dentro de la sección `Management` (parte inferior del menú)
 
 <div align="center">
-    <img src="../img/ELK/ELK62.png" alt="ELK - Kibana" width="30%" />
+    <img src="../img/ELK/ELK62.png" alt="ELK - Kibana" width="20%" />
 </div>
 
 Desde este punto podemos administrar nuestras instalación de Elastic y Kibana, por ejemplo en la sección de `Data` podemos ver la gestión de todos los índices en `Index Management`
@@ -84,7 +92,7 @@ Una vez ya visualizamos datos, podemos crear vistas seleccionando los datos o fi
 También podemos exportar los datos del reporte seleccionando `share` y `CSV Reports`, entonces nos generará un fichero *csv* al que podemos acceder desde el menú general, `stack management` y `reporting`
 
 
-# Visualizaciones en `kibana`
+# 3. Visualizaciones en `kibana`
 
 Antes de crear un cuadro de mandos o ***dashboard*** necesitamos crear **visualizadores** que son los elementos que después incrustaremos en los cuadros de mando.
 
@@ -99,7 +107,7 @@ Respecto a nuestro ejemplo de *restaurantes* podemos crear varios visualizadores
 Para crearlo, al pulsar el botón de "Create Visualization" nos aparece una pantalla donde podemos elegir el tipo visualización. Tradicionalmente se ha utilizado la opción de `Aggregation Based`, aunque la última versión a añadido la opción de `Lens`
 
 <div align="center">
-    <img src="../img/ELK/ELK66.png" alt="ELK - Kibana" width="50%" />
+    <img src="../img/ELK/ELK69.png" alt="ELK - Kibana" width="50%" />
 </div>
 
 Una vez ahí, silenciamos el tipo de visualizador a realizar: 
@@ -134,7 +142,7 @@ Cuando guardamos el visualizador, nos pregunta si lo queremos añadir a un *dash
 Seleccionamos el tipo *data histagram* y a partir de ahi jugamos con los elementos que queramos. Nos mostrará una gráfica de las reviews por fecha
 
 <div align="center">
-    <img src="../img/ELK/ELK71.png" alt="ELK - Kibana" width="30%" />
+    <img src="../img/ELK/ELK71.png" alt="ELK - Kibana" width="50%" />
 </div>
 
 - Horizontal bar afectado por un **Filtro**.
@@ -142,5 +150,51 @@ Seleccionamos el tipo *data histagram* y a partir de ahi jugamos con los element
 Seleccionamos termino, especialidad y después aplicamos un filtro.
 
 <div align="center">
-    <img src="../img/ELK/ELK72.png" alt="ELK - Kibana" width="30%" />
+    <img src="../img/ELK/ELK72.png" alt="ELK - Kibana" width="50%" />
+</div>
+
+# 4. Dashboards en `kibana`
+
+Una vez visto cómo crear visualizaciones, el siguiente paso es crear *dashboards* para agruparlas.
+
+## Creación y gestión de `dashboards`
+
+En el menú principal, sección `Analytics` tenemos el acceso a `Dashboards`. Seleccionando la opción nos permite crear un nuevo panel y a su vez crear una visualización o seleccionar una de las creadas anteriormente.
+
+El proceso es muy intuitivo, se trata de añadir los visualizadores o crearlos nuevo. Una vez en el Dashboard se pueden mover, redimensionar, acceder al editor de visualizadores para cambiar lo que creamos necesarios.
+
+<div align="center">
+    <img src="../img/ELK/ELK73.png" alt="ELK - Kibana" width="50%" />
+</div>
+
+El Dashboard se puede guardar asignando un nombre y estableciendo o no el intervalo de tiempo por defecto.
+
+Observar que si pulsamos sobre cualquier elementos visualizado podemos crear filtros de la misma forma que podemos ir cambiando los rangos de fechas.
+
+
+## Espacios de trabajo
+
+Los dashboards se organizan en lo que se llama **Spaces**. Lo habitual es que cada usuario o grupo de usuarios tiene su espacio de trabajo y ahí tiene los *dashboards* con lo que trabaja cada día. Así creamos tantos **spaces** como tipos de usuarios tengamos en nuestro sistema. 
+
+Para acceder a los diferentes **spaces** lo podemos hacer desde el botón verde de la parte superior izquierda: 
+
+<div align="center">
+    <img src="../img/ELK/ELK74.png" alt="ELK - Kibana" width="30%" />
+</div>
+
+Inicialmente, nuestro primer espacio es el *default*, podemos cambiar el nombre, y crear nuevos espacios de trabajo.
+
+Cuando creamos un nuevo **space** además de asignar nombre, descripción, etc.. podemos asignar qué elementos son accesibles desde este espacio de trabajo. 
+
+<div align="center">
+    <img src="../img/ELK/ELK75.png" alt="ELK - Kibana" width="40%" />
+</div>
+
+Observar que también se puede acceder desde el menú principal, desde `kibana` y después `Spaces`.
+
+
+Una vez vez creados los espacios, ya podemos acceder a los mismo. Veremos que cada **Space** es como un perfil de `Kibana` totalmente diferente.
+
+<div align="center">
+    <img src="../img/ELK/ELK76.png" alt="ELK - Kibana" width="20%" />
 </div>

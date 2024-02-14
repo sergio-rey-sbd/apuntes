@@ -1,3 +1,22 @@
+# 5. Enlaces interesantes: 
+
+ - [Cluster ElasticSearch con Docker Paso a Paso](https://www.albertcoronado.com/2020/10/01/cluster-elasticsearch-con-docker-paso-a-paso/)
+Blog que monta un cluster con 3 dockers
+
+- [Elasticsearch paso a paso 2023 - youtube](https://www.youtube.com/watch?v=dl8DSgq0y3Y&list=PLlNuLwK_vaGND4FMd7E55kM8JG7JpCgA0&index=3)
+
+- [Ejemplo de terremotos](https://github.com/elastic/examples/tree/master/Exploring%20Public%20Datasets/earthquakes)
+
+- [Instalar Docker compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04)
+
+- [Youtube: Montar un sistema docker-compose](https://www.youtube.com/watch?v=cC3spQXQKcQ)
+- [YouTube: Elasticsearch and Kibana Installation with Docker Compose | How to install Elasticsearch in docker](https://www.youtube.com/watch?v=UiJF5KFXE7U) 
+
+- [Kibana: Get up and running with sample data](https://www.elastic.co/guide/en/kibana/8.12/get-started.html#gs-get-data-into-kibana)
+
+
+
+
 
 # Interactuando con datos en Elasticsearch
 
@@ -323,4 +342,192 @@ ypcHzdXJGTYPCJ9MaNuDwsz3cwJqGBmKIBVMQaOA9kJl6
 
 
 
+
+
+
+
+
+# demo de los terremotos.
+
+Siguiendo lo especificado en Openwebinars: [ELK](https://openwebinars.net/academia/aprende/elasticsearch/2118/#) en la parte de kibana par la inserción de registros de terremotos.
+
+Pasos que sigo.
+
+siguiendo el blog de elastic para instalar todo [elastic stack mediante docker-compose](https://www.elastic.co/es/blog/getting-started-with-the-elastic-stack-and-docker-compose).
+
+Creo la carpeta y el fichero necesario y le damos permisos a cascoporro
+
+```bash
+sergio@elastic:~$ mkdir logstash_ingest_data
+sergio@elastic:~$ chmod 777 logstash_ingest_data/
+sergio@elastic:~$ touch logstash.conf
+sergio@elastic:~$ chmod +r+w logstash.conf 
+```
+
+para este ejemplo, hacer falta
+
+En ejemplo: /home/openweb/Documents/dataset/all_month.json 
+Montado   : /usr/share/logstash/ingest_data/
+En real   : ./logstash_ingest_data
+
+
+En ejemplo: /etc/logstash/templates/earthquake-template.json
+Montado   : 
+En real   : 
+
+
+
+
+
+
+
+
+
+
+# Examen `Curso de Elasticsearch y Kibana para desarrolladores` de openwebinar
+
+
+1. Tienes una base de datos. ¿Qué componente del Elastic Stack puedes usar para ingestar datos dentro de Elasticsearch?
+- Logstash.  `<--`
+- Beats.
+- Kibana.
+- Elasticsearch.
+
+
+
+2. Si con los datos anteriores ya ingestados en Elasticsearch. ¿Cómo podriamos visualizarlos?
+- Kibana  `<--`
+- Beats
+- Elasticsearch
+- Logstash
+
+
+
+3. ¿Sobre qué plataforma se apoya Elasticsearch para indexar y buscar datos?
+- Solr.
+- No se apoya sobre ninguna plataforma.
+- Apache Lucene.   `<--`
+- Google.
+
+
+4. ¿Qué pasa si indexamos un documento en el un índice con un ID repetido?
+- Ninguna es correcta.
+- Elasticsearch sobrescribe el documento. Lo actualiza.   `<--`
+- Duplica el documento porque Elasticsearch no tiene en cuenta ID para indexar.
+- Devuelve un error de query porque el documento ya existe.
+
+
+
+5. Elasticsearch tiene la posibilidad de desplegarse por medio de docker, kubernetes o Ansible.
+- Falso
+- Verdadero  `<--`
+
+
+
+6. ¿Cómo puede Elasticsearch repartir las peticiones a los nodos del clúster?
+- Definiendo roles de datos, master e ingestar a los nodos.    `<--`
+- Todo lo anterior es correcto.
+- Exponiendo solo el puerto de un nodo.
+- Usando un reverse proxy.
+
+
+
+7. Si estamos teniendo problemas con el clúster de Elasticsearch, ¿Dónde podemos encontrar el problema o la incidencia que está reportando?
+- Directorio de configuración.
+- Directorio modules.
+- Directorio de logs.   `<--`
+- Directorio de datos .
+
+
+
+8. ¿Cuáles eran los dos objetivos principales de Elasticsearch?
+- Definir procesos y procedimientos.
+- Búsquedas rápidas y sencillas
+- Mejorar todo.
+- Ser un sistema distribuido desde cero y que sea de fácil uso por otros lenguajes de programación como python, php, ruby…  `<--`
+
+
+
+9. Si queremos ingestar una cantidad grande de datos ¿Qué servicio vamos a usar de Elasticsearch?
+- POST con _update
+- Cualquiera de las anteriores sería valida
+- POST simple
+- POST con _bulk    `<--`
+
+
+
+10. Verdadero o falso. Si un índice no existe cuando indexamos un documento. Elasticsearch lo genera automáticamente.
+- **Verdadero**
+- Falso
+
+
+11. Elasticsearch solo se usa como buscador de datos para páginas web...
+- **Falso**
+- Verdadero
+
+
+
+12. ¿Cómo se puede comunicar una aplicación con Elasticsearch?
+- Comunicación Transport por el puerto 9300
+- Todo lo anterior es correcto
+- Le envía eventos XML
+- **Mediante comunicación HTTP por el puerto 9200**
+
+
+13. ¿Cuál es el número mínimo de hits que devuelve una query por defecto?
+- **10**
+- 1000
+- 100
+- Todos los documentos del índice.
+
+
+14. Un clúster de Easticsearch es la colección de nodos de Elasticsearch...
+- **Verdadero**
+- Falso
+
+
+
+15. Si queremos monitorizar los datos estadísticos de unos servidores. ¿Cómo podríamos recolectar los datos e ingestarlos en Elasticsearch?
+- Logstash
+- **Beats y Logstash**
+- Logstash y Kibana
+- Elasticsearch y Kibana
+
+
+
+16. ¿Cómo se comunica un nodo del clúster con otro?
+- Le envía eventos XML.
+- Mediante comunicación HTTP por el puerto 9200.
+- **Comunicación Transport por el puerto 9300.**
+- Todo lo anterior es correcto.
+
+
+
+17. ¿Dónde puedo configurar la memoria máxima y mínima que va a consumir mi servicio de Elasticsearch?
+- Desde elasticsearch.yml
+- Dentro de bin/elasticsearch
+- Desde Kibana
+- **jvm.options**
+
+
+
+1.  ¿Cómo distribuye Elasticsearch los documentos?
+- Ninguna es correcta.
+- Los almacena en ficheros virtuales .db
+- Mediante Shards dentro del nodo master.
+- **En los nodos mediante Shards, que es la unidad mínima en la que un índice se divide por los nodos del clúster.**
+
+
+
+19. Como podemos comprobar la primera vez que el estado del clúster está correctamente levantado y accesible. (Multirrespuesta). 
+- Desplegando Kibana y ver si reconoce el servicio de Elasticsearch
+- **Mirando el fichero de logs**
+- **Lanzando un Curl contra https://localhost:9200**
+- Poniendo la dirección http://localhost:9200 en un navegador
+
+20. ¿Dónde puedo configurar el puerto por el que expongo el servicio Rest de Elasticsearch?
+- Desde Kibana.
+- jvm.options
+- Dentro de bin/elasticsearch
+- **Desde elasticsearch.yml**
 
