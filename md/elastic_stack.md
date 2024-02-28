@@ -77,6 +77,12 @@ Estos son algunos de los componentes principales del Elastic Stack, pero Elastic
 
 Elastic Stack es especialmente popular en entornos de desarrollo de software, operaciones de sistemas (DevOps), análisis de seguridad, monitoreo de infraestructura y análisis de registros de aplicaciones. La combinación de Elasticsearch, Logstash y Kibana proporciona una solución completa y escalable para la recopilación, almacenamiento, análisis y visualización de datos.
 
+Más concretamente **Elasticsearch** es un motor de búsqueda diseñado para escalar horizonalmente, de forma que se puedan ir añadiendo más nodos al clúster a medida que aumente el volumen de datos requerido.
+
+Su base es una librería de indexación y búsqueda de información textual conocida como ***Apache Lucene***, desarrollada inicialmente en Java aunque disponible también para otros lenguajes.
+
+El surgimiento de **Elasticsearch** se debió a problemas de escalabilidad detectados en otro motor de búsqueda que también se basa en ***Apache Lucene***, **Apache Solr**. En el vídeo se resumen las diferencias principales entre ambos buscadores, que pueden consultarse en detalle en el siguiente [enlace](https://sematext.com/blog/side-by-side-with-elasticsearch-and-solr-performance-and-scalability/)
+
 
 ## 1.2. ¿ Por qué Elastic Stack en Sistemas Big Data?
 
@@ -199,6 +205,15 @@ Y en cuanto a las comunicaciones entre los diferentes elementos, debemos tener e
 <div align="center">
     <img src="../img/ELK/ELK52.png" alt="ELK" width="40%" />
 </div>
+
+Elasticsearch incluye 2 protocolos de comunicación:
+1. Protocolo nativo en binario llamado **Transport Client**. Puerto **9300** por defecto
+   - Sólo pensado para el lenguaje Java.   
+   - Se utiliza para comunicar Elastic con el resto de aplicaciones del Stack
+2. Protocolo HTTP: *API REST*. Puerto **9200** por defecto
+   - Forma más común de conexión
+   - REST es un protocolo de uso general de operaciones y herramientas de test conocidas
+   - Posibilidad de implementar clientes en cualquier lenguaje de programación: *java*, *python*, *javascript* ...
 
 # 3. Instalación de elastic 
 

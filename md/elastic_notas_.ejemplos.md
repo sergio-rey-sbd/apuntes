@@ -14,9 +14,9 @@ Blog que monta un cluster con 3 dockers
 
 - [Kibana: Get up and running with sample data](https://www.elastic.co/guide/en/kibana/8.12/get-started.html#gs-get-data-into-kibana)
 
+- [Beginner's Crash Course to Elastic Stack Series](https://github.com/LisaHJung/Beginners-Crash-Course-to-Elastic-Stack-Series-Table-of-Contents)
 
-
-
+- [Generador de datos aleatorios](https://mockaroo.com/)
 
 # Interactuando con datos en Elasticsearch
 
@@ -349,7 +349,7 @@ ypcHzdXJGTYPCJ9MaNuDwsz3cwJqGBmKIBVMQaOA9kJl6
 
 # demo de los terremotos.
 
-Siguiendo lo especificado en Openwebinars: [ELK](https://openwebinars.net/academia/aprende/elasticsearch/2118/#) en la parte de kibana par la inserción de registros de terremotos.
+Siguiendo lo especificado en Openwebinars: [ELK](https://openwebinars.net/academia/aprende/elasticsearch/2118/#) en la parte de kibana para la inserción de registros de terremotos.
 
 Pasos que sigo.
 
@@ -360,6 +360,8 @@ Creo la carpeta y el fichero necesario y le damos permisos a cascoporro
 ```bash
 sergio@elastic:~$ mkdir logstash_ingest_data
 sergio@elastic:~$ chmod 777 logstash_ingest_data/
+sergio@elastic:~$ mkdir templates
+sergio@elastic:~$ chmod 777 templates/
 sergio@elastic:~$ touch logstash.conf
 sergio@elastic:~$ chmod +r+w logstash.conf 
 ```
@@ -370,17 +372,116 @@ En ejemplo: /home/openweb/Documents/dataset/all_month.json
 Montado   : /usr/share/logstash/ingest_data/
 En real   : ./logstash_ingest_data
 
+Se traduce a: 
+
 
 En ejemplo: /etc/logstash/templates/earthquake-template.json
-Montado   : 
-En real   : 
+Montado   : /usr/share/logstash/templates/
+En real   : ./templates
+Este no hace falta, se crea el fichero y se sube
+
+
+
+Para meter el template, lo hacemos directamente desde Kibana: 
+
+```json
+DELETE _index_template/earthquake
+
+PUT _index_template/earthquake
+{
+  "index_patterns" : "earthquake*",
+  "template" : {
+    "settings" : {
+      "index.refresh_interval" : "20s",
+      "index.number_of_shards" : 3,
+      "index.number_of_replicas" : 2,
+      "index.routing.allocation.total_shards_per_node" : 3,
+      "index.auto_expand_replicas": false,
+      "index.requests.cache.enable": true
+    },
+    "mappings" : {
+        "dynamic_templates" : [
+          {
+            "string_fields": {
+              "match": "*",
+              "match_mapping_type": "string",
+              "mapping": {
+                "type": "text"
+              }
+            }
+          }
+        ],
+        "properties" : {
+          "@timestamp": { "type": "date" },
+          "time": { "type": "date" },
+          "@version": { "type": "text", "index": "false" },
+          "depth": { "type": "double","doc_values" : true },
+          "mag": { "type": "double","doc_values" : true },
+          "nst": { "type": "double","doc_values" : true },
+          "gap": { "type": "double","doc_values" : true },
+          "felt": { "type": "double","doc_values" : true },
+          "cdi": { "type": "double","doc_values" : true },
+          "horizontalError": { "type": "double","doc_values" : true },
+          "magError": { "type": "double","doc_values" : true },
+          "magNst": { "type": "double","doc_values" : true },
+          "latitude": { "type": "double","doc_values" : true },
+          "longitude": { "type": "double","doc_values" : true },
+          "location": { "type" : "geo_point" }
+        }
+
+    }
+  }
+}
+```
+
+
+Datos de terremotos: 
+- Web : https://earthquake.usgs.gov/earthquakes/feed/v1.0/csv.php
+- Acceso directo Todos terremotos último mes: https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv
+
+Guardamos el CSV y lo convertimos con el siguiente Script: 
+
+Tal y como se puede comprobar, el formato es [.csv](https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.csv) el cual se convertirá en JSON para una carga en Elasticsearch más sencilla. Para ello será necesario eliminar la primera línea donde se definen los campos y se podrá hacer uso del script que a continuación se aporta.
+
+```py
+#!/usr/bin/env python
+
+import os
+import json
+import sys
+import urllib
+import fileinput
+import csv
+import json
+
+def convert_csv2json():
+  csvfile = open('./all_month.csv', 'r')
+  jsonfile = open('./all_month.json', 'w')
+  fieldnames = ("time","latitude","longitude","depth","mag","magType","nst","gap","dmin","rms","net","id","updated","place","type","horizontalError","depthError","magError","magNst","status","locationSource","magSource")
+  reader = csv.DictReader( csvfile, fieldnames)
+  for row in reader:
+    json.dump(row, jsonfile)
+    jsonfile.write('\n')
+
+if __name__ == "__main__":
+
+  convert_csv2json()
+```
+
+Guardamos el script en la misma carpeta que el fichero de datos por ejemplo con el nombre `csv2json.py` y lo ejecutamos: 
+
+```bash
+python3 csv2json.py
+```
+
+y tenemos el JSON preparado para su ingesta.
 
 
 
 
+# Mini Beginner's Crash Course to Elasticsearch & kibana
 
-
-
+Blog y videos que esplican como montar un [Beginner's guide to building a full stack app (Node.js & React) with Elasticsearch ](https://dev.to/lisahjung/beginners-guide-to-building-a-full-stack-app-nodejs-react-with-elasticsearch-5347)
 
 
 
@@ -530,4 +631,5 @@ En real   :
 - jvm.options
 - Dentro de bin/elasticsearch
 - **Desde elasticsearch.yml**
+
 

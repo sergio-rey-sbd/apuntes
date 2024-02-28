@@ -18,6 +18,7 @@ permalink: /kibana/
 - [4. Dashboards en `kibana`](#4-dashboards-en-kibana)
   - [Creación y gestión de `dashboards`](#creación-y-gestión-de-dashboards)
   - [Espacios de trabajo](#espacios-de-trabajo)
+- [Ejemplo](#ejemplo)
 
 
 
@@ -153,6 +154,33 @@ Seleccionamos termino, especialidad y después aplicamos un filtro.
     <img src="../img/ELK/ELK72.png" alt="ELK - Kibana" width="50%" />
 </div>
 
+
+- Mapa con coordenadas:
+
+Seleccionamos Nueva Visualización, y elegimos tipo `Maps`:
+
+<div align="center">
+    <img src="../img/ELK/ELK77.png" alt="ELK - Kibana" width="40%" />
+</div>
+
+Después seleccionamos ***add layer*** para añadir una nueva capa, y luego seleccionamos ***Documents*** para seleccionar un índice. A continuación nos pide un ***Data View*** y luego que seleccionamos el campo que contiene las coordenadas. 
+
+<div align="center">
+    <img src="../img/ELK/ELK78.png" alt="ELK - Kibana" width="40%" />
+</div>
+
+Seleccionamos ***Add and Continue*** y entraremos en un menú con las opciones de visualización de la nueva capa del mapa, donde por ejemplo le debemos indicar el nombre como mínimo.
+
+<div align="center">
+    <img src="../img/ELK/ELK79.png" alt="ELK - Kibana" width="30%" />
+    <img src="../img/ELK/ELK80.png" alt="ELK - Kibana" width="30%" />
+</div>
+
+Ya tenemos la nueva capa añadida al mapa. 
+
+Podemos agregar tantas capas como queramos, así como visualizarlas o no, incluso redimensionar el mapa para que se ajuste las coordenadas.
+
+
 # 4. Dashboards en `kibana`
 
 Una vez visto cómo crear visualizaciones, el siguiente paso es crear *dashboards* para agruparlas.
@@ -198,3 +226,18 @@ Una vez vez creados los espacios, ya podemos acceder a los mismo. Veremos que ca
 <div align="center">
     <img src="../img/ELK/ELK76.png" alt="ELK - Kibana" width="20%" />
 </div>
+
+
+
+
+
+# Ejemplo
+
+Video de introducción a [kibana](https://www.youtube.com/watch?v=g0TQrMv37jM): 
+
+Una vez descargados los datos, lo aconsejable es ir a `Analytics` - `Discover` para ver los datos que tenemos
+
+Si queremos ver cómo un registro hacemos clic sobre cualquier registro y podemos verlo tanto en formato tabla como en formato JSON.
+
+En cualquier momento, podemos crear un nuevo campo al pulsar sobre el botón verde que nos indica el índice en la parte superior izquierda
+

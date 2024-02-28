@@ -15,6 +15,7 @@ Apartados:
 - [Elastic Stack](./elastic_stack/)
 - [Elasticsearch. Operaciones](./elasticsearch/)
 - [Kibana](./kibana/)
+- [Elasticsearch con clientes en Python](./elastic-python/)
 
 
 >Sergio Rey.

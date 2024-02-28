@@ -783,8 +783,8 @@ Tipos de datos más comunes
 
 | Tipo de Datos | Tipo en Mapping | Descripción                                     | Ejemplo                                     |
 |---------------|-----------------|-------------------------------------------------|---------------------------------------------|
-| Texto         | "text"          | Cadena de texto analizada                      | "description": "Lorem ipsum dolor sit amet" |
-| Keyword       | "keyword"       | Cadena de texto no analizada                   | "category": "electronics"                   |
+| Texto         | "text"          | Cadena de texto analizada token a token         | "description": "Lorem ipsum dolor sit amet" |
+| Keyword       | "keyword"       | Cadena de texto no analizada a base de tokens separados | "category": "electronics"                   |
 | Numérico      | "integer", "float", "double", "long", etc. | Datos numéricos                   | "age": 30                                   |
 | Fecha         | "date"          | Fecha y/u hora                                 | "timestamp": "2023-11-16T12:00:00"         |
 | Booleano      | "boolean"       | Valor booleano                                 | "is_active": true                           |

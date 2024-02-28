@@ -15,6 +15,9 @@ permalink: /powerbi/
 
 # 1. ¿Qué es PowerBI?
 
+Es una herramienta de Bussines Inteligence, pero no de Big Data, por el motivo de que todo lo guardar en memora.
+
+De hecho, es capaz de hacer un poco de ETL, te puedes conectar a muchas bases de datos y ficheros, pero al final, se tiene un conjunto de datos y trabaja sobre ellos, no soporta que estos datos se actualicen en caliente.
 
 
 # 2. Bases de datos de Ejemplos:
@@ -43,7 +46,7 @@ Cualquier cambio se hace solo en PowerBI, no en SQL server.
 Se puede actualizar hasta 8 veces al día, no más.
 Tiene Limitación de 1GB, no se puede más.
 
-Se hace el ejercicio:ç
+Se hace el ejercicio:
 1. Meter una tabla con los valors de Ventas de internet y la Categoria de product Category. 
 2. A continuación se va a SQL Server y se modifican las cantidades... podemos ver que se han modificado en SQL Server pero no en PowerBI.
 3. Ser hace una actualización de los valores de la tabla. Con '`Home->Actualizar`' podemos actualizar todas las tablas. Esto es excesivo, porque sabemos que solo se han modificado una tabla. Hacemos sobre la parte de `Datos` en los tres botones de la tabla y le damos a `actualizar datos` y se actualizan y ahora ya salen los datos nuevos de la tabla
