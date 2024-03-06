@@ -12,6 +12,10 @@ Apuntes de **Sistemas de Big Data**  para el Curso de Especialización de *Intel
 
 Apartados:
 
+- [Bases de datos NoSQL](./nosql/)
+- [MongoDB](./mongodb/)
+
+
 - [Elastic Stack](./elastic_stack/)
 - [Elasticsearch. Operaciones](./elasticsearch/)
 - [Kibana](./kibana/)

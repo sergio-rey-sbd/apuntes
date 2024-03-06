@@ -237,7 +237,7 @@ Una vez instalado el sistema, es aconsejable instalar los VirtualBox Guest Addit
 
 Seleccionamos su instalación y abrimos un terminal en el medio que lo contiene: 
 
-```bash
+```bashp
 sudo apt update
 sudo apt upgrade                # opcional. Puede tardar mucho
 sudo apt install gcc make perl  # opcional y aconsejable, para poder recompilar el núcleo 
@@ -454,7 +454,7 @@ Para instalar elastic en docker seguimos:
 # instalamos elacticseach sobre docker
 sudo docker network create elastic
 sudo docker pull docker.elastic.co/elasticsearch/elasticsearch:8.12.0
-sudo docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -t docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+sudo docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
 sudo docker run --name elasticsearch --net elastic -p 9200:9200  -p 9300:9300 -e "discovery.type=single-node" -it -m 2GB docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
