@@ -877,21 +877,9 @@ Una vez conectados, podremos recorrer las colecciones con los datos así como ut
 Realmente, esta extensión este pensada para trabajar con opciones avanzadas, como crear índices, generar código en lenguajes como *javascript*, *python* o cualquier otro para realizar todo tipo de operaciones en MongoDB, o crear variables con datos y estos utilizarlos en nuestras operaciones. Para más información en la web de la extension: [MongoDB for VS Code. MongoDB Without Leaving Your IDE](https://www.mongodb.com/products/tools/vs-code)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 # Operaciones con datos: Consultas
 
-Vamos a profundizar sobre las operaciones de consultas que ya hemos visto brevemente con anterioridad.
+Ahora que ya tenemos más herramientas y hemos visto las operaciones básicas de MongoDB vamos a profundizar sobre las consultas de los datos, aunque ya las hemos visto brevemente con anterioridad.
 
 El comando básico es `.find()`
 
