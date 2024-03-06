@@ -8,7 +8,39 @@ permalink: /mongodb/
 
 <h3>Tabla de contenidos</h3>
 
-# Introducción
+- [1. Introducción](#1-introducción)
+- [2. MongoDB](#2-mongodb)
+  - [2.1. Características de MongoDB](#21-características-de-mongodb)
+  - [2.2. Conceptos básicos](#22-conceptos-básicos)
+  - [2.3. BSON](#23-bson)
+  - [2.4. Bases de datos Relacionales vs MongoDB](#24-bases-de-datos-relacionales-vs-mongodb)
+- [3. Instalación](#3-instalación)
+- [4. Primeros pasos con MongoDB](#4-primeros-pasos-con-mongodb)
+  - [4.1. Trabajando con MongoDB desde la consola](#41-trabajando-con-mongodb-desde-la-consola)
+  - [4.2. Creación y gestión de Bases de Datos](#42-creación-y-gestión-de-bases-de-datos)
+    - [4.2.1. Creacion : `use`](#421-creacion--use)
+    - [4.2.2. Eliminación de base de datos: `db.dropDatabase()`](#422-eliminación-de-base-de-datos-dbdropdatabase)
+    - [4.2.3. MongoDB Database Tools](#423-mongodb-database-tools)
+  - [4.3. Tipos de datos](#43-tipos-de-datos)
+  - [4.4. Ejercicios propuestos](#44-ejercicios-propuestos)
+- [5. Operaciones con datos CRUD](#5-operaciones-con-datos-crud)
+  - [5.1. Insertar :](#51-insertar-)
+  - [5.2. Leer:](#52-leer)
+  - [5.3. Actualizar:](#53-actualizar)
+  - [5.4. Eliminar:](#54-eliminar)
+- [6. Diseño de modelado de bases de datos. ***schemaless***](#6-diseño-de-modelado-de-bases-de-datos-schemaless)
+  - [6.1. Concepto de ***schemaless***](#61-concepto-de-schemaless)
+  - [6.2. Documentos embebidos](#62-documentos-embebidos)
+  - [6.3. Documentos referenciados](#63-documentos-referenciados)
+- [7. Herramientas visuales para interactuar con MongoDB](#7-herramientas-visuales-para-interactuar-con-mongodb)
+  - [7.1. MongoDB Compass](#71-mongodb-compass)
+    - [7.1.1. Instalación](#711-instalación)
+    - [7.1.2. Tabajando con MongoDB Compass](#712-tabajando-con-mongodb-compass)
+  - [7.2. MongoDB for VSCode](#72-mongodb-for-vscode)
+- [8. Operaciones con datos: Consultas](#8-operaciones-con-datos-consultas)
+
+
+# 1. Introducción
 
 En el mundo del Big Data, donde la cantidad de datos generados y procesados continúa creciendo exponencialmente, la elección de la tecnología adecuada para almacenar, gestionar y analizar estos datos es fundamental. **MongoDB**, una base de datos NoSQL de código abierto y orientada a documentos, ha emergido como una solución poderosa y versátil en este panorama en constante evolución.
 
@@ -17,7 +49,7 @@ En este apartado exploraremos cómo MongoDB se integra perfectamente en los ento
 Ya sea que estés involucrado en el desarrollo de aplicaciones, la gestión de datos o el análisis de datos a gran escala, este curso te proporcionará los conocimientos y las habilidades necesarias para aprovechar el poder de MongoDB en el emocionante y desafiante mundo del Big Data.
 
 
-# MongoDB 
+# 2. MongoDB 
 
 **MongoDB** es una base de datos NoSQL, de código abierto y orientada a documentos. En lugar de almacenar datos en tablas, como lo hace una base de datos relacional, **MongoDB** almacena datos en documentos similares a JSON con un formato llamado ***BSON*** (*Binary JSON*). BSON extiende el formato JSON para incluir tipos de datos adicionales como fechas y binarios, lo que lo hace más adecuado para representar datos complejos.
 
@@ -38,7 +70,7 @@ MongoDB destaca porque:
 MongoDB se utiliza ampliamente en una variedad de aplicaciones, incluidas aquellas con grandes volúmenes de datos, cargas de trabajo de alta velocidad y requisitos de flexibilidad de esquema. Es especialmente popular en aplicaciones web y móviles, así como en entornos de Big Data y análisis en tiempo real.
 
 
-## Características de MongoDB
+## 2.1. Características de MongoDB
 
 Si tuviéramos que resumir a una la principal característica a destacar de MongoDB, sin duda esta sería la velocidad, que alcanza un balance perfecto entre rendimiento y funcionalidad gracias a su sistema de consulta de contenidos. Pero sus características principales no se limitan solo a esto, MongoDB cuenta, además, con otras que lo posicionan como el preferido de muchos desarrolladores.
 
@@ -53,7 +85,7 @@ Características principales:
 
 
 
-## Conceptos básicos
+## 2.2. Conceptos básicos
 
 Hay una serie de conceptos que conviene conocer antes de entrar en detalle:
 
@@ -76,7 +108,7 @@ Así pues, tenemos que una base de datos va a contener varias colecciones, donde
 Además, MongoDB soporta índices, igual que cualquier RDMS, para acelerar la búsqueda de datos. Al realizar cualquier consulta, se devuelve un cursor, con el cual podemos hacer cosas tales como contar, ordenar, limitar o saltar documentos.
 
 
-## BSON
+## 2.3. BSON
 
 MongoDB almacena los documentos mediante BSON (Binary JSON).
 
@@ -142,7 +174,7 @@ Por lo que estos documentos son distintos:
 
 Si queremos validar si un documento JSON es válido, podemos usar http://jsonlint.com/. Hemos de tener en cuenta que sólo valida JSON y no BSON, por tanto nos dará errores en los tipos de datos propios de BSON.
 
-## Bases de datos Relacionales vs MongoDB
+## 2.4. Bases de datos Relacionales vs MongoDB
 
 Aquí tenemos un esquema de los elementos de una base de datos representada tanto por un sistema relacional tradicional, frente a la misma estructura con una base de datos en MongoDB
 
@@ -158,7 +190,7 @@ y ahora la misma representación en MongoDB
     <img src="../img/MongoDB/MongoDB19.png" alt="MongoDB" width="70%" />
 </div>
 
-# Instalación
+# 3. Instalación
 
 En la actualidad, MongoDB se como base de datos en tres productos diferentes más un conglomerado de servicios y herramientas que complementas a la base de datos.
 
@@ -238,11 +270,11 @@ Al versión de **Mongo Atlas** nos ofrece de manera gratuita un cluster comparti
 
 Password de mi cuenta: 3xC9L1Lkr9GxPm5c
 
-# Primeros pasos con MongoDB
+# 4. Primeros pasos con MongoDB
 
 Una vez instalada la base de datos, vamos a interactuar desde su propia consola.
 
-## Trabajando con MongoDB desde la consola
+## 4.1. Trabajando con MongoDB desde la consola
 
 Para acceder a la consola de MongoDB escribimos:
 
@@ -288,9 +320,9 @@ Observa también que hay un diferencia entre invocar la función con los parént
     <img src="../img/MongoDB/MongoDB14.png" alt="MongoDB" width="50%" />
 </div>
 
-## Creación y gestión de Bases de Datos
+## 4.2. Creación y gestión de Bases de Datos
 
-### Creacion : `use`
+### 4.2.1. Creacion : `use`
 
 El comando para crear una base de datos es el mismo que visto anteriormente para cambiar de base de datos: `use`
 
@@ -312,7 +344,7 @@ Más adelante ya veremos con más detenimiento las diferentes forma de insertar 
 db.primeraColeccion.insertOne({ id: 1, nombre: 'sergio' })
 ```
 
-## Eliminación de base de datos: db.dropDatabase()
+### 4.2.2. Eliminación de base de datos: `db.dropDatabase()`
 
 Para eliminar una base de datos, en primer lugar debemos estar ubicados dentro de la propia base de datos a eliminar y ahí ejecutamos el comando 
 
@@ -327,7 +359,48 @@ Podemos hacer uso de los comandos `use` y `db` para pasar ubicarnos en una base 
 </div>
 
 
-## Tipos de datos 
+
+### 4.2.3. MongoDB Database Tools
+
+Además del propio servidor de *MongoDB* y el cliente para conectarse a él, *MongoDB* ofrece un conjunto de herramientas para interactuar con las bases de datos, permitiendo crear y restaurar copias de seguridad.
+
+Si estamos interesados en introducir o exportar una colección de datos mediante JSON, podemos emplear los comandos `mongoimport` y `mongoexport`:
+
+```bash
+mongoimport -d nombreBaseDatos -c coleccion –-file nombreFichero.json
+mongoexport -d nombreBaseDatos -c coleccion nombreFichero.json
+```
+
+Estas herramientas interactúan con datos *JSON* y no sobre toda la base de datos.
+
+Un caso particular y muy común es importar datos que se encuentran en formato *CSV/TSV*. Para ello, emplearemos el parámetro -`-type csv`:
+
+```bash
+mongoimport --type tsv -d test -c poblacion --headerline --drop poblacionEspanya2013.tsv
+```
+
+En vez de realizar un *export*, es más conveniente realizar un ***backup*** en binario mediante `mongodump`, el cual genera ficheros *BSON*. Estos archivos posteriormente se restauran mediante `mongorestore`:
+
+```bash
+mongodump -d nombreBaseDatos nombreFichero.bson
+mongorestore -d nombreBaseDatos nombreFichero.bson
+```
+
+Si necesitamos transformar un fichero *BSON* a *JSON* (de binario a texto), tenemos el comando `bsondump`:
+
+```bash
+bsondump file.bson > file.json
+```
+
+Más información sobre copias de seguridad en la documentación oficial de [MongoDB: MongoDB Backup Methods ](https://www.mongodb.com/docs/manual/core/backups/).
+
+Para poder trabajar con MongoDB desde cualquier aplicación necesitamos un driver. MongoDB ofrece drivers oficiales para casi todos los lenguajes de programación actuales. En una sesión posterior trabajaremos con PyMongo.
+
+En cuanto a la **monitorización**, tanto `mongostat` como `mongotop` permiten visualizar el estado del servidor *MongoDB*, así como algunas estadísticas sobre su rendimiento. Si trabajamos con *MongoAtlas* estas herramientas están integradas en las diferentes herramientas de monitorización de la plataforma.
+
+En versiones anteriores, una herramienta de terceros bastante utilizada era *RoboMongo* / *Robo3T* / *Studio3T* el cual extiende el shell y ofrece un IDE más amigable. A días de hoy, MongoDB tiene su propio IDE conocido como [MongoDB Compass](#71-mongodb-compass) que veremos más adelante.
+
+## 4.3. Tipos de datos 
 
 Aquí tienes una lista de algunos tipos de datos comunes en MongoDB, junto con ejemplos de cómo se representan en formato de tabla:
 
@@ -385,20 +458,20 @@ En este ejemplo, que ya hemos visto previamente para ilustrar qué es un BSON, e
 
 Más información sobre tipos de datos en [tutorialspoint MongoDB - Datatypes](https://www.tutorialspoint.com/mongodb/mongodb_datatype.htm)
 
-## Ejercicios propuestos
+## 4.4. Ejercicios propuestos
 
 1. Partiendo del escritorio de tu ordenador, ejecuta los pasos necesarios para poder usar la consola de `mongodb` (abrir un terminal o consola, iniciar/parar servicios, ejecutar la shell de `mongodb`)
 2. Crea una base de datos llamada concesionario. Recuerda insertar al menos un documento en una colección que se llame coches. Como propiedades del documento json, puedes usar matrícula, marca, modelo, versiones (sport, confort), kms y fecha de matriculación. (Aunque veremos cómo insertar documentos JSON en próximas clases, puedes usar el comando db.insertOne(aqui va tu documento json))
 3. Visualiza el listado de todas las bases de datos disponibles.
 4. Elimina la base de datos creada y comprueba que ya no existe al pedir el listado.
 
-# Operaciones con datos CRUD
+# 5. Operaciones con datos CRUD
 
 En MongoDB, las operaciones **CRUD** (*Crear*, *Leer*, *Actualizar*, *Eliminar*) se realizan utilizando métodos específicos. Aquí te muestro cómo realizar cada una de estas operaciones.
 
 Antes de comenzar a trabajar, debemos entrar en una de las bases de datos con `use` y en todo momento podemos ver las colecciones que tenemos en esta base de datos con `use collections` 
 
-## Insertar :
+## 5.1. Insertar :
 
 Para insertar documentos en una colección, se utiliza el método `insertOne()` o `insertMany()`.
 
@@ -479,7 +552,7 @@ db.usuarios.insertMany([
 ```
 Observar cómo trabajar con fechas
 
-## Leer:
+## 5.2. Leer:
 
 Uno de los aspectos más interesantes de las bases de datos es la capacidad para realizar consultas, por lo que ahora vamos a ver de forma muy breve como leer datos, pero más adelante profundizaremos en la realización de consultas más elaboradas.
 
@@ -511,7 +584,7 @@ db.eventos.find({ fecha: { $gt: new Date("2024-01-01") } });
 db.eventos.find({ fecha: { $gte: new Date("2024-01-01"), $lte: new Date("2024-12-31") } });
 ```
 
-## Actualizar:
+## 5.3. Actualizar:
 
 Para actualizar documentos en una colección, se utiliza el método `updateOne()` o `updateMany()`.
 
@@ -604,7 +677,7 @@ En este caso, vamos a ver su ejecución, donde veremos incluso que al cambiar el
     <img src="../img/MongoDB/MongoDB20.png" alt="MongoDB" width="50%" />
 </div>
 
-## Eliminar:
+## 5.4. Eliminar:
 
 Para eliminar documentos de una colección, se utiliza el método `deleteOne()` o `deleteMany()`.
 
@@ -655,13 +728,13 @@ Nos borrará **todos** los documentos de la colección.
 > db.usuarios.deleteMany({});   //correcto: json vacío
 > ```
 
-# Diseño de modelado de bases de datos. `schemaless`
+# 6. Diseño de modelado de bases de datos. ***schemaless***
 
-## Concepto de `schemaless`
+## 6.1. Concepto de ***schemaless***
 
-El término `schemaless` (sin esquema) se refiere a la capacidad de una base de datos para manejar datos sin una estructura fija predefinida. En el contexto de *MongoDB*, esto significa que no estás obligado a definir un esquema estricto para tus datos antes de comenzar a almacenarlos. En lugar de eso, los datos se almacenan en documentos BSON (Binary JSON), y estos documentos pueden tener una estructura flexible y pueden variar de un documento a otro dentro de la misma colección.
+El término ***schemaless*** (sin esquema) se refiere a la capacidad de una base de datos para manejar datos sin una estructura fija predefinida. En el contexto de *MongoDB*, esto significa que no estás obligado a definir un esquema estricto para tus datos antes de comenzar a almacenarlos. En lugar de eso, los datos se almacenan en documentos BSON (Binary JSON), y estos documentos pueden tener una estructura flexible y pueden variar de un documento a otro dentro de la misma colección.
 
-A continuación, profundicemos en algunos aspectos clave del concepto de schemaless en MongoDB:
+A continuación, profundicemos en algunos aspectos clave del concepto de *schemaless* en MongoDB:
 
 - **Flexibilidad de estructura**: Los documentos en MongoDB pueden contener diferentes campos y tipos de datos. No es necesario que todos los documentos en una colección tengan la misma estructura. Esto permite adaptarse fácilmente a cambios en los requisitos de la aplicación sin tener que modificar un esquema centralizado.
 
@@ -673,13 +746,13 @@ A continuación, profundicemos en algunos aspectos clave del concepto de schemal
 
 -  **Agilidad en el desarrollo**: La falta de un esquema fijo permite una mayor agilidad en el desarrollo de aplicaciones, ya que puedes iterar rápidamente y ajustar el modelo de datos según sea necesario sin tener que preocuparte por actualizar un esquema centralizado.
 
--  **Rendimiento**: La flexibilidad del modelo de datos schemaless puede traducirse en un mejor rendimiento en ciertos casos, ya que elimina la necesidad de realizar un join de datos dispersos en múltiples tablas, como suele ocurrir en bases de datos relacionales.
+-  **Rendimiento**: La flexibilidad del modelo de datos *schemaless* puede traducirse en un mejor rendimiento en ciertos casos, ya que elimina la necesidad de realizar un join de datos dispersos en múltiples tablas, como suele ocurrir en bases de datos relacionales.
 
-A pesar de las ventajas de un modelo de datos schemaless, es importante tener en cuenta que esto también puede presentar **desafíos**, especialmente en términos de **mantener la coherencia y la integridad de los datos**. Por lo tanto, es crucial diseñar cuidadosamente la base de datos y utilizar prácticas como la validación de datos y la indexación adecuada para garantizar un rendimiento óptimo y la integridad de los datos en aplicaciones MongoDB.
+A pesar de las ventajas de un modelo de datos *schemaless*, es importante tener en cuenta que esto también puede presentar **desafíos**, especialmente en términos de **mantener la coherencia y la integridad de los datos**. Por lo tanto, es crucial diseñar cuidadosamente la base de datos y utilizar prácticas como la validación de datos y la indexación adecuada para garantizar un rendimiento óptimo y la integridad de los datos en aplicaciones MongoDB.
 
 Observar la diferencia que tenemos en el diseño de la bases de datos relacionales con las NoSQL como lo vimos anteriormente
 
-## Documentos embebidos
+## 6.2. Documentos embebidos
 
 El concepto de embebido hace referencia a guardar una *‘cosa’* dentro de otra *‘cosa’*. En este caso, guardar un documento JSON dentro de
 otro como valor de una de sus propiedades.
@@ -734,7 +807,7 @@ Por ejemplo, supongamos que tenemos una colección que guarda datos sobre cursos
 ```
 
 
-## Documentos referenciados
+## 6.3. Documentos referenciados
 
 El concepto ***referenciado***  a diferencia de los documentos embebidos, en un documento JSON se guarda solo el valor de una o varias propiedades, en lugar del documento completo.
 
@@ -772,7 +845,7 @@ Mientras que en los **documentos referenciados**
   - Al recuperar un curso, habrá que consultar los identificadores que relacionan a los documentos en otras colecciones y hacer consultas adicionales para obtener la información relacionada.
 
 
-Entonces **¿Qué diseño elegir?**
+Entonces ***¿Qué diseño elegir?***
 
 Dependerá de:
 - Cómo se quiere almacenar la información.
@@ -781,11 +854,11 @@ Dependerá de:
 
 
 
-# Herramientas visuales para interactuar con MongoDB 
+# 7. Herramientas visuales para interactuar con MongoDB 
 
 Hemos visto cómo interactuar con MongoDB desde la consola que nos ofrece la base de datos, pero para interactuar de una forma más flexible e intuitiva existen herramientas visuales que nos facilitan el trabajo diario con MongoDB
 
-## MongoDB Compass
+## 7.1. MongoDB Compass
 
 Una de ellas es MongoDB Compass, que facilita la exploración y manipulación de los datos. De una manera flexible e intuitiva, Compass ofrece visualizaciones detalladas de los esquemas, métricas de rendimiento en tiempo real así como herramientas para la creación de consultas.
 
@@ -793,7 +866,7 @@ Existen tres versiones de Compass, una completa con todas las características, 
 
 Enlace a la documentación oficial de MongoDB Compass: [What is MongoDB Compass?](https://www.mongodb.com/docs/compass/current/)
 
-### Instalación
+### 7.1.1. Instalación
 
 Siguiendo los pasos ofrecidos por la propia web de MongoDB, para la instalación de MongoDB Compass en Ubuntu seguimos los siguientes pasos:
 
@@ -814,7 +887,7 @@ Si hacemos caso a lo que nos dicen en la guía, directamente instalamos la últi
     <img src="../img/MongoDB/MongoDB21.png" alt="MongoDB" width="50%" />
 </div>
 
-## Tabajando con MongoDB Compass
+### 7.1.2. Tabajando con MongoDB Compass
 
 Al iniciar la aplicación, la primera vez nos ofrece conectarnos a la base de datos local. También nos podemos conectar a una base de datos remota e incluso a [Mongo Atlas](https://www.mongodb.com/es/atlas), que como se comentó es la base de datos que ofrece MongoDB en la nube.
 
@@ -845,7 +918,7 @@ En la imagen:
 4. Tenemos un histórico de todas las búsquedas realizadas
 
 
-## MongoDB for VSCode
+## 7.2. MongoDB for VSCode
 
 También podemos utilizar la extensión que lleva VSCode para trabajar con MongoDB.
 
@@ -877,7 +950,7 @@ Una vez conectados, podremos recorrer las colecciones con los datos así como ut
 Realmente, esta extensión este pensada para trabajar con opciones avanzadas, como crear índices, generar código en lenguajes como *javascript*, *python* o cualquier otro para realizar todo tipo de operaciones en MongoDB, o crear variables con datos y estos utilizarlos en nuestras operaciones. Para más información en la web de la extension: [MongoDB for VS Code. MongoDB Without Leaving Your IDE](https://www.mongodb.com/products/tools/vs-code)
 
 
-# Operaciones con datos: Consultas
+# 8. Operaciones con datos: Consultas
 
 Ahora que ya tenemos más herramientas y hemos visto las operaciones básicas de MongoDB vamos a profundizar sobre las consultas de los datos, aunque ya las hemos visto brevemente con anterioridad.
 
