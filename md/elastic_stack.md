@@ -779,7 +779,7 @@ sudo nano /etc/elasticsearch/elasticsearch.yml
 ```
 e incluyendo las línea: 
 
-```json
+```js
 action.auto_create_index: .monitoring*,.watches,.triggered_watches,.watcher-history*,.ml*
 network.host: 0.0.0.0
 ```
@@ -825,7 +825,7 @@ sudo nano /etc/kibana/kibana.yml
 ```
 y de nuevo 
 
-```json
+```js
 server.host: "0.0.0.0"
 ```
 y después habilitamos e iniciamos el servicio (o lo reiniciamos si ya esta activo)

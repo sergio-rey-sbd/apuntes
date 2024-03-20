@@ -277,7 +277,7 @@ En una base de datos documental, la noción de esquema es dinámico: cada docume
 
 Perfectamente podemos tener dos documentos que pertenecen a la misma colección, pero con atributos diferentes. Por ejemplo, un primer documento puede ser el siguiente:
 
-```json
+```js
 {   
     "_id": "BW001",   
     "nombre": "Bruce",   
@@ -289,7 +289,7 @@ Perfectamente podemos tener dos documentos que pertenecen a la misma colección,
 
 Mientras que un segundo documento dentro de la misma colección podría ser:
 
-```json
+```js
 {
     "_id": "JK1",   
     "nombre": "Joker",   
@@ -473,7 +473,7 @@ Una **columna** consiste en un pareja `name`\-`value`, donde el nombre hace de c
 
 Un ejemplo de columna podría ser:
 
-```json
+```js
 {
     name: "nombre",   
     value: "Bruce",   
@@ -483,7 +483,7 @@ Un ejemplo de columna podría ser:
 
 Una fila es una colección de columnas agrupadas a una clave.
 
-```json
+```js
 {
     {         
         name: "nombre",         
@@ -505,7 +505,7 @@ Una fila es una colección de columnas agrupadas a una clave.
 
 Si agrupamos filas similares tendremos una **familia de columnas** (similar al concepto de tabla):
 
-```json
+```js
 // familia de columnas 
 {   
     // fila   
@@ -529,7 +529,7 @@ Con este ejemplo, podemos ver como las diferentes filas de la misma tabla (famil
 
 Además, las columnas se pueden anidar dentro de otras formando **super-columnas**, donde el valor es un nuevo mapa de columnas.
 
-```json
+```js
 {
     name: "libro:978-84-16152-08-7",   
     value: 
@@ -612,7 +612,7 @@ Una vez tenemos creado un grafo de nodos y relaciones, podemos consultar el graf
 
 Un ejemplo de _traversing_ mediante _Neo4J_ sería:
 
-```
+```js
 Node ajedrez = nodeIndex.get("name", "chess").getSingle();
 allRelationships = ajedrez.getRelationships(Direction.INCOMING);
 ```

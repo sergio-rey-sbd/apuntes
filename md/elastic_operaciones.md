@@ -56,22 +56,25 @@ Nosotros para comenzar a conocer las operaciones o posibilidades de elasticserac
 ## 1.1. Operaciones básicas
 
 - **Creación de un índice con `PUT`**
+
 ```php
 PUT mi_indice
 ```
 
 - **Eliminar un índice con `DELETE`**
-```json
+
+```js
 DELETE mi_indice
 ```
 
 - **Creación de un índice con `POST`**
-```json
+
+```js
 POST mi_indice/_doc
 {
-    "Nombre": "Julian",
-    "Apellido": "Juli Joli",
-    "Edad": 25
+  "Nombre": "Julian",
+  "Apellido": "Juli Joli",
+  "Edad": 25
 }
 ```
 La creación de un indice así como la inserción o actualización de documentos en el mismo se puede realizar mediante `PUT` o mediante `POST`. En los ejemplos anteriores, con `PUT` simplemente se crea un índice y con `POST` se introduce in documento en un índice, y en el caso de que el índice no exista, se crea.
@@ -81,7 +84,8 @@ La principal diferencia entre `PUT` y `POST` en Elasticsearch radica en cómo ma
 En todo caso, `PUT` se suele utilizar normalmente para la creación de índices y `POST` para la inserción y actualización de documentos.
 
 - **Consulta de los datos de un índice**
-```json
+
+```js
 GET mi_indice/_search
 ```
 Obtenemos todos los ***hits*** (registros) del índice. Posteriormente profundizaremos sobre esta opción que es la más potente de elastic
@@ -89,29 +93,32 @@ Obtenemos todos los ***hits*** (registros) del índice. Posteriormente profundiz
 
 
 - **Introducimos un documento con un índice concreto**
-```json
+
+```js
 POST mi_indice/_doc/1
 {
-    "Nombre": "Pedro",
-    "Apellido": "Pedrito Pedrete",
-    "Edad": 24
+  "Nombre": "Pedro",
+  "Apellido": "Pedrito Pedrete",
+  "Edad": 24
 }
 ```
 Asignamos un `id` específico a este documento
 
 - **Modificación de un documento por índice**
-```json
+
+```js
 POST mi_indice/_doc/1
 {
-    "Nombre": "Juan",
-    "Apellido": "Juanito Juante",
-    "Edad": 26
+  "Nombre": "Juan",
+  "Apellido": "Juanito Juante",
+  "Edad": 26
 }
 ```
 En este caso, machacamos el registro anterior con esta nuevo.
 
 - **Actualización mediante `_update`**
-```json
+
+```js
 POST mi_indice/_update/1
 {
   "doc" : 
@@ -122,7 +129,7 @@ POST mi_indice/_update/1
 ```
 Utilizando `_update` podemos actualizar un campo del documento, en este caso referenciado por un `id`
 
-```json
+```js
 POST mi_indice/_update/1
 {
   "doc" : 
@@ -134,7 +141,7 @@ POST mi_indice/_update/1
 Observar el resultado, añadimos un nuevo campo sobre el documento existente.
 
 - **Eliminar un documento concreto por `id`**
-```json
+```js
 DELETE mi_indice/_doc/1
 ```
 Eliminamos selectivamente el documento. Observar el `_doc`
@@ -145,7 +152,7 @@ Eliminamos selectivamente el documento. Observar el `_doc`
 
 Este método nos permite ingestar mas de un documento de una única vez
 
-```json
+```js
 POST mi_indice/_bulk
 {"index":{"_id":3}}
 {"Nombre":"Evaristo","Apellido":"Evarist Evaristate","Edad":16}
@@ -156,7 +163,7 @@ POST mi_indice/_bulk
 ```
 Introduce los tres registros simultáneamente. Observar que se especifica el `id` y que se omite el `_doc`
 
-```json
+```js
 POST mi_indice/_bulk
 {"index":{}}
 {"Nombre":"Lola","Apellido":"Lolita Loleira","Edad":20}
@@ -169,7 +176,7 @@ En este caso, se inserta, pero ahora el `id` se genera automáticamente.
 
 y esto que viene a continuación, también funciona:
 
-```json
+```js
 POST mi_indice/_bulk
 { "index":{"_id":10} }
 { "name":"john doe","age":25 }
@@ -182,7 +189,7 @@ Otros campos, y sin problemas
 
 Veamos el siguiente ejemplo, donde `_bulk` realiza varias operaciones de una única vez:
 
-```json
+```js
 POST mi_indice/_bulk
 { "index":{"_id":3}}
 { "Apellidos":"Evar Eviris","age":26}
@@ -220,7 +227,7 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_b
 
 Volvemos a la interfaz y si tecleamos 
 
-```json
+```js
 GET vehiculos_test/_search
 ```
 Obtendremos un resultado similar al siguiente, donde podemos ver que se ha creado un índice con más de 10000 registros, llamado *vehiculos_test", tal y como se especificaba en el fichero
@@ -242,19 +249,19 @@ En apartados anteriores hemos visto como la API `GET` también se puede utilizar
 A continuación, se presentan algunos ejemplos de cómo se puede utilizar el método GET en Elasticsearch:
 
 - **Recuperar un documento por su ID:**
-```json
+```js
 GET mi_indice/_doc/1
 ```
 Esta solicitud recupera un *hit* (documento) específico de un índice por su ID.
 
 - **Obtener información sobre un índice:**
-```json
+```js
 GET mi_indice
 ```
 Esta solicitud devuelve información sobre un índice específico, incluidos los mappings, la configuración y la cantidad de documentos.
 
 - **Realizar una búsqueda:**
-```json
+```js
 GET mi_indice/_search
 ```
 Esta solicitud realiza una búsqueda en un índice específico y devuelve los *hits* (documentos) que coinciden con los criterios de búsqueda especificados.
@@ -265,7 +272,7 @@ Observar el encabezado donde se muestran por ejemplo la cantidad de registro con
 
 Así, en el ejemplo del apartado anterior, al ejecutar la consulta del índice importado
 
-```json
+```js
 GET vehiculos_test/_search
 ```
 el resultado es el siguiente, donde indica que hay más de 10.000 *hits*, y cómo podemos ver en el resultado si lo ejecutamos, sólo nos muestra unos 10 *hits*, o sea, no los muestra todos. Esto se hace por cuestiones de optimización.
@@ -276,7 +283,7 @@ el resultado es el siguiente, donde indica que hay más de 10.000 *hits*, y cóm
 
 Si dentro de la búsqueda incluimos el siguiente JSON indicando `track_total_hits`, entonces nos indicará exactamente la cantidad de registros. Ahora Elastic se tomará su tiempo, para calcular la cantidad exacta de *hits*, cosa que antes no ha hecho 
 
-```json
+```js
 GET vehiculos_test/_search
 {
   "track_total_hits": true
@@ -294,20 +301,20 @@ En este caso, se obtienen 5000 *hits*, pero por contra se han utilizado 25ms par
 
 
 - **Obtener información sobre el cluster:**
-```json
+```js
 GET /_cluster/state
 ```
 Esta solicitud devuelve información sobre el estado actual del cluster, incluidos los nodos, los shards y la configuración.
 
 
 - **Obtener información sobre nodos individuales:**
-```json
+```js
 GET /_nodes
 ```
 Esta solicitud devuelve información sobre todos los nodos en el cluster, incluyendo estadísticas de uso de recursos y configuración.
 
 - **Obtener información sobre mappings de índice:**
-```json
+```js
 GET mi_indice/_mapping
 ```
 Esta solicitud devuelve el mapping de un índice específico, que describe la estructura de los documentos en el índice.
@@ -368,7 +375,7 @@ curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_b
 
 Una vez introducidos los datos, verificamos y revisamos su estructura:
 
-```json
+```js
 GET restaurantes/_search
 ```
 
@@ -383,7 +390,7 @@ El primer tipo de consulta que vamos a utilizar es el `match query`
 
 Así pues, al ejecutar la siguiente consulta para buscar "*Cocina Tradicional*", obtendremos los siguientes registros:
 
-```json
+```js
 GET restaurantes/_search
 {
   "size":50,
@@ -408,7 +415,7 @@ Esto es porque realmente ha hecho un ***or lógico*** entre *cocina* y *tradicio
 
 Si queremos afinar más la búsqueda y queremos exigir que existan los dos terminos, entonces necesitamos el ***operador lógico and*** de la siguiente manera
 
-```json
+```js
 GET restaurantes/_search
 {
   "size":50,
@@ -428,7 +435,7 @@ Otra forma de obligar a la consulta a un mínimo de coincidencia es mediante el 
 
 Veamos el ejemplo buscando "*cocina tradicional canaria*"
 
-```json
+```js
 GET restaurantes/_search
 {
   "query":{
@@ -470,7 +477,7 @@ Para **buscar frase** y no términos separados utilizamos el operados `match_phr
 
 Entonces, si buscamos el literal exacto
 
-```json
+```js
 GET restaurantes/_search
 {
   "query":{
@@ -489,7 +496,7 @@ De las misma forma que el `minimum_should_match` nos introducía una variación 
 
 O sea, con la siguiente búsqueda:
 
-```json
+```js
 GET restaurantes/_search
 {
   "query":{
@@ -513,7 +520,7 @@ Elastic permit el uso de **Date math** que es un lenguage *user fiendly* que nos
 
 Per ejemplo, la siguiente consulta:
 
-```json
+```js
 
 GET restaurantes/_search
 {
@@ -530,7 +537,7 @@ GET restaurantes/_search
 
 es similar a 
 
-```json
+```js
 GET restaurantes/_search
 {
   "query":{
@@ -547,7 +554,7 @@ Ejemplo de uso de **Date math** usando la fecha de hoy:
 
 - **Búsqueda de documentos desde la fecha de hoy hasta hace una semana:**
 
-```json
+```js
 {
   "query": {
     "range": {
@@ -564,7 +571,7 @@ Esto buscará documentos con un campo "fecha" dentro del rango de hace una seman
 
 - **Búsqueda de documentos desde el comienzo del mes actual hasta la fecha de hoy:**
 
-```json
+```js
 {
   "query": {
     "range": {
@@ -581,7 +588,7 @@ Esto buscará documentos con un campo "fecha" dentro del rango desde el primer d
 
 - **Búsqueda de documentos desde la fecha de hoy hasta hace tres meses:**
 
-```json
+```js
 {
   "query": {
     "range": {
@@ -623,7 +630,7 @@ Por ejemplo:
 
 Hacemos una búsqueda donde se encuentre el literal "*cocina*" o "*tradicional*" y además queremos aplicar un filtro para que nos muestre solo los resultados entre unas fechas dadas.
 
-```json
+```js
 GET restaurantes/_search
 {
   "query":{
@@ -654,7 +661,7 @@ Recordad que si cambiamos `match` por `match_phrase`, entonces exigiremos el lit
 
 En el siguiente ejemplo, buscamos un restaurante de precio *gourmet* donde puede ser que sirvan o **carne** o **pescado** o ninguna de las dos cosas;
 
-```json
+```js
 GET restaurantes/_search
 {
   "query":{
@@ -685,7 +692,7 @@ GET restaurantes/_search
 
 Si queremos que se cumpla alguna de las condiciones del parámetro `should`, debemos introducir el `minimun_should_match`, y ahora deberá cumplirse obligatoriamente la cantidad que se especifique.
 
-```json
+```js
 GET restaurantes/_search
 {
   "query":{
@@ -719,7 +726,7 @@ En este caso solo se obtiene un resultado, mientras que en el primero obtenemos 
 
 Realicemos una nueva búsqueda de un restaurante que abra los lunes, que sea cocina canaria o portuguesa
 
-```json
+```js
 GET restaurantes/_search
 {
   "query":{
@@ -806,7 +813,7 @@ Elasticsearch genera automáticamente el mapping de campos cuando se indexa un d
 
 Para ver el mapping generado por nuestro ejemplo de restaurantes:
 
-```json
+```js
 GET restaurantes/_mapping
 ```
 
@@ -821,7 +828,7 @@ El **mapeo explícito** implica definir manualmente el mapping de un índice ant
 Por ejemplo, para crear el mapping de nuestro índice de restaurantes, primero borramos el índice y después lo volvemos a crear. Comunmente lo que se hace es que se importa un conjuntos de datos, se obtienen el **mapeo dinámico** y a partir de este, se añaniza y optimiza generando un **mapeo explicito**
 
 
-```json
+```js
 DELETE restaurantes                 // primer borramos el índice existente
 
 PUT restaurantes
@@ -914,7 +921,7 @@ PUT restaurantes
 
 También podemos crear el índice y después añadir al mapping, la sintaxis cambia un poco
 
-```json
+```js
 DELETE restaurantes               // primer borramos el índice existente
 
 PUT restaurantes                  // creamos el índice
@@ -985,7 +992,7 @@ Para crear un analizador personalizado, se realizará dentro de la sección `set
 
 No vamos a profundizar mucho en el tema, pero un ejemplo sería el siguiente:
 
-```json
+```js
 PUT restaurantes
 {
   "settings": {
@@ -1015,7 +1022,7 @@ Visto que podemos definir un mapping especificando los datos de los campos que n
 
 Así pues, para la creación de un índice, podemos especificar las dos partes:
 
-```json
+```js
 PUT restaurantes
 {
   "settings": {

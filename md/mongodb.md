@@ -18,7 +18,7 @@ permalink: /mongodb/
 - [4. Primeros pasos con MongoDB](#4-primeros-pasos-con-mongodb)
   - [4.1. Trabajando con MongoDB desde la consola](#41-trabajando-con-mongodb-desde-la-consola)
   - [4.2. Creación y gestión de Bases de Datos](#42-creación-y-gestión-de-bases-de-datos)
-    - [4.2.1. Creacion : `use`](#421-creacion--use)
+    - [4.2.1. Creación : `use`](#421-creación--use)
     - [4.2.2. Eliminación de base de datos: `db.dropDatabase()`](#422-eliminación-de-base-de-datos-dbdropdatabase)
     - [4.2.3. MongoDB Database Tools](#423-mongodb-database-tools)
   - [4.3. Tipos de datos](#43-tipos-de-datos)
@@ -38,6 +38,12 @@ permalink: /mongodb/
     - [7.1.2. Tabajando con MongoDB Compass](#712-tabajando-con-mongodb-compass)
   - [7.2. MongoDB for VSCode](#72-mongodb-for-vscode)
 - [8. Operaciones con datos: Consultas](#8-operaciones-con-datos-consultas)
+  - [8.1. Operadores MongoDB](#81-operadores-mongodb)
+  - [8.2. Consultas. Ejemplos prácticos.](#82-consultas-ejemplos-prácticos)
+    - [8.2.1. Consultas básicas](#821-consultas-básicas)
+    - [8.2.2. Consultas con operadores lógicos](#822-consultas-con-operadores-lógicos)
+    - [8.2.3. Consultas con expresiones regulares](#823-consultas-con-expresiones-regulares)
+    - [8.2.4. Cursores](#824-cursores)
 
 
 # 1. Introducción
@@ -125,18 +131,18 @@ Repasemos el concepto de **JSON**: *JavaScript Object Notation*
     <img src="../img/MongoDB/MongoDB03.png" alt="MongoDB" width="70%" />
 </div>
 
-Mediante JavaScript podemos crear objetos que se representan con JSON. Internamente, MongoDB almacena los documentos mediante BSON (Binary JSON). Podemos consultar la especificación en http://BSONSpec.org
+Mediante JavaScript podemos crear objetos que se representan con JSON. Internamente, MongoDB almacena los documentos mediante BSON (Binary JSON). Podemos consultar la especificación en la [web oficial de BSON](http://BSONSpec.org) 
 
 **BSON** representa un superset de JSON ya que:
 
 - Permite almacenar datos en binario
 - Incluye un conjunto de tipos de datos no incluidos en JSON, como pueden ser ObjectId, Date o BinData.
 
-Podemos consultar todos los tipos que soporta un objeto BSON en http://docs.mongodb.org/manual/reference/bson-types/
+Podemos consultar todos los tipos que soporta un objeto BSON en (http://docs.mongodb.org/manual/reference/bson-types/)[http://docs.mongodb.org/manual/reference/bson-types/]
 
 Un ejemplo de un objeto BSON podría ser:
 
-```json
+```js
 var yo = {
   nombre: "Aitor",
   apellidos: "Medrano",
@@ -155,8 +161,8 @@ var yo = {
 Los documentos **BSON** tienen las siguientes restricciones:
 
 - No pueden tener un tamaño superior a 16 MB.
-- El atributo _id queda reservado para la clave primaria.
-- Desde MongoDB 5.0 los nombres de los campos pueden empezar por $ y/o contener el ., aunque en la medida de lo posible, es recomendable evitar su uso.
+- El atributo `_id` queda reservado para la clave primaria.
+- Desde MongoDB 5.0 los nombres de los campos pueden empezar por `$` y/o contener el `.`, aunque en la medida de lo posible, es recomendable evitar su uso.
 
 Además MongoDB:
 
@@ -166,7 +172,7 @@ Además MongoDB:
 
 Por lo que estos documentos son distintos:
 
-```json
+```js
 {"edad": "18"}
 {"edad": 18}
 {"Edad": 18}
@@ -258,7 +264,7 @@ mongod --version                                  # Comprobamos la versión
 
 > **Nota**: MongoDB también lo podemos instalar descargando el paquete .deb desde la web de MongoDB, pero suele dar mas problemas que con la instalación presentada
 
-Independientemente de nuestro sistema operativo, por defecto, el demonio se lanza sobre el puerto 27017. Una vez instalado, si accedemos a http://localhost:27017 podremos ver que nos indica cómo estamos intentando acceder mediante HTTP a MongoDB mediante el puerto reservado al driver nativo.
+Independientemente de nuestro sistema operativo, por defecto, el demonio se lanza sobre el puerto 27017. Una vez instalado, si accedemos a (http://localhost:27017)[http://localhost:27017] podremos ver que nos indica cómo estamos intentando acceder mediante HTTP a MongoDB mediante el puerto reservado al driver nativo.
 
 <div align="center">
     <img src="../img/MongoDB/MongoDB06.png" alt="MongoDB" width="50%" />
@@ -267,8 +273,6 @@ Independientemente de nuestro sistema operativo, por defecto, el demonio se lanz
 En vez de instalarlo como un servicio en nuestra máquina, a día de hoy, es mucho más cómodo hacer uso de contenedores Docker o utilizar una solución cloud, aunque nosotros por simplicidad, de momento, realizaremos una instalación tradicional.
 
 Al versión de **Mongo Atlas** nos ofrece de manera gratuita un cluster compartido de servidores con 3 nodos y 512 MB para datos. Si queremos una solución serverless o un servidor dedicado, ya tendremos que pasar por caja.
-
-Password de mi cuenta: 3xC9L1Lkr9GxPm5c
 
 # 4. Primeros pasos con MongoDB
 
@@ -287,22 +291,22 @@ mongosh
 
 Algunas de las operaciones básicas que podemos realizar son : 
 
-- Salir de la consola (quit() o pulsando Ctrl+C)
+- Salir de la consola (`quit()` o pulsando Ctrl+C)
 - Limpiar la consola (Ctrl+L)
-- Listar las bases de datos (show dbs)
-- Cambiarse de base de datos (use <dbname>)
-- Listar las colecciones de una base de datos (show collections / show tables)
+- Listar las bases de datos (`show dbs`)
+- Cambiarse de base de datos (`use <dbname>`)
+- Listar las colecciones de una base de datos (`show collections` / `show tables`)
 
 <div align="center">
     <img src="../img/MongoDB/MongoDB11.png" alt="MongoDB" width="50%" />
 </div>
 
-- Mostrar el nombre de la base de datos (db.getName() o db)
-- Listar metadata sobre una base de datos (db.stats())
-- Solicitar ayuda sobre comandos (db.help())
-- Mostrar información sobre el servidor (db.hostInfo())
-- Mostrar fecha y hora del sistema (Date())
-- Dar formato JSON (db.<collectionName>.find().pretty())
+- Mostrar el nombre de la base de datos (`db.getName()` o `db`)
+- Listar metadata sobre una base de datos (`db.stats()`)
+- Solicitar ayuda sobre comandos (`db.help()`)
+- Mostrar información sobre el servidor (`db.hostInfo()`)
+- Mostrar fecha y hora del sistema (`Date()`)
+- Dar formato JSON (`db.<collectionName>.find().pretty()`)
 
 <div align="center">
     <img src="../img/MongoDB/MongoDB12.png" alt="MongoDB" width="50%" />
@@ -322,7 +326,7 @@ Observa también que hay un diferencia entre invocar la función con los parént
 
 ## 4.2. Creación y gestión de Bases de Datos
 
-### 4.2.1. Creacion : `use`
+### 4.2.1. Creación : `use`
 
 El comando para crear una base de datos es el mismo que visto anteriormente para cambiar de base de datos: `use`
 
@@ -340,7 +344,7 @@ Por otra parte, para la creación de una colección e inclusión de un documento
 
 Más adelante ya veremos con más detenimiento las diferentes forma de insertar registro en un tabla (colección), de momento hemos usando el comando:
 
-```
+```js
 db.primeraColeccion.insertOne({ id: 1, nombre: 'sergio' })
 ```
 
@@ -348,7 +352,7 @@ db.primeraColeccion.insertOne({ id: 1, nombre: 'sergio' })
 
 Para eliminar una base de datos, en primer lugar debemos estar ubicados dentro de la propia base de datos a eliminar y ahí ejecutamos el comando 
 
-```
+```js
 db.dropDatabase()
 ```
 
@@ -424,7 +428,7 @@ Es importante destacar que en MongoDB, los datos binarios y las expresiones regu
 
 Aquí tienes un ejemplo de cómo se podría representar un documento en MongoDB utilizando algunos de estos tipos de datos:
 
-```json
+```js
 {
   "_id": ObjectId("61e4c3055b17967d02a9c3d7"),
   "nombre": "Juan",
@@ -954,6 +958,11 @@ Realmente, esta extensión este pensada para trabajar con opciones avanzadas, co
 
 Ahora que ya tenemos más herramientas y hemos visto las operaciones básicas de MongoDB vamos a profundizar sobre las consultas de los datos, aunque ya las hemos visto brevemente con anterioridad.
 
+Aprovechamos para introducir una base de datos con una colección con datos de prueba. En el siguiente [enlace](https://www.w3resource.com/mongodb-exercises/mongodb-sample-dataset/sample_mflix/movies.zip) tenemos una base de datos de películas que podemos introducir en MongoDB por ejemplo usando en MongoDB Compass. Para ello creamos una base de datos llamada **consultas** e importamos el fichero descargado.
+
+Ejemplos extraidos de [aqui](https://www.w3resource.com/mongodb-exercises/mongodb-movies-collection-index.php)
+
+
 El comando básico es `.find()`
 
 ```js
@@ -961,3 +970,287 @@ db.collection.find()            // devuelve todos los documentos
 db.collection.find(<filter>)    // devuelve los documentos que cumplen el filtro
 ```
 
+## 8.1. Operadores MongoDB
+
+Antes de continuar, en la siguiente tabla esta el listado de los principales operadores utilizados en consultas MongoDB para la construcción de los filtros:
+
+| Operador    | Descripción                                  | Ejemplo                                   |
+|-------------|----------------------------------------------|-------------------------------------------|
+| `$eq`       | Igualdad                                     | `db.collection.find({campo: {$eq: valor}})` |
+| `$ne`       | No igual                                     | `db.collection.find({campo: {$ne: valor}})` |
+| `$gt`       | Mayor que                                    | `db.collection.find({campo: {$gt: valor}})` |
+| `$gte`      | Mayor o igual que                            | `db.collection.find({campo: {$gte: valor}})` |
+| `$lt`       | Menor que                                    | `db.collection.find({campo: {$lt: valor}})` |
+| `$lte`      | Menor o igual que                            | `db.collection.find({campo: {$lte: valor}})` |
+| `$in`       | Igual a cualquiera de los valores en un array | `db.collection.find({campo: {$in: [valor1, valor2]}})` |
+| `$nin`      | No igual a ninguno de los valores en un array| `db.collection.find({campo: {$nin: [valor1, valor2]}})` |
+| `$exists`   | Verifica si el campo existe                 | `db.collection.find({campo: {$exists: true/false}})` |
+| `$type`     | Verifica el tipo de datos del campo         | `db.collection.find({campo: {$type: tipo}})` |
+| `$regex`    | Realiza una búsqueda de expresión regular   | `db.collection.find({campo: {$regex: /patrón/}})` |
+| `$or`       | Realiza una disyunción lógica               | `db.collection.find({$or: [{condición1}, {condición2}]})` |
+| `$and`      | Realiza una conjunción lógica               | `db.collection.find({$and: [{condición1}, {condición2}]})` |
+| `$not`      | Niega una expresión                          | `db.collection.find({campo: {$not: {condición}}})` |
+| `$nor`      | Realiza una disyunción negada               | `db.collection.find({$nor: [{condición1}, {condición2}]})` |
+
+Estos operadores son fundamentales para realizar consultas avanzadas en MongoDB, permitiendo filtrar y buscar documentos en función de diferentes criterios. Puedes combinar estos operadores para construir consultas complejas y poderosas que se adapten a tus necesidades específicas.
+
+## 8.2. Consultas. Ejemplos prácticos.
+
+Utilizando la tabla de *movies* vamos a realizar algunas consultas que servirán para ilustrar los aspectos más interesantes de las búsquedas en MongoDB. 
+
+Veamos en primer lugar un registro tipo
+
+```js
+{
+  "_id": {
+    "$oid": "573a1390f29313caabcd4135"
+  },
+  "plot": "Three men hammer on an anvil and pass a bottle of beer around.",
+  "genres": [
+    "Short"
+  ],
+  "runtime": 1,
+  "cast": [
+    "Charles Kayser",
+    "John Ott"
+  ],
+  "num_mflix_comments": 1,
+  "title": "Blacksmith Scene",
+  "fullplot": "A stationary camera looks at a large anvil with a blacksmith behind it and one on either side. The smith in the middle draws a heated metal rod from the fire, places it on the anvil, and all three begin a rhythmic hammering. After several blows, the metal goes back in the fire. One smith pulls out a bottle of beer, and they each take a swig. Then, out comes the glowing metal and the hammering resumes.",
+  "countries": [
+    "USA"
+  ],
+  "released": {
+    "$date": {
+      "$numberLong": "-2418768000000"
+    }
+  },
+  "directors": [
+    "William K.L. Dickson"
+  ],
+  "rated": "UNRATED",
+  "awards": {
+    "wins": 1,
+    "nominations": 0,
+    "text": "1 win."
+  },
+  "lastupdated": "2015-08-26 00:03:50.133000000",
+  "year": 1893,
+  "imdb": {
+    "rating": 6.2,
+    "votes": 1189,
+    "id": 5
+  },
+  "type": "movie",
+  "tomatoes": {
+    "viewer": {
+      "rating": 3,
+      "numReviews": 184,
+      "meter": 32
+    },
+    "lastUpdated": {
+      "$date": "2015-06-28T18:34:09Z"
+    }
+  }
+}
+```
+
+Comenzamos con consultas sencillas y vamos incrementando el nivel.
+
+### 8.2.1. Consultas básicas
+
+- Obtener películas lanzadas en el año 1983:
+
+```js
+db.movies.find({ year: 1893 })
+``` 
+
+- Buscar películas de genero "corto" (genres = short)
+
+```js
+db.movies.find({ "genres": "Short" })
+```
+
+### 8.2.2. Consultas con operadores lógicos 
+
+- Buscar películas de duración (runtime) superior a 120 minutos
+
+```js
+db.movies.find({ "runtime": { $gt: 120 } })
+```
+
+- Buscar películas cuya duración se encuentre entre 90 y 100 minutos ambos incluidos
+
+```js
+db.movies.find({ "runtime": { $gte: 90, $lte: 100} })
+```
+
+- Buscar películas que no tengan puntuación (UNRATED) y que duren más de 100 minutos. En este caso, podemos utilizar `$and` de forma implícita añadiendo la condición con un array o explicita si poner nada más que los campos que deben cumplirse
+
+```js
+db.movies.find({ rated: "UNRATED", runtime: { $gt: 100} })
+
+db.Movies.find({ 
+    $and: [ 
+        { rated: "UNRATED"}, 
+        { runtime: { $gt: 100}} 
+    ]
+})
+```
+
+A partir de esta el `$or` es similar.
+
+> Nota: podemos utilizar `.count()` al final para hacer recuento y verificar que el resultado de las dos consultas anteriores son iguales.
+
+- Buscar las películas que han recibido algún premio: En este caso debe existir la propiedad *awards*:
+
+```js
+db.movies.find({
+  "awards": { $exists: true }
+})
+```
+
+- Buscar las películas que han sido nominadas y mostrar solo el titulo, directores y año. En este caso como novedad seleccionamos solo unos campos
+
+```js
+db.movies.find({
+    "awards.nominations": { $gt: 0 }
+  }, {
+    "title": 1,
+    "directors": 1,
+    "year": 1
+  })
+```
+
+
+- Buscar películas lanzadas en una fecha determinada:
+
+```js
+db.movies.find({
+    released: ISODate("1893-05-09T00:00:00.000Z")
+    }, {
+    title: 1,
+    languages: 1,
+    released: 1,
+    directors: 1,
+    writers: 1,
+    countries: 1
+}
+)
+
+### Consultas sobre objetos anidados
+
+- Buscar películas que han recibido más de 1000 votos en IMDb
+
+```js
+db.movies.find({ "imdb.votes": { $gt: 1000 } })
+```
+
+- Buscar películas que tienen una puntuación IMDb superior a 7
+
+```js
+db.movies.find({ "imdb.rating": { $gt: 7 } })
+```
+
+- Buscar las películas donde ha intervenido el actor "Charles Kayser", pero mostrar solo titulo, fecha de lanzamiento, idioma, director y premios ganados
+```js
+db.movies.find({
+    "cast": "Charles Kayser"
+    }, {
+    "title": 1,
+    "released": 1,
+    "languages": 1,
+    "directors": 1,
+    "awards.wins": 1,
+})
+```
+
+- Buscar películas con una puntuación entre 3 y 4 en el rating de viewer en tomatoes. Mostrar solo algunos campos por simplicidad
+
+```js
+db.movies.find(
+    { 'tomatoes.viewer.rating': { $gte: 3, $lt: 4 } },
+    { title: 1, languages: 1, released: 1, directors: 1, 'tomatoes.viewer': 1, writers: 1, countries: 1 }
+)
+```
+
+### 8.2.3. Consultas con expresiones regulares
+
+Si queremos realizar consultas sobre partes de un campo de texto, hemos de emplear expresiones regulares. Para ello, tenemos el operador `$regexp` o, de manera más sencilla, indicando como valor la expresión regular a cumplir:
+
+- Buscar todas las películas (titulo, lenguaje, lanzamiento, directores y guionistas) que tenga el literal "scene" en el titulo
+
+```js
+db.movies.find(
+    { title: { $regex: /scene/i } },
+    { title: 1, languages: 1, released: 1, directors: 1, writers: 1, countries: 1 }
+)
+```
+
+equivale a 
+
+```js
+db.movies.find(
+    { title: /scene/i },
+    { title: 1, languages: 1, released: 1, directors: 1, writers: 1, countries: 1 }
+)
+```
+
+- Buscar películas que tengan en su sinopsis (fullplot) la palabra "fire", sean anteriores al 1980 y que sean del genero "Shorts"
+
+```js
+db.movies.find({
+    fullplot: { $regex: /fire/i },
+    year: { $lt: 1900 },
+    genres: "Short"
+    }, 
+    { title: 1, year: 1, languages: 1, fullplot: 1, released: 1, directors: 1, writers: 1, countries: 1 }
+)
+```
+
+### 8.2.4. Cursores
+
+Cursores
+
+Al hacer una consulta en el shell se devuelve un cursor. Este cursor lo podemos guardar en un variable, y partir de ahí trabajar con él como haríamos mediante cualquier lenguaje de programación. Si `cur` es la variable que referencia al cursor, podremos utilizar los siguientes métodos:
+
+
+| Método | Uso | Lugar de ejecución |
+| --- | --- |
+| `cur.hasNext()` | true/false para saber si quedan elementos | Cliente
+| `cur.next()` | Pasa al siguiente documento | Cliente |
+| `cur.limit(*cantidad*)` | Restringe el número de resultados a cantidad | Servidor |
+| `cur.sort({*campo*:1})` | Ordena los datos por campo: 1 ascendente o -1 o descendente | Servidor |
+| `cur.skip(*cantidad*)` | Permite saltar cantidad elementos con el cursor | Servidor |
+| `cur.count()` | Obtiene la cantidad de documentos | Servidor |
+
+Como tras realizar una consulta con `find` realmente se devuelve un cursor, un uso muy habitual es encadenar una operación de `find` con `sort` y/o `limit` y/o `count` para ordenar el resultado por uno o más campos y posteriormente limitar el número de documentos a devolver o simplemente contar.
+
+
+- Listado de las 5 mejores películas según la puntuación "imdb"
+
+```js
+db.movies.find({}, {
+    title: 1,
+    imdb: 1
+}).sort({ imdb: 1 }).limit(5)
+```
+
+Mejoramos el resultado anterior y le quitamos los valores vacios en la puntuación:
+
+```js
+db.movies.find({ "imdb.rating": {"$ne": ""}}, {
+    title: 1,
+    imdb: 1
+}).sort({ imdb: -1 }).limit(5)
+```
+
+- Buscar la cantidad películas que tengan en su sinopsis (fullplot) la palabra "fire", sean anteriores al 1980 y que sean del genero "Shorts"
+
+```js
+db.movies.find({
+    fullplot: { $regex: /fire/i },
+    year: { $lt: 1900 },
+    genres: "Short"
+}).count()
+```
