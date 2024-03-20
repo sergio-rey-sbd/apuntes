@@ -68,7 +68,7 @@ Si nos basamos en el acrónimo, el término da la sensación que se refiere a cu
 
 Es decir, más que sustitutos de los sistemas relacionales, las soluciones **NoSQL** se plantean como alternativas y complementarias a los sistemas gestores de bases de datos relacionales.
 
-> **ACID**
+> **ACID** 
 > Las bases de datos relacionales cumplen las características ACID para ofrecer transaccionalidad sobre los datos:
 > - **A**tomicidad: las transacciones implican que se realizan todas las operaciones o no se realiza ninguna.
 > - **C**onsistencia: la base de datos asegura que los datos pasan de un estado válido o otro también.
@@ -129,9 +129,6 @@ El particionado no es único de las bases de datos NoSQL. Las bases de datos rel
     <img src="../img/NoSQL/NoSQL03.png" alt="NoSQL" width="70%" />
 </div>
 
-
-Particionado de los datos - digitalocean.com
-
 En el caso de las bases de datos NoSQL, el particionado depende del modelo de la base de datos:
 
 - Los almacenes clave-valor y las bases de datos documentales normalmente se particionan horizontalmente.
@@ -159,8 +156,6 @@ El particionado se realiza mediante un método consistente, como puede ser:
     <img src="../img/NoSQL/NoSQL04.png" alt="NoSQL" width="70%" />
 </div>
     
-    Particionado por rango - digitalocean.com
-    
 - Por **listas**: dividiendo los datos por la categoría del dato, es decir, en el caso de datos sobre libros, las novelas en una partición, las recetas de cocina en otra, etc..
     
 - Mediante un función **_hash_**, la cual devuelve un valor para un elemento que determine a qué partición pertenece.
@@ -169,16 +164,14 @@ El particionado se realiza mediante un método consistente, como puede ser:
     <img src="../img/NoSQL/NoSQL05.png" alt="NoSQL" width="70%" />
 </div>
     
-    Particionado por hash - digitalocean.com
-    
 
 ### 2.3.2. Cuando particionar
 
 El motivo para particionar los datos se debe a:
 
-- limitaciones de almacenamiento: los datos no caben en un único servidor, tanto a nivel de disco como de memoria RAM.
-- rendimiento: al balancear la carga entre particiones las escrituras serán más rápidas que al centrarlas en un único servidor.
-- disponibilidad: si un servidor esta ocupado, otro servidor puede devolver los datos. La carga de los servidores se reduce.
+- **limitaciones de almacenamiento**: los datos no caben en un único servidor, tanto a nivel de disco como de memoria RAM.
+- **rendimiento**: al balancear la carga entre particiones las escrituras serán más rápidas que al centrarlas en un único servidor.
+- **disponibilidad**: si un servidor esta ocupado, otro servidor puede devolver los datos. La carga de los servidores se reduce.
 
 No particionaremos los datos cuando la cantidad sea pequeña, ya que el hecho de distribuir los datos conlleva unos costes que pueden no compensar con un volumen de datos insuficiente. Tampoco esperaremos a particionar cuando tengamos muchísimos datos, ya que el proceso de particionado puede provocar sobrecarga del sistema.
 
@@ -188,7 +181,7 @@ Los desarrolladores ya no necesitamos construir plataformas complejas para nuest
 
 ## 2.4. Replicación
 
-La replicación mantiene copias idénticas de los datos en múltiples servidores, lo que facilita que las aplicaciones siempre funcionen y los datos se mantengan seguros, incluso si alguno de los servidores sufre algún problema.
+La **replicación** mantiene **copias idénticas** de los datos en múltiples servidores, lo que facilita que las aplicaciones siempre funcionen y los datos se mantengan seguros, incluso si alguno de los servidores sufre algún problema.
 
 La mayoría de las bases de datos NoSQL también soportan la replicación automática, lo que implica una alta disponibilidad y recuperación frente a desastres sin la necesidad de aplicaciones de terceros encargadas de ello. Desde el punto de vista del desarrollador, el entorno de almacenamiento es virtual y ajeno al código de aplicación.
 
@@ -202,7 +195,6 @@ Todas las escrituras se realizan en el nodo principal y después se replican a l
     <img src="../img/NoSQL/NoSQL06.jpg" alt="NoSQL" width="60%" />
 </div>
 
-Replicación primario-secundario
 
 ### 2.4.2. Peer-to-Peer 
 
@@ -233,11 +225,11 @@ Elegir la base de datos correcta para el proyecto es un tema importante. Se debe
 
 Así pues, al elegir un base de datos hemos de tener en cuenta las siguientes dimensiones:
 
-- modelo de datos: A elegir entre un modelo documental, basado en columnas, de grafos o mediante clave-valor.
-- modelo de consultas: Dependiendo de la aplicación, puede ser aceptable un modelo de consultas que sólo accede a los registros por su clave primaria. En cambio, otras aplicaciones pueden necesitar consultar por diferentes valores de cada registro. Además, si la aplicación necesita modificar los registros, la base de datos necesita consultar los datos por un índice secundario.
-- modelo de consistencia: Los sistemas NoSQL normalmente mantienen múltiples copias de los datos para ofrecer disponibilidad y escalabilidad al sistema, lo que define la consistencia del mismo. Los sistemas NoSQL tienden a ser consistentes o eventualmente consistentes.
-- APIs: No existe un estándar para interactuar con los sistemas NoSQL. Cada sistema presenta diferentes diseños y capacidades para los equipos de desarrollo. La madurez de un API puede suponer una inversión en tiempo y dinero a la hora de desarrollar y mantener el sistema NoSQL.
-- soporte comercial y de la comunidad: Los usuarios deben considerar la salud de la compañía o de los proyectos al evaluar una base de datos. El producto debe evolucionar y mantenerse para introducir nuevas prestaciones y corregir fallos. Una base de datos con una comunidad fuerte de usuarios:
+- **modelo de datos**: A elegir entre un modelo documental, basado en columnas, de grafos o mediante clave-valor.
+- **modelo de consultas**: Dependiendo de la aplicación, puede ser aceptable un modelo de consultas que sólo accede a los registros por su clave primaria. En cambio, otras aplicaciones pueden necesitar consultar por diferentes valores de cada registro. Además, si la aplicación necesita modificar los registros, la base de datos necesita consultar los datos por un índice secundario.
+- **modelo de consistencia**: Los sistemas NoSQL normalmente mantienen múltiples copias de los datos para ofrecer disponibilidad y escalabilidad al sistema, lo que define la consistencia del mismo. Los sistemas NoSQL tienden a ser consistentes o eventualmente consistentes.
+- **APIs**: No existe un estándar para interactuar con los sistemas NoSQL. Cada sistema presenta diferentes diseños y capacidades para los equipos de desarrollo. La madurez de un API puede suponer una inversión en tiempo y dinero a la hora de desarrollar y mantener el sistema NoSQL.
+- **soporte comercial y de la comunidad**: Los usuarios deben considerar la salud de la compañía o de los proyectos al evaluar una base de datos. El producto debe evolucionar y mantenerse para introducir nuevas prestaciones y corregir fallos. Una base de datos con una comunidad fuerte de usuarios:
     
     - permite encontrar y contratar desarrolladores con destrezas en el producto.
     - facilita encontrar información, documentación y ejemplos de código.
@@ -308,14 +300,12 @@ Mientras que un segundo documento dentro de la misma colección podría ser:
 }
 ```
 Donde 
-  1.  Un objeto o subdocumento permite agrupar información similar a una relación 1:1 de un modelo relacional. De esta manera, no necesitamos una tabla `Direccion`.
-  2.  Un array puede contener valores o documentos, de manera que podríamos tener un array de documentos, permitiendo agrupar información similar a una relación 1:N de un modelo relacional. De esta manera, no necesitamos una tabla `Proyectos`.
+  1.  Un objeto o subdocumento permite agrupar información similar a una relación ***1:1*** de un modelo relacional. De esta manera, no necesitamos una tabla `Direccion`.
+  2.  Un array puede contener valores o documentos, de manera que podríamos tener un array de documentos, permitiendo agrupar información similar a una relación ***1:N*** de un modelo relacional. De esta manera, no necesitamos una tabla `Proyectos`.
 
 Normalmente, cada documento contiene un elemento clave, sobre el cual se puede obtener un documento de manera unívoca. De todos modos, las bases de datos documentales ofrecen un completo mecanismo de consultas, posibilitando obtener información por cualquier campo del documento. Algunos productos ofrecen opciones de indexado para optimizar las consultas, como pueden ser índices compuestos, dispersos, con tiempo de vida (TTL), únicos, de texto o geoespaciales.
 
-Además, estos sistemas ofrecen productos que permiten analizar los datos, mediante funciones de agregación o implementación de MapReduce.
-
-Respecto a la modificaciones, los documentos se pueden actualizar en una única sentencia, sin necesidad de dar rodeos para elegir los datos a modificar.
+Además, estos sistemas ofrecen productos que permiten analizar los datos, mediante funciones de agregación o implementación de *MapReduce*.
 
 ### 3.1.2. Casos de uso
 
@@ -444,8 +434,6 @@ Dependiendo del almacenamiento en filas o columnas tendríamos la siguiente repr
 <div align="center">
     <img src="../img/NoSQL/NoSQL11.png" alt="NoSQL" width="60%" />
 </div>
-
-Comparación filas y columnas
 
 En un formato columnar los datos del mismo tipo se agrupan, lo que permite codificarlos/comprimirlos, lo que mejora el rendimiento de acceso y reduce el tamaño:
 
@@ -726,7 +714,7 @@ Lo bueno es que la gran mayoría de sistemas permiten configurarse para cambiar 
 
 ## 5.2. BASE
 
-De forma análoga al modelo transaccional [ACID](#acid) para las bases de datos relacionales que dan soporte a la transaccionalidad ofreciendo en todo momento un sistema consistente, las bases de datos distribuidas siguen el modelo transaccional BASE, el cual se centra en la alta disponibilidad y significa:
+De forma análoga al modelo transaccional [ACID](#2-no-solo-sql) para las bases de datos relacionales que dan soporte a la transaccionalidad ofreciendo en todo momento un sistema consistente, las bases de datos distribuidas siguen el modelo transaccional BASE, el cual se centra en la alta disponibilidad y significa:
 
 - Básicamente disponible (**_B_**_asically_ **_A_**_vailable_): la base de datos siempre responde a las solicitudes recibidas, ya sea con una respuesta exitosa o con un error, aún en el caso de que el sistema soporte la tolerancia a particiones (de manera que caiga algún nodo o no esté accesible por problemas de la red). Esto puedo implicar lecturas desde nodos que no han recibido la última escritura, por lo que el resultado puede no ser consistente.
 - Estado blando (**_S_**_oft State_): la base de datos puede encontrarse en un estado inconsistente cuando se produce una lectura, de modo que es posible realizar dos veces la misma lectura y obtener dos resultados distintos a pesar de que no haya habido ninguna escritura entre ambas operaciones, sino que la escritura se había realizado antes en el tiempo y no se había persistido hasta ese momento.
