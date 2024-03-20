@@ -265,7 +265,7 @@ Dicho de otra manera, en las bases de datos documentales, los datos que van junt
 
 ### 3.1.1. Características
 
-En una base de datos documental, la noción de esquema es dinámico: cada documento puede contener diferentes campos. Esta flexibilidad puede ser útil para modelar datos desestructurados y polimórficos, lo que facilita la evolución del desarrollo al permitir añadir nuevos campos de manera dinámica.
+En una base de datos documental, la noción de **esquema es dinámico**: cada documento puede contener diferentes campos. Esta flexibilidad puede ser útil para modelar datos desestructurados y polimórficos, lo que facilita la evolución del desarrollo al permitir añadir nuevos campos de manera dinámica.
 
 Perfectamente podemos tener dos documentos que pertenecen a la misma colección, pero con atributos diferentes. Por ejemplo, un primer documento puede ser el siguiente:
 
@@ -303,7 +303,7 @@ Donde
   1.  Un objeto o subdocumento permite agrupar información similar a una relación ***1:1*** de un modelo relacional. De esta manera, no necesitamos una tabla `Direccion`.
   2.  Un array puede contener valores o documentos, de manera que podríamos tener un array de documentos, permitiendo agrupar información similar a una relación ***1:N*** de un modelo relacional. De esta manera, no necesitamos una tabla `Proyectos`.
 
-Normalmente, cada documento contiene un elemento clave, sobre el cual se puede obtener un documento de manera unívoca. De todos modos, las bases de datos documentales ofrecen un completo mecanismo de consultas, posibilitando obtener información por cualquier campo del documento. Algunos productos ofrecen opciones de indexado para optimizar las consultas, como pueden ser índices compuestos, dispersos, con tiempo de vida (TTL), únicos, de texto o geoespaciales.
+Normalmente, cada documento contiene **un elemento clave**, sobre el cual se puede obtener un documento de manera unívoca. De todos modos, las bases de datos documentales ofrecen un completo mecanismo de consultas, posibilitando obtener información por cualquier campo del documento. Algunos productos ofrecen opciones de indexado para optimizar las consultas, como pueden ser índices compuestos, dispersos, con tiempo de vida (TTL), únicos, de texto o geoespaciales.
 
 Además, estos sistemas ofrecen productos que permiten analizar los datos, mediante funciones de agregación o implementación de *MapReduce*.
 
@@ -332,7 +332,7 @@ Los productos más destacados son:
 
 Un almacén clave-valor es una simple tabla _hash_ donde todos los accesos a la base de datos se realizan a través de la clave primaria.
 
-Desde una perspectiva de modelo de datos, los almacenes de clave-valor son los más básicos.
+Desde una perspectiva de **modelo de datos**, los almacenes de clave-valor son los **más básicos**.
 
 Su funcionamiento es similar a tener una tabla relacional con dos columnas, por ejemplo `id` y `nombre`, siendo `id` la columna utilizada como clave y `nombre` como valor. Mientras que en una base de datos en el campo `nombre` sólo podemos almacenar datos de tipo cadena o numérico, en un almacén clave-valor, el valor puede ser de un dato simple o un objeto. En muchos casos, se almacena un objeto binario BLOB (_Binary Large Object_). Cuando una aplicación accede mediante la clave y el valor, se almacenan el par de elementos. Si la clave ya existe, el valor se modifica.
 
@@ -376,13 +376,10 @@ Como los almacenes clave-valor siempre utilizan accesos por clave primaria, de m
 
 Si queremos que su rendimiento sea máximo, pueden configurarse para que mantengan la información en memoria y que se serialice de manera periódica, a costa de tener una consistencia eventual de los datos.
 
-Los modelos de datos Documental y Clave-Valor son dos paradigmas comunes en las bases de datos *NoSQL*. Aquí tienes una explicación de cada uno y las diferencias entre ellos:
-
-
 
 ### 3.2.1. Diferencias entre modelo Documental y Clave-Valor
 
-Pueden parecer similares los modelos documentales y Clave-Valor, pero existen unas diferencias claras entre ellos: 
+Los modelos de datos Documental y Clave-Valor son dos paradigmas comunes en las bases de datos *NoSQL*. Pueden parecer similares pero existen unas diferencias claras entre ellos: 
 
 - **Estructura de datos:** En el modelo documental, los datos se organizan en documentos con una estructura interna, mientras que en el modelo clave-valor, los datos se almacenan como pares de clave-valor simples sin una estructura interna definida.
 
@@ -419,15 +416,13 @@ Los almacenes más empleados son:
 
 ## 3.3. Basado en columnas
 
-Las bases de datos relacionales utilizan la fila como unidad de almacenamiento, lo que permite un buen rendimiento de escritura. Sin embargo, cuando las escrituras son ocasionales y es más común tener que leer unas pocas columnas de muchas filas a la vez, es mejor utilizar como unidad de almacenamiento un grupos de columnas. Es decir, lo que hacemos es girar el modelo 90 grados, de manera que los registros se almacenan en columnas en vez de hacerlo por filas.
+Las bases de datos relacionales utilizan la fila como unidad de almacenamiento, lo que permite un buen rendimiento de escritura. Sin embargo, cuando las **escrituras son ocasionales** y es más común tener que leer unas pocas columnas de muchas filas a la vez, es mejor utilizar como unidad de almacenamiento un **grupos de columnas**. Es decir, lo que hacemos es girar el modelo 90 grados, de manera que **los registros se almacenan en columnas en vez de hacerlo por fila**s.
 
 Supongamos que tenemos los siguientes datos:
 
 <div align="center">
     <img src="../img/NoSQL/NoSQL10.png" alt="NoSQL" width="40%" />
 </div>
-
-
 
 Dependiendo del almacenamiento en filas o columnas tendríamos la siguiente representación:
 
@@ -441,7 +436,7 @@ En un formato columnar los datos del mismo tipo se agrupan, lo que permite codif
     <img src="../img/NoSQL/NoSQL12.png" alt="NoSQL" width="70%" />
 </div>
 
-Sin embargo, a medida que se incrementa la utilización de análisis de datos en memoria, con soluciones como _Spark_, los beneficios relativos de la base de datos columnar comparados con los de las bases de datos orientadas a filas pueden llegar a ser menos importantes.
+**Sin embargo, a medida que se incrementa la utilización de análisis de datos en memoria**, con soluciones como _Spark_, **los beneficios** relativos de la base de datos columnar comparados con los de las bases de datos orientadas a filas pueden llegar a ser **menos importantes**.
 
 ### 3.3.1. Representación
 
