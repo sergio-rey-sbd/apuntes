@@ -10,12 +10,12 @@ permalink: /mongodb/
 
 - [1. Introducción](#1-introducción)
 - [2. *MongoDB*](#2-mongodb)
-  - [2.1. Características de MongoDB](#21-características-de-mongodb)
+  - [2.1. Características de *MongoDB*](#21-características-de-mongodb)
   - [2.2. Conceptos básicos](#22-conceptos-básicos)
-  - [2.3. BSON](#23-bson)
-  - [2.4. Bases de datos Relacionales vs MongoDB](#24-bases-de-datos-relacionales-vs-mongodb)
+  - [2.3. *BSON*](#23-bson)
+  - [2.4. Bases de datos Relacionales vs *MongoDB*](#24-bases-de-datos-relacionales-vs-mongodb)
 - [3. Instalación](#3-instalación)
-- [4. Primeros pasos con MongoDB](#4-primeros-pasos-con-mongodb)
+- [4. Primeros pasos con *MongoDB*](#4-primeros-pasos-con-mongodb)
   - [4.1. Trabajando con *MongoDB* desde la consola](#41-trabajando-con-mongodb-desde-la-consola)
   - [4.2. Creación y gestión de Bases de Datos](#42-creación-y-gestión-de-bases-de-datos)
     - [4.2.1. Creación : `use`](#421-creación--use)
@@ -37,7 +37,7 @@ permalink: /mongodb/
     - [7.1.2. Tabajando con *MongoDB* Compass](#712-tabajando-con-mongodb-compass)
   - [7.2. *MongoDB* for VSCode](#72-mongodb-for-vscode)
 - [8. Operaciones con datos: Consultas](#8-operaciones-con-datos-consultas)
-  - [8.1. Operadores MongoDB](#81-operadores-mongodb)
+  - [8.1. Operadores *MongoDB*](#81-operadores-mongodb)
   - [8.2. Consultas. Ejemplos prácticos.](#82-consultas-ejemplos-prácticos)
     - [8.2.1. Consultas básicas](#821-consultas-básicas)
     - [8.2.2. Consultas con operadores lógicos](#822-consultas-con-operadores-lógicos)
@@ -56,7 +56,7 @@ Ya sea que estés involucrado en el desarrollo de aplicaciones, la gestión de d
 
 # 2. *MongoDB* 
 
-**MongoDB** es una base de datos NoSQL, de código abierto y orientada a documentos. En lugar de almacenar datos en tablas, como lo hace una base de datos relacional, **MongoDB** almacena datos en documentos similares a JSON con un formato llamado ***BSON*** (*Binary JSON*). BSON extiende el formato JSON para incluir tipos de datos adicionales como fechas y binarios, lo que lo hace más adecuado para representar datos complejos.
+**MongoDB** es una base de datos NoSQL, de **código abierto** y **orientada a documentos**. En lugar de almacenar datos en tablas, como lo hace una base de datos relacional, **MongoDB** almacena datos en documentos similares a *JSON* con un formato llamado ***BSON*** (*Binary JSON*). *BSON* extiende el formato *JSON* para incluir tipos de datos adicionales como fechas y binarios, lo que lo hace más adecuado para representar datos complejos.
 
 [**MongoDB**](http://www.mongodb.com) es una de las bases de datos NoSQL más conocidas. Sigue un modelo de datos documental,
 
@@ -66,18 +66,18 @@ Ya sea que estés involucrado en el desarrollo de aplicaciones, la gestión de d
 
 > Como curiosidad, su nombre viene de la palabra inglesa humongous, que significa gigantesco/enorme.
 
-MongoDB destaca porque:
+*MongoDB* **destaca** porque:
 
-- Soporta esquemas dinámicos: diferentes documentos de una misma colección pueden tener atributos diferentes.
-- Aunque inicialmente tenía un soporte limitado de joins, desde la versión 5.2 se pueden realizar incluso entre colecciones particionadas.
-- Soporte de transacciones sólo a nivel de aplicación. Lo que en un RDMS puede suponer múltiples operaciones, con *MongoDB* se puede hacer en una sola operación al insertar/actualizar todo un documento de una sola vez, pero si queremos crear una transacción entre dos documentos, la gestión la debe realizar el driver.
+- Soporta **esquemas dinámicos**: diferentes documentos de una misma colección pueden tener atributos diferentes.
+- Aunque inicialmente tenía un soporte limitado de **joins**, desde la versión 5.2 se pueden realizar incluso entre colecciones particionadas.
+- Soporte de **transacciones** sólo a nivel de aplicación. Lo que en un RDMS puede suponer múltiples operaciones, con *MongoDB* se puede hacer en una sola operación al insertar/actualizar todo un documento de una sola vez, pero si queremos crear una transacción entre dos documentos, la gestión la debe realizar el driver.
 
-MongoDB se utiliza ampliamente en una variedad de aplicaciones, incluidas aquellas con grandes volúmenes de datos, cargas de trabajo de alta velocidad y requisitos de flexibilidad de esquema. Es especialmente popular en aplicaciones web y móviles, así como en entornos de Big Data y análisis en tiempo real.
+*MongoDB* se utiliza ampliamente en una variedad de aplicaciones, incluidas aquellas con grandes volúmenes de datos, cargas de trabajo de alta velocidad y requisitos de flexibilidad de esquema. Es especialmente popular en aplicaciones web y móviles, así como en entornos de Big Data y análisis en tiempo real.
 
 
-## 2.1. Características de MongoDB
+## 2.1. Características de *MongoDB*
 
-Si tuviéramos que resumir a una la principal característica a destacar de MongoDB, sin duda esta sería la velocidad, que alcanza un balance perfecto entre rendimiento y funcionalidad gracias a su sistema de consulta de contenidos. Pero sus características principales no se limitan solo a esto, *MongoDB* cuenta, además, con otras que lo posicionan como el preferido de muchos desarrolladores.
+Si tuviéramos que resumir a una la principal característica a destacar de *MongoDB*, sin duda esta sería la **velocidad**, que alcanza un **balance perfecto entre rendimiento y funcionalidad** gracias a su sistema de consulta de contenidos. Pero sus características principales no se limitan solo a esto, *MongoDB* cuenta, además, con otras que lo posicionan como el preferido de muchos desarrolladores.
 
 Características principales:
 
@@ -86,7 +86,7 @@ Características principales:
 - **Replicación**. Del mismo modo, la replicación es un proceso básico en la gestión de bases de datos. *MongoDB* soporta el tipo de replicación primario-secundario. De este modo, mientras podemos realizar consultas con el primario, el secundario actúa como réplica de datos en solo lectura a modo copia de seguridad con la particularidad de que los nodos secundarios tienen la habilidad de poder elegir un nuevo primario en caso de que el primario actual deje de responder.
 - **Balanceo de carga**. Resulta muy interesante cómo *MongoDB* puede escalar la carga de trabajo. *MongoDB* tiene la capacidad de ejecutarse de manera simultánea en múltiples servidores, ofreciendo un balanceo de carga o servicio de replicación de datos, de modo que podemos mantener el sistema funcionando en caso de un fallo del hardware.
 - **Almacenamiento de archivos**. Aprovechando la capacidad de *MongoDB* para el balanceo de carga y la replicación de datos, Mongo puede ser utilizado también como un sistema de archivos. Esta funcionalidad, llamada GridFS e incluida en la distribución oficial, permite manipular archivos y contenido.
-- **Ejecución de JavaScript del lado del servido**r. *MongoDB* tiene la capacidad de realizar consultas utilizando JavaScript, haciendo que estas sean enviadas directamente a la base de datos para ser ejecutadas.
+- **Ejecución de JavaScript del lado del servidor**. *MongoDB* tiene la capacidad de realizar consultas utilizando JavaScript, haciendo que estas sean enviadas directamente a la base de datos para ser ejecutadas.
 
 
 
@@ -113,33 +113,33 @@ Así pues, tenemos que una base de datos va a contener varias colecciones, donde
 Además, *MongoDB* soporta índices, igual que cualquier RDMS, para acelerar la búsqueda de datos. Al realizar cualquier consulta, se devuelve un cursor, con el cual podemos hacer cosas tales como contar, ordenar, limitar o saltar documentos.
 
 
-## 2.3. BSON
+## 2.3. *BSON*
 
-MongoDB almacena los documentos mediante BSON (Binary JSON).
+*MongoDB* almacena los documentos mediante *BSON* ([Binary JSON](https://bsonspec.org/spec.html)).
 
 Repasemos el concepto de **JSON**: *JavaScript Object Notation*
 - Formato de texto sencillo para el intercambio de datos.
 - Subconjunto de la notación literal de objetos de JavaScript.
 - Alternativa a XML como lenguaje de intercambio de datos. Mucho más sencillo de leer y escribir.
-- Uso extendido en bases de datos noSQL, entre ellas MongoDBJSON: JavaScript Object Notation
+- Uso extendido en bases de datos noSQL, entre ellas *JSON*: JavaScript Object Notation
 - Ampliamente soportado por multitud de lenguajes de programación.
-- Un objeto JSON está formado por uno o varios pares string: value (cadena:valor).
+- Un objeto *JSON* está formado por uno o varios pares string: value (cadena:valor).
 - Soporta diferentes tipos de datos como cadenas de texto, números, fecha, hora, valores nulos y booleanos.
 
 <div align="center">
     <img src="../img/MongoDB/MongoDB03.png" alt="MongoDB" width="70%" />
 </div>
 
-Mediante JavaScript podemos crear objetos que se representan con JSON. Internamente, *MongoDB* almacena los documentos mediante BSON (Binary JSON). Podemos consultar la especificación en la [web oficial de BSON](http://BSONSpec.org) 
+Mediante JavaScript podemos crear objetos que se representan con *JSON*. Internamente, *MongoDB* almacena los documentos mediante *BSON* ([Binary JSON](https://www.mongodb.com/json-and-bson)). Podemos consultar la especificación en la [web oficial de *BSON*](http://BSONSpec.org) 
 
-**BSON** representa un superset de JSON ya que:
+**BSON** representa un superset de *JSON* ya que:
 
 - Permite almacenar datos en binario
-- Incluye un conjunto de tipos de datos no incluidos en JSON, como pueden ser ObjectId, Date o BinData.
+- Incluye un conjunto de tipos de datos no incluidos en *JSON*, como pueden ser ObjectId, Date o BinData.
 
-Podemos consultar todos los tipos que soporta un objeto BSON en (http://docs.mongodb.org/manual/reference/bson-types/)[http://docs.mongodb.org/manual/reference/bson-types/]
+Podemos consultar todos los tipos que soporta un objeto *BSON* en (http://docs.mongodb.org/manual/reference/bson-types/)[http://docs.mongodb.org/manual/reference/bson-types/]
 
-Un ejemplo de un objeto BSON podría ser:
+Un ejemplo de un objeto *BSON* podría ser:
 
 ```js
 var yo = {
@@ -163,7 +163,7 @@ Los documentos **BSON** tienen las siguientes restricciones:
 - El atributo `_id` queda reservado para la clave primaria.
 - Desde *MongoDB* 5.0 los nombres de los campos pueden empezar por `$` y/o contener el `.`, aunque en la medida de lo posible, es recomendable evitar su uso.
 
-Además MongoDB:
+Además *MongoDB*:
 
 - No asegura que el orden de los campos se respete.
 - Es sensible a los tipos de los datos
@@ -177,11 +177,11 @@ Por lo que estos documentos son distintos:
 {"Edad": 18}
 ```
 
-Si queremos validar si un documento JSON es válido, podemos usar http://jsonlint.com/. Hemos de tener en cuenta que sólo valida JSON y no BSON, por tanto nos dará errores en los tipos de datos propios de BSON.
+Si queremos validar si un documento *JSON* es válido, podemos usar la web [JSONLint Validator and Formatter](http://jsonlint.com/). Hemos de tener en cuenta que sólo valida *JSON* y no *BSON*, por tanto nos dará errores en los tipos de datos propios de *BSON*.
 
-## 2.4. Bases de datos Relacionales vs MongoDB
+## 2.4. Bases de datos Relacionales vs *MongoDB*
 
-Aquí tenemos un esquema de los elementos de una base de datos representada tanto por un sistema relacional tradicional, frente a la misma estructura con una base de datos en MongoDB
+Aquí tenemos un esquema de los elementos de una base de datos representada tanto por un sistema relacional tradicional, frente a la misma estructura con una base de datos en *MongoDB*
 
 Primero la base de datos relacional
 
@@ -189,7 +189,7 @@ Primero la base de datos relacional
     <img src="../img/MongoDB/MongoDB18.png" alt="MongoDB" width="70%" />
 </div>
 
-y ahora la misma representación en MongoDB
+y ahora la misma representación en *MongoDB*
 
 <div align="center">
     <img src="../img/MongoDB/MongoDB19.png" alt="MongoDB" width="70%" />
@@ -261,7 +261,7 @@ mongod --version                                  # Comprobamos la versión
 
 
 
-> **Nota**: *MongoDB* también lo podemos instalar descargando el paquete .deb desde la web de MongoDB, pero suele dar mas problemas que con la instalación presentada
+> **Nota**: *MongoDB* también lo podemos instalar descargando el paquete .deb desde la web de *MongoDB*, pero suele dar mas problemas que con la instalación presentada
 
 Independientemente de nuestro sistema operativo, por defecto, el demonio se lanza sobre el puerto 27017. Una vez instalado, si accedemos a [http://localhost:27017](http://localhost:27017) podremos ver que nos indica cómo estamos intentando acceder mediante HTTP a *MongoDB* mediante el puerto reservado al driver nativo.
 
@@ -273,7 +273,7 @@ En vez de instalarlo como un servicio en nuestra máquina, a día de hoy, es muc
 
 Al versión de **Mongo Atlas** nos ofrece de manera gratuita un cluster compartido de servidores con 3 nodos y 512 MB para datos. Si queremos una solución serverless o un servidor dedicado, ya tendremos que pasar por caja.
 
-# 4. Primeros pasos con MongoDB
+# 4. Primeros pasos con *MongoDB*
 
 Una vez instalada la base de datos, vamos a interactuar desde su propia consola.
 
@@ -305,7 +305,7 @@ Algunas de las operaciones básicas que podemos realizar son :
 - Solicitar ayuda sobre comandos (`db.help()`)
 - Mostrar información sobre el servidor (`db.hostInfo()`)
 - Mostrar fecha y hora del sistema (`Date()`)
-- Dar formato JSON (`db.<collectionName>.find().pretty()`)
+- Dar formato *JSON* (`db.<collectionName>.find().pretty()`)
 
 <div align="center">
     <img src="../img/MongoDB/MongoDB12.png" alt="MongoDB" width="50%" />
@@ -367,7 +367,7 @@ Podemos hacer uso de los comandos `use` y `db` para pasar ubicarnos en una base 
 
 Además del propio servidor de *MongoDB* y el cliente para conectarse a él, *MongoDB* ofrece un conjunto de herramientas para interactuar con las bases de datos, permitiendo crear y restaurar copias de seguridad.
 
-Si estamos interesados en introducir o exportar una colección de datos mediante JSON, podemos emplear los comandos `mongoimport` y `mongoexport`:
+Si estamos interesados en introducir o exportar una colección de datos mediante *JSON*, podemos emplear los comandos `mongoimport` y `mongoexport`:
 
 ```bash
 mongoimport -d nombreBaseDatos -c coleccion –-file nombreFichero.json
@@ -405,7 +405,7 @@ En versiones anteriores, una herramienta de terceros bastante utilizada era *Rob
 
 ## 4.3. Tipos de datos 
 
-Aquí tienes una lista de algunos tipos de datos comunes en MongoDB, junto con ejemplos de cómo se representan en formato de tabla:
+Aquí tienes una lista de algunos tipos de datos comunes en *MongoDB*, junto con ejemplos de cómo se representan en formato de tabla:
 
 | Tipo de Datos  | Descripción                             | Ejemplo                                |
 |----------------|-----------------------------------------|----------------------------------------|
@@ -420,9 +420,9 @@ Aquí tienes una lista de algunos tipos de datos comunes en MongoDB, junto con e
 | BinData             | Datos binarios                              | BinData(0, "ABC123==")                     |
 | Regular Expressions | Expresiones regulares                       | /pattern/g                                 |
 
-Recuerda que *MongoDB* es una base de datos NoSQL orientada a documentos, por lo que no tiene una estructura de tabla como las bases de datos relacionales. En MongoDB, los datos se almacenan en documentos BSON (Binary JSON), que pueden contener campos con diferentes tipos de datos, incluidos los mencionados anteriormente.
+Recuerda que *MongoDB* es una base de datos NoSQL orientada a documentos, por lo que no tiene una estructura de tabla como las bases de datos relacionales. En *MongoDB*, los datos se almacenan en documentos *BSON* (Binary *JSON*), que pueden contener campos con diferentes tipos de datos, incluidos los mencionados anteriormente.
 
-Es importante destacar que en MongoDB, los datos binarios y las expresiones regulares se representan de manera especial. Los datos binarios se representan mediante el tipo `BinData`, que incluye un tipo y una cadena de datos codificados en *base64*. Las expresiones regulares se representan utilizando el formato `/pattern/flags`, donde `pattern` es el patrón de la expresión regular y `flags` son los modificadores de la expresión regular, como `i` para ignorar mayúsculas y minúsculas o `g` para realizar una búsqueda global.
+Es importante destacar que en *MongoDB*, los datos binarios y las expresiones regulares se representan de manera especial. Los datos binarios se representan mediante el tipo `BinData`, que incluye un tipo y una cadena de datos codificados en *base64*. Las expresiones regulares se representan utilizando el formato `/pattern/flags`, donde `pattern` es el patrón de la expresión regular y `flags` son los modificadores de la expresión regular, como `i` para ignorar mayúsculas y minúsculas o `g` para realizar una búsqueda global.
 
 
 Aquí tienes un ejemplo de cómo se podría representar un documento en *MongoDB* utilizando algunos de estos tipos de datos:
@@ -457,7 +457,7 @@ Aquí tienes un ejemplo de cómo se podría representar un documento en *MongoDB
 </div>
 
 
-En este ejemplo, que ya hemos visto previamente para ilustrar qué es un BSON, el documento representa un usuario con campos como nombre, edad, activo, intereses, ubicación, fecha de registro y comentarios. Cada campo tiene un tipo de datos diferente, como string, number, boolean, array, object, date, etc.
+En este ejemplo, que ya hemos visto previamente para ilustrar qué es un *BSON*, el documento representa un usuario con campos como nombre, edad, activo, intereses, ubicación, fecha de registro y comentarios. Cada campo tiene un tipo de datos diferente, como string, number, boolean, array, object, date, etc.
 
 Más información sobre tipos de datos en [tutorialspoint *MongoDB*  - Datatypes](https://www.tutorialspoint.com/mongodb/mongodb_datatype.htm)
 
@@ -679,7 +679,7 @@ En este caso, vamos a ver su ejecución, donde veremos incluso que al cambiar el
 
 Para eliminar documentos de una colección, se utiliza el método `deleteOne()` o `deleteMany()`.
 
-En MongoDB, tanto `deleteOne()` como `deleteMany()` son métodos utilizados para eliminar documentos de una colección. Aquí tienes las diferencias entre ellos:
+En *MongoDB*, tanto `deleteOne()` como `deleteMany()` son métodos utilizados para eliminar documentos de una colección. Aquí tienes las diferencias entre ellos:
 
 - `deleteOne()`
 
@@ -730,29 +730,29 @@ Nos borrará **todos** los documentos de la colección.
 
 ## 6.1. Concepto de ***schemaless***
 
-El término ***schemaless*** (sin esquema) se refiere a la capacidad de una base de datos para manejar datos sin una estructura fija predefinida. En el contexto de *MongoDB*, esto significa que no estás obligado a definir un esquema estricto para tus datos antes de comenzar a almacenarlos. En lugar de eso, los datos se almacenan en documentos BSON (Binary JSON), y estos documentos pueden tener una estructura flexible y pueden variar de un documento a otro dentro de la misma colección.
+El término ***schemaless*** (sin esquema) se refiere a la capacidad de una base de datos para manejar datos sin una estructura fija predefinida. En el contexto de *MongoDB*, esto significa que no estás obligado a definir un esquema estricto para tus datos antes de comenzar a almacenarlos. En lugar de eso, los datos se almacenan en documentos *BSON* (Binary *JSON*), y estos documentos pueden tener una estructura flexible y pueden variar de un documento a otro dentro de la misma colección.
 
-A continuación, profundicemos en algunos aspectos clave del concepto de *schemaless* en MongoDB:
+A continuación, profundicemos en algunos aspectos clave del concepto de *schemaless* en *MongoDB*:
 
 - **Flexibilidad de estructura**: Los documentos en *MongoDB* pueden contener diferentes campos y tipos de datos. No es necesario que todos los documentos en una colección tengan la misma estructura. Esto permite adaptarse fácilmente a cambios en los requisitos de la aplicación sin tener que modificar un esquema centralizado.
 
--  **Adición dinámica de campos**: En MongoDB, puedes agregar campos a un documento en cualquier momento sin afectar a otros documentos en la misma colección. Esto significa que puedes manejar datos evolutivos donde la estructura de los documentos puede cambiar con el tiempo.
+-  **Adición dinámica de campos**: En *MongoDB*, puedes agregar campos a un documento en cualquier momento sin afectar a otros documentos en la misma colección. Esto significa que puedes manejar datos evolutivos donde la estructura de los documentos puede cambiar con el tiempo.
 
 -  **Consulta sin restricciones**: Dado que no hay un esquema fijo que imponga restricciones sobre la estructura de los datos, las consultas en *MongoDB* pueden ser más flexibles. Puedes realizar consultas sobre cualquier campo en cualquier documento, incluso si esos campos no están presentes en todos los documentos de la colección.
 
--  **Evita la migración de esquemas**: En las bases de datos tradicionales con esquemas fijos, los cambios en el esquema requieren migraciones de datos costosas. Con MongoDB, puedes evitar este problema ya que no hay un esquema centralizado que necesite ser modificado.
+-  **Evita la migración de esquemas**: En las bases de datos tradicionales con esquemas fijos, los cambios en el esquema requieren migraciones de datos costosas. Con *MongoDB*, puedes evitar este problema ya que no hay un esquema centralizado que necesite ser modificado.
 
 -  **Agilidad en el desarrollo**: La falta de un esquema fijo permite una mayor agilidad en el desarrollo de aplicaciones, ya que puedes iterar rápidamente y ajustar el modelo de datos según sea necesario sin tener que preocuparte por actualizar un esquema centralizado.
 
 -  **Rendimiento**: La flexibilidad del modelo de datos *schemaless* puede traducirse en un mejor rendimiento en ciertos casos, ya que elimina la necesidad de realizar un join de datos dispersos en múltiples tablas, como suele ocurrir en bases de datos relacionales.
 
-A pesar de las ventajas de un modelo de datos *schemaless*, es importante tener en cuenta que esto también puede presentar **desafíos**, especialmente en términos de **mantener la coherencia y la integridad de los datos**. Por lo tanto, es crucial diseñar cuidadosamente la base de datos y utilizar prácticas como la validación de datos y la indexación adecuada para garantizar un rendimiento óptimo y la integridad de los datos en aplicaciones MongoDB.
+A pesar de las ventajas de un modelo de datos *schemaless*, es importante tener en cuenta que esto también puede presentar **desafíos**, especialmente en términos de **mantener la coherencia y la integridad de los datos**. Por lo tanto, es crucial diseñar cuidadosamente la base de datos y utilizar prácticas como la validación de datos y la indexación adecuada para garantizar un rendimiento óptimo y la integridad de los datos en aplicaciones *MongoDB*.
 
 Observar la diferencia que tenemos en el diseño de la bases de datos relacionales con las NoSQL como lo vimos anteriormente
 
 ## 6.2. Documentos embebidos
 
-El concepto de embebido hace referencia a guardar una *‘cosa’* dentro de otra *‘cosa’*. En este caso, guardar un documento JSON dentro de
+El concepto de embebido hace referencia a guardar una *‘cosa’* dentro de otra *‘cosa’*. En este caso, guardar un documento *JSON* dentro de
 otro como valor de una de sus propiedades.
 
 Por ejemplo, supongamos que tenemos una colección que guarda datos sobre cursos que se están impartiendo, en una base de datos relacional serían dos tablas, pero en *MongoDB* lo hacemos en una única colección:
@@ -807,7 +807,7 @@ Por ejemplo, supongamos que tenemos una colección que guarda datos sobre cursos
 
 ## 6.3. Documentos referenciados
 
-El concepto ***referenciado***  a diferencia de los documentos embebidos, en un documento JSON se guarda solo el valor de una o varias propiedades, en lugar del documento completo.
+El concepto ***referenciado***  a diferencia de los documentos embebidos, en un documento *JSON* se guarda solo el valor de una o varias propiedades, en lugar del documento completo.
 
 Normalmente, se guarda el valor de una propiedad que identifica unívocamente, al documento referenciado: por ejemplo en el caso anterior podríamos tener: 
 
@@ -823,7 +823,7 @@ Normalmente, se guarda el valor de una propiedad que identifica unívocamente, a
 }
 ```
 
-En este caso, las asignaturas se referéncian mediante el código de identificación, en lugar de guardar en el JSON todos los datos. De esta forma es similar al adoptado por las bases de datos relacionales.
+En este caso, las asignaturas se referéncian mediante el código de identificación, en lugar de guardar en el *JSON* todos los datos. De esta forma es similar al adoptado por las bases de datos relacionales.
 
 
 Esto plantea varias ventajas y desventajas:
@@ -854,7 +854,7 @@ Dependerá de:
 
 # 7. Herramientas visuales para interactuar con *MongoDB* 
 
-Hemos visto cómo interactuar con *MongoDB* desde la consola que nos ofrece la base de datos, pero para interactuar de una forma más flexible e intuitiva existen herramientas visuales que nos facilitan el trabajo diario con MongoDB
+Hemos visto cómo interactuar con *MongoDB* desde la consola que nos ofrece la base de datos, pero para interactuar de una forma más flexible e intuitiva existen herramientas visuales que nos facilitan el trabajo diario con *MongoDB*
 
 ## 7.1. *MongoDB* Compass
 
@@ -866,7 +866,7 @@ Enlace a la documentación oficial de *MongoDB* Compass: [What is *MongoDB* Comp
 
 ### 7.1.1. Instalación
 
-Siguiendo los pasos ofrecidos por la propia web de MongoDB, para la instalación de *MongoDB* Compass en Ubuntu seguimos los siguientes pasos:
+Siguiendo los pasos ofrecidos por la propia web de *MongoDB*, para la instalación de *MongoDB* Compass en Ubuntu seguimos los siguientes pasos:
 
 ```bash
 # Download *MongoDB* Compass
@@ -918,7 +918,7 @@ En la imagen:
 
 ## 7.2. *MongoDB* for VSCode
 
-También podemos utilizar la extensión que lleva VSCode para trabajar con MongoDB.
+También podemos utilizar la extensión que lleva VSCode para trabajar con *MongoDB*.
 
 Para su **instalación**
 
@@ -945,7 +945,7 @@ Una vez conectados, podremos recorrer las colecciones con los datos así como ut
     <img src="../img/MongoDB/MongoDB30.png" alt="MongoDB" width="40%" />
 </div>
 
-Realmente, esta extensión este pensada para trabajar con opciones avanzadas, como crear índices, generar código en lenguajes como *javascript*, *python* o cualquier otro para realizar todo tipo de operaciones en MongoDB, o crear variables con datos y estos utilizarlos en nuestras operaciones. Para más información en la web de la extension: [MongoDB for VS Code. *MongoDB* Without Leaving Your IDE](https://www.mongodb.com/products/tools/vs-code)
+Realmente, esta extensión este pensada para trabajar con opciones avanzadas, como crear índices, generar código en lenguajes como *javascript*, *python* o cualquier otro para realizar todo tipo de operaciones en *MongoDB*, o crear variables con datos y estos utilizarlos en nuestras operaciones. Para más información en la web de la extension: [MongoDB for VS Code. *MongoDB* Without Leaving Your IDE](https://www.mongodb.com/products/tools/vs-code)
 
 
 # 8. Operaciones con datos: Consultas
@@ -961,7 +961,7 @@ db.collection.find()            // devuelve todos los documentos
 db.collection.find(<filter>)    // devuelve los documentos que cumplen el filtro
 ```
 
-## 8.1. Operadores MongoDB
+## 8.1. Operadores *MongoDB*
 
 Antes de continuar, en la siguiente tabla esta el listado de los principales operadores utilizados en consultas *MongoDB* para la construcción de los filtros:
 
@@ -983,11 +983,11 @@ Antes de continuar, en la siguiente tabla esta el listado de los principales ope
 | `$not`      | Niega una expresión                          | `db.collection.find({campo: {$not: {condición}}})` |
 | `$nor`      | Realiza una disyunción negada               | `db.collection.find({$nor: [{condición1}, {condición2}]})` |
 
-Estos operadores son fundamentales para realizar consultas avanzadas en MongoDB, permitiendo filtrar y buscar documentos en función de diferentes criterios. Puedes combinar estos operadores para construir consultas complejas y poderosas que se adapten a tus necesidades específicas.
+Estos operadores son fundamentales para realizar consultas avanzadas en *MongoDB*, permitiendo filtrar y buscar documentos en función de diferentes criterios. Puedes combinar estos operadores para construir consultas complejas y poderosas que se adapten a tus necesidades específicas.
 
 ## 8.2. Consultas. Ejemplos prácticos.
 
-Utilizando la tabla de *movies* vamos a realizar algunas consultas que servirán para ilustrar los aspectos más interesantes de las búsquedas en MongoDB. 
+Utilizando la tabla de *movies* vamos a realizar algunas consultas que servirán para ilustrar los aspectos más interesantes de las búsquedas en *MongoDB*. 
 
 Veamos en primer lugar un registro tipo
 
