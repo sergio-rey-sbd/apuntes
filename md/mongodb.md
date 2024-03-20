@@ -41,8 +41,9 @@ permalink: /mongodb/
   - [8.2. Consultas. Ejemplos prácticos.](#82-consultas-ejemplos-prácticos)
     - [8.2.1. Consultas básicas](#821-consultas-básicas)
     - [8.2.2. Consultas con operadores lógicos](#822-consultas-con-operadores-lógicos)
-    - [8.2.3. Consultas con expresiones regulares](#823-consultas-con-expresiones-regulares)
-    - [8.2.4. Cursores](#824-cursores)
+    - [8.2.3. Consultas sobre objetos anidados](#823-consultas-sobre-objetos-anidados)
+    - [8.2.4. Consultas con expresiones regulares](#824-consultas-con-expresiones-regulares)
+    - [8.2.5. Cursores](#825-cursores)
 
 
 # 1. Introducción
@@ -1126,10 +1127,11 @@ db.movies.find({
     directors: 1,
     writers: 1,
     countries: 1
-}
+  }
 )
+```
 
-### Consultas sobre objetos anidados
+### 8.2.3. Consultas sobre objetos anidados
 
 - Buscar películas que han recibido más de 1000 votos en IMDb
 
@@ -1165,7 +1167,7 @@ db.movies.find(
 )
 ```
 
-### 8.2.3. Consultas con expresiones regulares
+### 8.2.4. Consultas con expresiones regulares
 
 Si queremos realizar consultas sobre partes de un campo de texto, hemos de emplear expresiones regulares. Para ello, tenemos el operador `$regexp` o, de manera más sencilla, indicando como valor la expresión regular a cumplir:
 
@@ -1199,7 +1201,7 @@ db.movies.find({
 )
 ```
 
-### 8.2.4. Cursores
+### 8.2.5. Cursores
 
 Cursores
 
