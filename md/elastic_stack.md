@@ -14,7 +14,7 @@ permalink: /elastic_stack/
 
 - [1. Introducción](#1-introducción)
   - [1.1. ¿Qué es Elastic Stack?](#11-qué-es-elastic-stack)
-  - [1.2. ¿ Por qué Elastic Stack en Sistemas Big Data?](#12--por-qué-elastic-stack-en-sistemas-big-data)
+  - [1.2. ¿ Por qué *Elastic Stack* en Sistemas Big Data?](#12--por-qué-elastic-stack-en-sistemas-big-data)
 - [2. Elasticsearch](#2-elasticsearch)
   - [2.1. Características](#21-características)
   - [2.2. Almacenamiento de la información](#22-almacenamiento-de-la-información)
@@ -44,55 +44,55 @@ permalink: /elastic_stack/
 
 Los sistemas **NoSQL** son una categoría de bases de datos diseñadas para manejar grandes volúmenes de datos no estructurados o semiestructurados en entornos distribuidos y escalables. Estos sistemas proporcionan flexibilidad en el modelado de datos y están optimizados para casos de uso que requieren alta disponibilidad, escalabilidad horizontal y baja latencia de acceso a los datos.
 
-Elastic Stack puede ser un ejemplo muy representativo de bases de datos *NoSQL* con características muy beneficiosas para gestionar y analizar datos en entornos donde se necesite trabajar con grandes volúmenes de datos no tradicionales. 
+***Elastic Stack*** puede ser un ejemplo muy representativo de bases de datos *NoSQL* con características muy beneficiosas para gestionar y analizar datos en entornos donde se necesite trabajar con grandes volúmenes de datos no tradicionales. 
 
 
 ## 1.1. ¿Qué es Elastic Stack?
 
-**Elastic Stack**, anteriormente conocido como ELK Stack, es un conjunto de herramientas de código abierto desarrolladas por Elastic para la búsqueda, análisis y visualización de datos. El nombre Elastic Stack refleja la ampliación del conjunto de herramientas más allá de las tres herramientas originales (Elasticsearch, Logstash y Kibana) para incluir una variedad de productos adicionales que complementan y amplían la funcionalidad del conjunto.
+**Elastic Stack**, anteriormente conocido como ***ELK Stack***, es un conjunto de herramientas de código abierto desarrolladas por Elastic para la búsqueda, análisis y visualización de datos. El nombre *Elastic Stack* refleja la ampliación del conjunto de herramientas más allá de las tres herramientas originales (*Elasticsearch*, *Logstash* y *Kibana*) para incluir una variedad de productos adicionales que complementan y amplían la funcionalidad del conjunto.
 
 <div align="center">
     <img src="../img/ELK/ELK01.webp" alt="ELK" width="60%" />
 </div>
 
-El Elastic Stack consta de los siguientes componentes principales:
+El *Elastic Stack* consta de los siguientes componentes principales:
 
-1. **Elasticsearch**: Es un motor de búsqueda y análisis distribuido basado en Lucene. Elasticsearch se utiliza para indexar, buscar y analizar grandes volúmenes de datos en tiempo real. Proporciona capacidades de búsqueda a escala, incluyendo búsqueda de texto completo, agregaciones, geolocalización y más.
+1. **Elasticsearch**: Es un motor de búsqueda y análisis distribuido basado en *Lucene*. *Elasticsearch* se utiliza para indexar, buscar y analizar grandes volúmenes de datos en tiempo real. Proporciona capacidades de búsqueda a escala, incluyendo búsqueda de texto completo, agregaciones, geolocalización y más.
 
-2. **Logstash**: Es una herramienta de ingestión de datos que se utiliza para recopilar, procesar y enviar datos de log y otros tipos de datos desde múltiples fuentes a Elasticsearch para su almacenamiento y análisis. Logstash ofrece una amplia gama de filtros y complementos para procesar datos de diferentes formatos y fuentes.
+2. **Logstash**: Es una herramienta de ingestión de datos que se utiliza para recopilar, procesar y enviar datos de log y otros tipos de datos desde múltiples fuentes a *Elasticsearch* para su almacenamiento y análisis. Logstash ofrece una amplia gama de filtros y complementos para procesar datos de diferentes formatos y fuentes.
 
-3. **Kibana**: Es una plataforma de visualización de datos y análisis que se utiliza para visualizar y explorar los datos almacenados en Elasticsearch. Kibana ofrece una variedad de herramientas de visualización y paneles de control que permiten a los usuarios crear gráficos, tablas y mapas interactivos para analizar y comprender los datos.
+3. **Kibana**: Es una plataforma de visualización de datos y análisis que se utiliza para visualizar y explorar los datos almacenados en *Elasticsearch*. Kibana ofrece una variedad de herramientas de visualización y paneles de control que permiten a los usuarios crear gráficos, tablas y mapas interactivos para analizar y comprender los datos.
 
-4. **Beats**: Beats es una familia de agentes ligeros que se utilizan para enviar datos a Elasticsearch o Logstash desde una variedad de fuentes, incluidos logs, métricas del sistema, datos de red y más. Beats simplifica la recopilación y envío de datos, proporcionando una forma eficiente y escalable de enviar datos a la Elastic Stack.
+4. **Beats**: Beats es una familia de agentes ligeros que se utilizan para enviar datos a *Elasticsearch* o Logstash desde una variedad de fuentes, incluidos logs, métricas del sistema, datos de red y más. Beats simplifica la recopilación y envío de datos, proporcionando una forma eficiente y escalable de enviar datos a la Elastic Stack.
 
-5. **Apm-server**: Apm-server es un servidor de recolección de datos de rendimiento de aplicaciones (APM) que se utiliza para recopilar y enviar datos de rendimiento de aplicaciones a Elasticsearch. Ayuda a monitorear y analizar el rendimiento de las aplicaciones y a identificar problemas de rendimiento en tiempo real.
+5. **Apm-server**: Apm-server es un servidor de recolección de datos de rendimiento de aplicaciones (APM) que se utiliza para recopilar y enviar datos de rendimiento de aplicaciones a *Elasticsearch*. Ayuda a monitorear y analizar el rendimiento de las aplicaciones y a identificar problemas de rendimiento en tiempo real.
 
-6. **Elasticsearch SQL**: Es una capa de SQL que se ejecuta sobre Elasticsearch, lo que permite a los usuarios ejecutar consultas SQL sobre datos indexados en Elasticsearch.
+6. **Elasticsearch SQL**: Es una capa de SQL que se ejecuta sobre *Elasticsearch*, lo que permite a los usuarios ejecutar consultas SQL sobre datos indexados en Elasticsearch.
 
-Estos son algunos de los componentes principales del Elastic Stack, pero Elastic también ofrece una variedad de otros productos y soluciones que complementan el conjunto, como Elasticsearch Security, Elasticsearch Machine Learning, Elastic Enterprise Search, Elastic Observability, entre otros.
+Estos son algunos de los componentes principales del *Elastic Stack*, pero *Elastic* también ofrece una variedad de otros productos y soluciones que complementan el conjunto, como *Elasticsearch* Security, *Elasticsearch* Machine Learning, Elastic Enterprise Search, Elastic Observability, entre otros.
 
 <div align="center">
     <img src="../img/ELK/ELK02.png" alt="ELK" width="60%" />
 </div>
 
-Elastic Stack es especialmente popular en entornos de desarrollo de software, operaciones de sistemas (DevOps), análisis de seguridad, monitoreo de infraestructura y análisis de registros de aplicaciones. La combinación de Elasticsearch, Logstash y Kibana proporciona una solución completa y escalable para la recopilación, almacenamiento, análisis y visualización de datos.
+*Elastic Stack* es especialmente popular en entornos de desarrollo de software, operaciones de sistemas (DevOps), análisis de seguridad, monitoreo de infraestructura y análisis de registros de aplicaciones. La combinación de *Elasticsearch*, *Logstash* y *Kibana* proporciona una solución completa y escalable para la recopilación, almacenamiento, análisis y visualización de datos.
 
-Más concretamente **Elasticsearch** es un motor de búsqueda diseñado para escalar horizonalmente, de forma que se puedan ir añadiendo más nodos al clúster a medida que aumente el volumen de datos requerido.
+Más concretamente **Elasticsearch** es un motor de búsqueda diseñado para escalar horizontalmente, de forma que se puedan ir añadiendo más nodos al clúster a medida que aumente el volumen de datos requerido.
 
 Su base es una librería de indexación y búsqueda de información textual conocida como ***Apache Lucene***, desarrollada inicialmente en Java aunque disponible también para otros lenguajes.
 
-El surgimiento de **Elasticsearch** se debió a problemas de escalabilidad detectados en otro motor de búsqueda que también se basa en ***Apache Lucene***, **Apache Solr**. En el vídeo se resumen las diferencias principales entre ambos buscadores, que pueden consultarse en detalle en el siguiente [enlace](https://sematext.com/blog/side-by-side-with-elasticsearch-and-solr-performance-and-scalability/)
+El surgimiento de **Elasticsearch** se debió a problemas de escalabilidad detectados en otro motor de búsqueda que también se basa en ***Apache Lucene***, **Apache Solr**. En el siguiente [vídeo](https://youtu.be/MMWBdSdbu5k?si=5i2jwLVXsC2XoQnD) se resumen las diferencias principales entre ambos buscadores, que pueden consultarse en detalle en el siguiente [enlace](https://sematext.com/blog/side-by-side-with-elasticsearch-and-solr-performance-and-scalability/)
 
 
-## 1.2. ¿ Por qué Elastic Stack en Sistemas Big Data?
+## 1.2. ¿ Por qué *Elastic Stack* en Sistemas Big Data?
 
-Existen varias razones que nos aconsejan dar un vistazo a Elastic Stack (Elasticsearch, Logstash, Kibana) para comprender los Sistemas de Big Data: 
+Existen varias razones que nos aconsejan dar un vistazo a *Elastic Stack* (Elasticsearch, Logstash, Kibana) para comprender los Sistemas de Big Data: 
 
-1. **Escalabilidad y rendimiento**: Elasticsearch, como parte de ELK, está diseñado para ser altamente escalable y eficiente en términos de rendimiento. Estudiar cómo Elasticsearch maneja grandes volúmenes de datos y consultas en tiempo real proporciona una comprensión práctica de cómo los sistemas de Big Data pueden escalar y procesar datos de manera eficiente.
+1. **Escalabilidad y rendimiento**: *Elasticsearch*, como parte de ELK, está diseñado para ser altamente escalable y eficiente en términos de rendimiento. Estudiar cómo *Elasticsearch* maneja grandes volúmenes de datos y consultas en tiempo real proporciona una comprensión práctica de cómo los sistemas de Big Data pueden escalar y procesar datos de manera eficiente.
 
-2. **Ingestión de datos**: Logstash, otra parte de ELK, se utiliza para la ingestión de datos, que es un aspecto crítico en los sistemas de Big Data. Aprender sobre Logstash y sus capacidades para recopilar datos de diferentes fuentes, procesarlos y enviarlos a Elasticsearch para su almacenamiento y análisis proporciona una comprensión sólida de cómo se manejan los datos en sistemas de Big Data.
+2. **Ingestión de datos**: *Logstash*, otra parte de ELK, se utiliza para la ingestión de datos, que es un aspecto crítico en los sistemas de Big Data. Aprender sobre Log*stash y sus capacidades para recopilar datos de diferentes fuentes, procesarlos y enviarlos a *Elasticsearch* para su almacenamiento y análisis proporciona una comprensión sólida de cómo se manejan los datos en sistemas de Big Data.
 
-3. **Análisis y visualización de datos**: Kibana, la tercera parte de ELK, es una herramienta poderosa para la visualización y el análisis de datos. Estudiar Kibana te permite aprender cómo crear visualizaciones interactivas, tablas de datos y paneles de control para analizar y comprender datos almacenados en Elasticsearch. Esto es fundamental en los sistemas de Big Data para extraer información significativa de conjuntos de datos masivos.
+3. **Análisis y visualización de datos**: *Kibana*, la tercera parte de ELK, es una herramienta poderosa para la visualización y el análisis de datos. Estudiar *Kibana* te permite aprender cómo crear visualizaciones interactivas, tablas de datos y paneles de control para analizar y comprender datos almacenados en *Elasticsearch*. Esto es fundamental en los sistemas de Big Data para extraer información significativa de conjuntos de datos masivos.
 
 4. **Casos de uso prácticos**: ELK se utiliza en una amplia variedad de casos de uso, incluyendo monitoreo de infraestructura, análisis de logs, observabilidad de aplicaciones, análisis de seguridad, análisis de registros de aplicaciones y más. Estudiar cómo se implementa ELK en estos casos de uso proporciona una comprensión práctica de cómo se utilizan los sistemas de Big Data en entornos del mundo real.
 
@@ -108,19 +108,21 @@ En resumen, estudiar ELK te proporciona una comprensión práctica de cómo func
 
 Es una colección de información organizada para un
 posterior aprovechamiento de la misma.
+
 Esta información debe:
-• Ser accesible
-• Se pueda gestionar
-• Se pueda actualizar
+
+- Ser accesible
+- Se pueda gestionar
+- Se pueda actualizar
 
 Las características principales son: 
 
-- Distribuido y escalable. Permite crecer conforme lo hagan las necesidades de forma horizontal.
-- Datos en tiempo real. Los datos están disponibles para su análisis segundos después de haber sido indexados (real time).
-- Alta disponibilidad. Datos replicados a lo largo de distintos nodos permite el fallo de alguno de estos dentro del clúster sin que se vea afectado el funcionamiento.
-- Multi-tenancy. Los índices donde se almacenan la información pueden ser consultados de manera independiente.
-- Búsquedas full-text. Usa ***Apache Lucene*** aprovechando sus capacidades de búsqueda de texto, soportando geolocalización, autocompletado, expresiones regulares…
-• API Restful. Proporciona una API sobre **JSON** para realizar consultas e interactuar con Elasticsearch.
+- **Distribuido y escalable**. Permite crecer conforme lo hagan las necesidades de forma horizontal.
+- **Datos en tiempo real**. Los datos están disponibles para su análisis segundos después de haber sido indexados (real time).
+- **Alta disponibilidad**. Datos replicados a lo largo de distintos nodos permite el fallo de alguno de estos dentro del clúster sin que se vea afectado el funcionamiento.
+- **Multi-tenancy**. Los índices donde se almacenan la información pueden ser consultados de manera independiente.
+- **Búsquedas full-text**. Usa ***Apache Lucene*** aprovechando sus capacidades de búsqueda de texto, soportando geolocalización, autocompletado, expresiones regulares…
+- **API Restful**. Proporciona una API sobre **JSON** para realizar consultas e interactuar con Elasticsearch.
 
 ## 2.2. Almacenamiento de la información
 
@@ -129,15 +131,14 @@ La información se organiza dentro de elasticsearch en:
 - **Índice**: Colección de documentos con características similares (catálogo de productos, clientes, pedidos…).
 Identificado por un nombre (minúsculas) usado para realizar operaciones como indexado, búsqueda, actualización y borrado de los documentos que contiene.
 
-- **Documento**: Unidad básica de información que puede ser indexada (documento por producto, cliente o pedido) en formato JSON.
-https://www.w3schools.com/js/js_json_intro.asp. 
+- **Documento**: Unidad básica de información que puede ser indexada (documento por producto, cliente o pedido) en formato [JSON](https://www.w3schools.com/js/js_json_intro.asp). 
 En un *índice* se pueden almacenar todos los documentos que se requiera.
 
-- **Shards**: Cuando se almacena gran cantidad de información puede exceder los límites hardware de un nodo. Elasticsearch proporciona la posibilidad de subdividir un índice en distintas partes denominadas **shards**.
+- **Shards**: Cuando se almacena gran cantidad de información puede exceder los límites hardware de un nodo. *Elasticsearch* proporciona la posibilidad de subdividir un índice en distintas partes denominadas **shards**.
   - Permite subdividir/escalar la información almacenada.
   - Permite distribuir y paralelizar operaciones.
 
-**Réplica**: Elasticsearch permite realizar una o más copias de los shards. Su importancia recae en:
+**Réplica**: *Elasticsearch* permite realizar una o más copias de los shards. Su importancia recae en:
   - Proporciona alta disponibilidad en el caso de que un shard/nodo falle. Importante que las réplicas no se encuentren en el mismo nodo.
   - Permite el escalado del volumen de búsquedas ya que estas pueden ejecutarse en paralelo en las réplicas.
 
@@ -149,11 +150,12 @@ Una vez replicado, cada ***índice*** tendrá un ***shard*** primario y las rép
 Los ***shards*** y ***réplicas*** se pueden definir por índice a la hora de creación de los mismos. Las réplicas podrán cambiarse en caliente al contrario que los shards.
 
 La información se almacena en diferentes sitios de la red (físicamente) pero lógicamente es una única base de datos.
-• Transparente para un usuario final.
-• Independencia respecto al sistema operativo.
-• Procesamiento distribuido de consultas.
-• Información fragmentada.
-• Réplicas = Alta disponibilidad.
+
+- Transparente para un usuario final.
+- Independencia respecto al sistema operativo.
+- Procesamiento distribuido de consultas.
+- Información fragmentada.
+- Réplicas = Alta disponibilidad.
 
 <div align="center">
     <img src="../img/ELK/ELK03.png" alt="ELK" width="60%" />
@@ -161,7 +163,7 @@ La información se almacena en diferentes sitios de la red (físicamente) pero l
 
 ## 2.3. Tipos de nodos
 
-En Elasticsearch, los nodos son las instancias individuales que forman parte de un clúster y que almacenan, indexan y procesan los datos. Existen varios tipos de nodos en Elasticsearch, cada uno con un propósito específico. A continuación, se describen los tipos principales de nodos:
+En *Elasticsearch*, los nodos son las instancias individuales que forman parte de un clúster y que almacenan, indexan y procesan los datos. Existen varios tipos de nodos en *Elasticsearch*, cada uno con un propósito específico. A continuación, se describen los tipos principales de nodos:
 
 1. **Nodos de datos (Data Nodes)**:
    - Los nodos de datos son responsables de almacenar y gestionar los datos indexados en Elasticsearch.
@@ -173,7 +175,7 @@ En Elasticsearch, los nodos son las instancias individuales que forman parte de 
    - Los nodos maestro son responsables de coordinar las actividades en el clúster y de gestionar los metadatos.
    - Controlan las operaciones de indexación, búsqueda, asignación de shards y recuperación en el clúster.
    - Los nodos maestro no almacenan datos de índices, pero mantienen un seguimiento del estado del clúster y de la topología.
-   - Los clústeres de Elasticsearch deben tener al menos un nodo maestro para funcionar correctamente.
+   - Los clústeres de *Elasticsearch* deben tener al menos un nodo maestro para funcionar correctamente.
 
 3. **Nodos de coordinación (Coordinating Nodes)**:
    - Los nodos de coordinación actúan como puntos de entrada para las solicitudes de clientes y distribuyen las solicitudes a los nodos adecuados.
@@ -231,7 +233,7 @@ Una configuración de esta máquina en ***Oracle VM VirtualBox*** podría ser la
     <img src="../img/ELK/ELK07.png" alt="ELK" width="50%" />
 </div>
 
-Observar que se ha incluido el máximo posible de memoria: 11GB (en un equipo de 16GB), se ha asignado más de un procesador y un mínimo de 50GB de disco duro.
+Observar que se ha incluido una cantidad elevada de memoria: 10GB (en un equipo de 16GB), se ha asignado más de un procesador y un mínimo de 50GB de disco duro.
 
 Una vez instalado el sistema, es aconsejable instalar los VirtualBox Guest Additions.
 
@@ -247,12 +249,11 @@ Antes de seguir, también es aconsejable hacer una copia de seguridad o una inst
 
 <hr>
 
-También es interesante habilitar el usuario root y trabajar con este usuario 
+También es interesante habilitar el usuario *root* y trabajar con este usuario 
 
-Ahora ya, vamos a ver diferentes instalaciones. Realizaremos dos: en primer lugar sobre la máquina en si, y posteriormente instalaremos un cluster aprovechando la tecnología **Docker**
+Una vez preparado nuestro sistema, vamos a ver diferentes instalaciones. Realizaremos dos: en primer lugar instalaremos *Elasticsearch* sobre un **docker** sobre la máquina, y posteriormente instalaremos un cluster aprovechando la tecnología **docker-compose**. Por supuesto también podemos realizar una instalación directa sobre nuestra máquina, pero en este caso, como la finalidad es montar un cluster para ver su comportamiento, optaremos por obviar esta variante. 
 
 ## 3.2. Instalación de `docker`, `docker-compose` y `curl`
-
 
 <div align="center">
     <img src="../img/ELK/ELK02.webp" alt="ELK" width="40%" />
@@ -383,11 +384,11 @@ docker ps
 
 - operaciones con contenedores
 ```bash
-docker start es01
-docker stop es01
-docker restart es01
-docker rm es01
-docker kill es01
+docker start es01       # inicia el contenedor es01
+docker stop es01        # lo para
+docker restart es01     # lo reinicia   
+docker rm es01          # lo elimina
+docker kill es01        # lo .... 
 ```
 
 - entrar en el terminal de un contenedor 
@@ -460,7 +461,7 @@ sudo docker run --name elasticsearch --net elastic -p 9200:9200  -p 9300:9300 -e
 
 ```
 
-Al terminal la instalación nos aparece la siguiente información donde tenemos contraseña de acceso y tokens (claves) para poder unir `Kibana` u otros nodos de Elasticsearch. Esta información es importante retenerla.
+Al terminal la instalación nos aparece la siguiente información donde tenemos contraseña de acceso y tokens (claves) para poder unir `Kibana` u otros nodos de *Elasticsearch*. Esta información es importante retenerla.
 
 <div align="center">
     <img src="../img/ELK/ELK10.png" alt="ELK" width="50%" />
@@ -483,7 +484,7 @@ docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
 sudo chmod o+r http_ca.crt
 ```
 
-y realizamos la comprobación de que Elasticsearch esta funcionando.
+y realizamos la comprobación de que *Elasticsearch* esta funcionando.
 
 ```bash
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200
@@ -518,7 +519,7 @@ Además podemos ver el status del cluster: **green**. los posibles estados de un
 | Red | Al menos un shard primario o una réplica está ausente o no asignada. Esto puede deberse a la pérdida de datos debido a la falta de réplicas suficientes o a la falta de asignación de un shard primario. El clúster puede seguir funcionando, pero la pérdida de datos es posible y se requiere intervención para restaurar la integridad del clúster. |
 | Gray | Este estado puede indicar un error en el proceso de monitoreo del clúster o una incapacidad para determinar el estado real del clúster. Esto puede ocurrir cuando los nodos no pueden comunicarse entre sí o si hay problemas con el monitoreo y la recopilación de datos del estado del clúster. Se requiere una revisión para diagnosticar y resolver la causa del estado de clúster en gris. |
 
-Estos son algunos de los estados comunes del clúster en Elasticsearch y sus descripciones asociadas. Es importante monitorear el estado del clúster regularmente para garantizar la disponibilidad y la integridad de los datos en Elasticsearch.
+Estos son algunos de los estados comunes del clúster en *Elasticsearch* y sus descripciones asociadas. Es importante monitorear el estado del clúster regularmente para garantizar la disponibilidad y la integridad de los datos en Elasticsearch.
 
 Otras consultas que podemos hacer sobre el cluster son : 
 
@@ -745,7 +746,7 @@ Aquí podemos lanzar nuestras peticiones sin necesidad de especificar todas las 
 
 Por último, vamos a presentar otra opción para la instalación del sistema `Elastic stack` en un equipo tipo Ubuntu Server.
 
-Para ello, como en las secciones anteriores, seguimos los pasos indicados por el propio fabricante: [Install Elasticsearch with Debian Package](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html)
+Para ello, como en las secciones anteriores, seguimos los pasos indicados por el propio fabricante: [Install *Elasticsearch* with Debian Package](https://www.elastic.co/guide/en/elasticsearch/reference/current/deb.html)
 
 En primer lugar importamos claves y preparamos el sistema para instalar
 
@@ -800,15 +801,15 @@ curl --cacert /etc/elasticsearch/certs/http_ca.crt -u elastic:$ELASTIC_PASSWORD 
 Las principales rutas del servicio Elasticse`arch son:
 | Carpeta                         | Descripción                                        |
 |--------------------------------|----------------------------------------------------|
-| /etc/elasticsearch              | Contiene los archivos de configuración de Elasticsearch |
-| /var/lib/elasticsearch          | Directorio principal de datos de Elasticsearch    |
-| /var/log/elasticsearch          | Archivos de registro de Elasticsearch             |
-| /usr/share/elasticsearch        | Directorio de instalación de Elasticsearch         |
-| /usr/share/elasticsearch/bin    | Contiene los binarios y scripts de Elasticsearch   |
-| /usr/share/elasticsearch/config | Contiene archivos de configuración predeterminados de Elasticsearch |
-| /usr/share/elasticsearch/data   | Directorio de datos de Elasticsearch               |
-| /usr/share/elasticsearch/logs   | Directorio de registros de Elasticsearch           |
-| /usr/share/elasticsearch/plugins| Directorio de plugins de Elasticsearch             |
+| /etc/elasticsearch              | Contiene los archivos de configuración de *Elasticsearch* |
+| /var/lib/elasticsearch          | Directorio principal de datos de *Elasticsearch*    |
+| /var/log/elasticsearch          | Archivos de registro de *Elasticsearch*             |
+| /usr/share/elasticsearch        | Directorio de instalación de *Elasticsearch*         |
+| /usr/share/elasticsearch/bin    | Contiene los binarios y scripts de *Elasticsearch*   |
+| /usr/share/elasticsearch/config | Contiene archivos de configuración predeterminados de *Elasticsearch* |
+| /usr/share/elasticsearch/data   | Directorio de datos de *Elasticsearch*               |
+| /usr/share/elasticsearch/logs   | Directorio de registros de *Elasticsearch*           |
+| /usr/share/elasticsearch/plugins| Directorio de plugins de *Elasticsearch*             |
 
 
 
@@ -874,7 +875,7 @@ Con esto, nos sale un terminal que replica las teclas que pulsemos.
 
 ### 3.5.4. Instalación de `Filebeat`
 
-Filebeat se encuenta dento de lo que sería `Beats`, y para enviar registros y datos a Elasticsearch o Logstash para su posterior indexación, análisis y visualización
+Filebeat se encuenta dento de lo que sería `Beats`, y para enviar registros y datos a *Elasticsearch* o Logstash para su posterior indexación, análisis y visualización
 
 [Quick start and installation](https://www.elastic.co/guide/en/beats/filebeat/current/filebeat-installation-configuration.html)
 
@@ -896,24 +897,24 @@ Puede ser interesante su instalación para cierto tipo de ingestión de datos.
 
 # 4. Comprendiendo los conceptos de cluster, indices y shards
 
-En Elasticsearch, existen varios conceptos clave que son fundamentales para comprender su funcionamiento. Estos incluyen:
+En *Elasticsearch*, existen varios conceptos clave que son fundamentales para comprender su funcionamiento. Estos incluyen:
 
 1. **Cluster:**
-   - Un cluster de Elasticsearch consiste en un conjunto de uno o más nodos que trabajan juntos para almacenar y procesar datos.
-   - Los nodos en un cluster de Elasticsearch se comunican entre sí para compartir información sobre el estado del cluster y coordinar las operaciones, como la indexación y la búsqueda de datos.
+   - Un cluster de *Elasticsearch* consiste en un conjunto de uno o más nodos que trabajan juntos para almacenar y procesar datos.
+   - Los nodos en un cluster de *Elasticsearch* se comunican entre sí para compartir información sobre el estado del cluster y coordinar las operaciones, como la indexación y la búsqueda de datos.
    - Los clusters están diseñados para ser altamente disponibles y escalables, lo que significa que pueden manejar grandes volúmenes de datos y continuar funcionando incluso si algunos nodos fallan.
 
 2. **Índices:**
-   - En Elasticsearch, un índice es una colección lógica de documentos que comparten características similares.
+   - En *Elasticsearch*, un índice es una colección lógica de documentos que comparten características similares.
    - Cada documento en un índice es un objeto JSON que contiene datos.
    - Los índices se utilizan para almacenar y organizar datos de manera eficiente para su posterior búsqueda y análisis.
-   - Los nombres de índice son únicos dentro de un cluster de Elasticsearch y se utilizan para identificar y acceder a los datos almacenados en ellos.
+   - Los nombres de índice son únicos dentro de un cluster de *Elasticsearch* y se utilizan para identificar y acceder a los datos almacenados en ellos.
 
 3. **Shards:**
-   - Un shard es una parte de un índice de Elasticsearch que contiene una porción del conjunto total de datos.
-   - Elasticsearch divide los datos de un índice en múltiples shards para distribuirlos y paralelizar las operaciones de indexación y búsqueda.
+   - Un shard es una parte de un índice de *Elasticsearch* que contiene una porción del conjunto total de datos.
+   - *Elasticsearch* divide los datos de un índice en múltiples shards para distribuirlos y paralelizar las operaciones de indexación y búsqueda.
    - Los shards pueden ser primarios o réplicas. Cada índice tiene un conjunto de shards primarios y opcionalmente un conjunto de shards réplicas que proporcionan redundancia y alta disponibilidad.
-   - La distribución de shards en un cluster de Elasticsearch permite escalar horizontalmente la capacidad de almacenamiento y la capacidad de procesamiento de datos.
+   - La distribución de shards en un cluster de *Elasticsearch* permite escalar horizontalmente la capacidad de almacenamiento y la capacidad de procesamiento de datos.
 
 <div align="center">
     <img src="../img/ELK/ELK37.png" alt="ELK" width="50%" />
@@ -946,12 +947,12 @@ En esta imagen podemos ver que hemos utilizado tenemos dos shards primarios en d
 
 Así pues 
 - `number_of_shards` especifica el número de fragmentos en los que se dividirá el índice. Un fragmento es una parte de los datos de un índice y cada fragmento es un índice de *Lucene* independiente que puede estar alojado en un nodo diferente del clúster de Elasticsearch.
-   - Elasticsearch distribuye los datos entre los fragmentos según una función hash del identificador del documento. Cuantos más fragmentos haya, mayor será la distribución de los datos y más capacidad de escalabilidad tendrá el índice.
+   - *Elasticsearch* distribuye los datos entre los fragmentos según una función hash del identificador del documento. Cuantos más fragmentos haya, mayor será la distribución de los datos y más capacidad de escalabilidad tendrá el índice.
    - Sin embargo, el exceso de fragmentos puede tener un impacto negativo en el rendimiento y en los recursos del clúster, por lo que es importante encontrar un equilibrio.
 
 - `number_of_replicas` especifica el número de réplicas de cada fragmento que se crearán en el clúster. Las réplicas son copias idénticas de los fragmentos primarios que se utilizan para garantizar la disponibilidad y la tolerancia a fallos.
-   - Las réplicas se distribuyen en los nodos del clúster de Elasticsearch de manera que estén balanceadas y garantizan que cada fragmento tenga sus réplicas en diferentes nodos.
-   - Al tener réplicas, si un nodo falla, Elasticsearch puede continuar sirviendo las consultas utilizando las réplicas disponibles, lo que mejora la disponibilidad del sistema.
+   - Las réplicas se distribuyen en los nodos del clúster de *Elasticsearch* de manera que estén balanceadas y garantizan que cada fragmento tenga sus réplicas en diferentes nodos.
+   - Al tener réplicas, si un nodo falla, *Elasticsearch* puede continuar sirviendo las consultas utilizando las réplicas disponibles, lo que mejora la disponibilidad del sistema.
    - Sin embargo, el aumento del número de réplicas también aumenta el consumo de recursos, como almacenamiento y uso de CPU, por lo que es importante considerar estos aspectos al configurar las réplicas.
 
 Para que quede más claro, vamos a generar un nuevo índice llamado *test_shards* donde vamos a repartir los datos entre 3 *shards* y además le pedimos dos replicas en cada uno de los *shards*.
@@ -994,7 +995,7 @@ En la imagen anterior:
 2. En nuestro caso nos indica que se han insertado de forma exitosa en 3 *shards*
 3. **Pero** en esta imagen también podemos ver que tenemos una penalización en cuento a tiempo, puesto que ha tardado 31 ms en realizar la inserción. En teoría, el hecho de insertar en mas de un nodo beneficia la velocidad, sobre todo si se trata de una cantidad importante de datos puesto que se dividen entre todos ellos, pero en este caso real, recordemos que tenemos 3 nodos trabajando sobre la misma máquina y los datos son mínimos por lo tanto en este caso se puede ver perjudicado.
 
-> El término "took" en las respuestas de Elasticsearch indica el tiempo total en milisegundos que tomó ejecutar la consulta. Esta métrica incluye el tiempo de procesamiento de la consulta en Elasticsearch, así como cualquier tiempo adicional dedicado a la comunicación de red, procesamiento en el cliente, etc.
+> El término "took" en las respuestas de *Elasticsearch* indica el tiempo total en milisegundos que tomó ejecutar la consulta. Esta métrica incluye el tiempo de procesamiento de la consulta en *Elasticsearch*, así como cualquier tiempo adicional dedicado a la comunicación de red, procesamiento en el cliente, etc.
 
 Por último, si realizamos un búsqueda de los datos, también nos dirá que se encuentran en los 3 *shards*
 
