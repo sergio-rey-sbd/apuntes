@@ -419,7 +419,7 @@ Aquí tienes algunos usos típicos de comandos docker-compose:
 | `docker-compose up -d` | Similar a `docker-compose up`, pero ejecuta los servicios en segundo plano (modo detached). Útil para ejecutar servicios en el fondo sin bloquear la terminal. |
 | `docker-compose down` | Detiene y elimina todos los contenedores, redes y volúmenes creados por `docker-compose up`. |
 | `docker-compose ps` | Muestra el estado de los servicios definidos en el archivo `docker-compose.yml`. Proporciona información sobre los contenedores en ejecución, sus puertos mapeados y el estado. |
-| `docker-compose logs` | Muestra los logs de todos los servicios o de un servicio específico definido en `docker-compose.yml`. Puedes usar banderas adicionales para controlar el formato y la salida de los logs. |
+| `docker-compose logs` | Muestra los logs de todos los servicios o de un servicio específico definido en `docker-compose.yml`. Puedes usar opciones adicionales para controlar el formato y la salida de los logs. |
 | `docker-compose exec <servicio> <comando>` | Ejecuta un comando dentro de un contenedor de un servicio específico. Útil para ejecutar comandos en el contexto de un servicio en ejecución. |
 | `docker-compose build` | Construye o reconstruye los servicios definidos en `docker-compose.yml`. Útil cuando se realizan cambios en Dockerfiles o archivos de configuración y se necesita actualizar las imágenes. |
 | `docker-compose restart <servicio>` | Reinicia un servicio específico definido en `docker-compose.yml`. Esto detiene y vuelve a arrancar el contenedor del servicio. |
@@ -457,7 +457,7 @@ sudo docker network create elastic
 sudo docker pull docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 sudo docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
-sudo docker run --name elasticsearch --net elastic -p 9200:9200  -p 9300:9300 -e "discovery.type=single-node" -it -m 2GB docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+sudo docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it -m 2GB docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
 ```
 
@@ -544,16 +544,19 @@ También podemos introducir nuestro primer índice con algunos datos (o document
 Veamos cómo se insertaría un índice y cómo se consulta: 
 
 - Añadir al indice test
-```bash
 
+```bash
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XPOST https://localhost:9200/test/_bulk?pretty -d'
 { "index" : {} }
 { "num": "2015/56", "cliente": 13, "importe":189 }
 { "index" : {} }
 { "num": "2015/57", "cliente": 45, "importe":190 }
 ' -H 'Content-Type: application/json'
+```
 
 - obtener todo lo que hay en indice test
+
+```bash
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET https://localhost:9200/test/_search?pretty
 ```
 
@@ -799,6 +802,7 @@ curl --cacert /etc/elasticsearch/certs/http_ca.crt -u elastic:$ELASTIC_PASSWORD 
 ```
 
 Las principales rutas del servicio Elasticse`arch son:
+
 | Carpeta                         | Descripción                                        |
 |--------------------------------|----------------------------------------------------|
 | /etc/elasticsearch              | Contiene los archivos de configuración de *Elasticsearch* |
