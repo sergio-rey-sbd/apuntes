@@ -453,16 +453,16 @@ Para instalar elastic en docker seguimos:
 
 ```bash
 # instalamos elacticseach sobre docker
-sudo docker network create elastic
-sudo docker pull docker.elastic.co/elasticsearch/elasticsearch:8.12.0
-sudo docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+docker network create elastic
+docker pull docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
 # Para la ejecución es recomendable asignar más de 1GB, para evitar problemas
-sudo docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it -m 2GB docker.elastic.co/elasticsearch/elasticsearch:8.12.0
+docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it -m 2GB docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
 ```
 
-Al terminal la instalación nos aparece la siguiente información donde tenemos contraseña de acceso y tokens (claves) para poder unir `Kibana` u otros nodos de *Elasticsearch*. Esta información es importante retenerla.
+Al terminal la instalación y puesta en marcha del contenedor nos aparece la siguiente información donde tenemos contraseña de acceso y tokens (claves) para poder unir `Kibana` u otros nodos de *Elasticsearch*. Esta información es importante retenerla.
 
 <div align="center">
     <img src="../img/ELK/ELK10.png" alt="ELK" width="50%" />
@@ -479,7 +479,7 @@ Nos preparamos para trabajar de creando una variable para guardar la contraseña
 export ELASTIC_PASSWORD="ar+cS5jc7JzL_AzppMrt"
 
 # Copy the http_ca.crt SSL certificate from the container to your local machine.
-docker cp es01:/usr/share/elasticsearch/config/certs/http_ca.crt .
+docker cp elasticsearch:/usr/share/elasticsearch/config/certs/http_ca.crt .
 
 # si no estamos en el root, debemos hacer que nuestro usuario tenga acceso al certificado
 sudo chmod o+r http_ca.crt
@@ -576,7 +576,7 @@ y podíamos añadir `kibana`, tal y como se especifica en las web de elastic.
 docker pull docker.elastic.co/kibana/kibana:8.12.0
 
 # Start a Kibana container.
-docker run --name kib01 --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.12.0
+docker run --name kibana --net elastic -p 5601:5601 docker.elastic.co/kibana/kibana:8.12.0
 ```
 
 Con esto, iniciamos el contenedor, si todo funciona bien, nos da un enlace desde el que acceder a kibana: 
@@ -596,8 +596,8 @@ y ya tenemos funcionando elastic y kibana. Nos solicita la contraseña, que es l
 Si en un momento determinado perdemos la contraseña, o pasan mas de 30 minutos y tenemos que regenerar el token de unión de kibana, entonces ejecutamos: 
 
 ```bash
-docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
-docker exec -it es01 /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
+docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-reset-password -u elastic
+docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-create-enrollment-token -s kibana
 ```
 
 Sin embargo, pero las limitaciones de ejecución con muchas, por lo que vamos a continuar con una solución más completa
@@ -658,7 +658,7 @@ Mediante la definición del `volume`, podemos almacenar los datos de los nodos e
 Podemos comprobar dónde se encuentran mediante el comando: 
 
 ```bash
-docker volume ps                        # listamos todos los volúmenes
+docker volume ls                        # listamos todos los volúmenes
 docker volume inspect elastic_esdata01  # inspeccionamos un volumen en concreto
 ```
 
@@ -689,6 +689,7 @@ Ahora, podemos comprobar de nuevo el estado del cluster:
 
 ```bash
 sudo curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_cat/health?pretty 
+sudo curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_cluster/health?pretty 
 ```
 y obtenemos la salida del estado:
 
@@ -708,7 +709,7 @@ También podemos pregunta sobre el cluster de nodos:
 ```bash
 curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_cat/nodes?v
 ```
-En esta captura podemos apreciar tatn los nodos que componen el cluster, las direcciones, ip, como porcentajes de memoria, cpu, de carga, los roles que tiene cada nodo y quién esta actuando de *nodo master*
+En esta captura podemos apreciar tanto los nodos que componen el cluster, las direcciones, ip, como porcentajes de memoria, cpu, de carga, los roles que tiene cada nodo y quién esta actuando de *nodo master*
 
 <div align="center">
     <img src="../img/ELK/ELK24.png" alt="ELK" width="70%" />
