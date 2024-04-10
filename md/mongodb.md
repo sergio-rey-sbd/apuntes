@@ -36,14 +36,18 @@ permalink: /mongodb/
     - [7.1.1. Instalación](#711-instalación)
     - [7.1.2. Tabajando con *MongoDB* Compass](#712-tabajando-con-mongodb-compass)
   - [7.2. *MongoDB* for VSCode](#72-mongodb-for-vscode)
-- [8. Operaciones con datos: Consultas](#8-operaciones-con-datos-consultas)
+- [8. Operaciones con datos: Consultas y métodos](#8-operaciones-con-datos-consultas-y-métodos)
   - [8.1. Operadores *MongoDB*](#81-operadores-mongodb)
-  - [8.2. Consultas. Ejemplos prácticos.](#82-consultas-ejemplos-prácticos)
+  - [8.2. Consultas con `.find`. Ejemplos prácticos.](#82-consultas-con-find-ejemplos-prácticos)
     - [8.2.1. Consultas básicas](#821-consultas-básicas)
     - [8.2.2. Consultas con operadores lógicos](#822-consultas-con-operadores-lógicos)
     - [8.2.3. Consultas sobre objetos anidados](#823-consultas-sobre-objetos-anidados)
     - [8.2.4. Consultas con expresiones regulares](#824-consultas-con-expresiones-regulares)
     - [8.2.5. Cursores](#825-cursores)
+  - [8.3. Otros métodos interesantes.](#83-otros-métodos-interesantes)
+    - [8.3.1. Método `.distinct`](#831-método-distinct)
+    - [8.3.2. Método `.count`](#832-método-count)
+    - [8.3.3. Método `.aggregate`](#833-método-aggregate)
 
 
 # 1. Introducción
@@ -949,7 +953,7 @@ Una vez conectados, podremos recorrer las colecciones con los datos así como ut
 Realmente, esta extensión este pensada para trabajar con opciones avanzadas, como crear índices, generar código en lenguajes como *javascript*, *python* o cualquier otro para realizar todo tipo de operaciones en *MongoDB*, o crear variables con datos y estos utilizarlos en nuestras operaciones. Para más información en la web de la extension: [MongoDB for VS Code. *MongoDB* Without Leaving Your IDE](https://www.mongodb.com/products/tools/vs-code)
 
 
-# 8. Operaciones con datos: Consultas
+# 8. Operaciones con datos: Consultas y métodos
 
 Ahora que ya tenemos más herramientas y hemos visto las operaciones básicas de *MongoDB* vamos a profundizar sobre las consultas de los datos, aunque ya las hemos visto brevemente con anterioridad.
 
@@ -986,7 +990,8 @@ Antes de continuar, en la siguiente tabla esta el listado de los principales ope
 
 Estos operadores son fundamentales para realizar consultas avanzadas en *MongoDB*, permitiendo filtrar y buscar documentos en función de diferentes criterios. Puedes combinar estos operadores para construir consultas complejas y poderosas que se adapten a tus necesidades específicas.
 
-## 8.2. Consultas. Ejemplos prácticos.
+
+## 8.2. Consultas con `.find`. Ejemplos prácticos.
 
 Utilizando la tabla de *movies* vamos a realizar algunas consultas que servirán para ilustrar los aspectos más interesantes de las búsquedas en *MongoDB*. 
 
@@ -1203,8 +1208,6 @@ db.movies.find({
 
 ### 8.2.5. Cursores
 
-Cursores
-
 Al hacer una consulta en el shell se devuelve un cursor. Este cursor lo podemos guardar en un variable, y partir de ahí trabajar con él como haríamos mediante cualquier lenguaje de programación. Si `cur` es la variable que referencia al cursor, podremos utilizar los siguientes métodos:
 
 
@@ -1249,7 +1252,253 @@ db.movies.find({
 ```
 
 
+## 8.3. Otros métodos interesantes.
+
+Existen gran variedad de métodos que nos permiten realizar todo tipo de consultas sobre una base de datos y más concretamente sobre una colección. 
+
+Un listado detallado de todos estos métodos lo encontramos en la web oficial de MongoDB: [MongoDB Manual - Collection Methods](https://www.mongodb.com/docs/manual/reference/method/js-collection/)
+
+Pueden resultar interesante las siguientes:
+
+### 8.3.1. Método `.distinct`
+
+Obtiene los valores diferentes de un campo de una colección: 
+
+```js
+db.movies.distinct({ 'genres' });
+db.movies.distinct( 'type' );
+```
+Estos dos ejemplos obtienen los diferentes valores de los atributos indicados.
+
+
+### 8.3.2. Método `.count`
+
+Cuenta la cantidad de documentos que cumplen una condición.
+
+```js
+db.movies.find({
+    year: { $lt: 2000 },
+    genres: "Short"
+}).count()
+```
+
+Obtenemos la cantidad de *cortos* de la colección, posterior al año 2000
+
+
+### 8.3.3. Método `.aggregate`
+
+Para poder agrupar datos y realizar cálculos sobre éstos, MongoDB ofrece diferentes alternativas una de ellas es mediante el método `.aggretate`
+
+**Pipeline de agregación**
+
+Las agregaciones usan un pipeline, conocido como Aggregation Pipeline, de ahí que el método aggregate use un array con [ ] donde cada elemento es una fase del pipeline, de modo que la salida de una fase es la entrada de la siguiente:
+
+```js 
+db.coleccion.aggregate([op1, op2, ... opN])
+```
+
+En la siguiente imagen se resumen los pasos de una agrupación donde primero se eligen los elementos que vamos a agrupar mediante `$match`, el resultado saliente se agrupan con `$group`, y sobre los agrupado mediante `$sum` se calcula el total:
+
+
+<div align="center">
+    <img src="../img/MongoDB/MongoDB31.png" alt="MongoDB Aggregate" width="60%" />
+</div>
+
+Al realizar un pipeline dividimos las consultas en fases, donde cada fase utiliza un operador para realizar una transformación. Aunque no hay límite en el número de fases en una consulta, es importante destacar que el orden importa, y que hay optimizaciones para ayudar a que el pipeline tenga un mejor rendimiento (por ejemplo, hacer un `$match` al principio para reducir la cantidad de datos)
+
+
+**Operadores del pipeline**
+
+Antes de nada cabe destacar que las fases se pueden repetir, por lo que una consulta puede repetir operadores para encadenar diferentes acciones.
+
+A continuación vamos a estudiar todos estos operadores:
+
+| Operador | Descripción | Cardinalidad |
+| --- | --- | --- |
+| $project | Proyección de campos, es decir, propiedades en las que estamos interesados. También nos permite modificar un documento, o crear un subdocumento (reshape) | 1:1 |
+| $match | Filtrado de campos, similar a where | N:1 |
+| $group | Para agrupar los datos, similar a group by | N:1 |
+| $sort | Ordenar | 1:1 |
+| $skip | Saltar | N:1 |
+| $limit | Limitar los resultados | N:1 |
+| $unwind | Separa los datos que hay dentro de un array | 1:N |
+
+**Ejemplos de uso** 
+
+La fase **group** agrupa los documentos con el propósito de calcular valores agregados de una colección de documentos. Por ejemplo, podemos usar **$group** para calcular la cantidad de peliculas por tipo.
+
+
+```js
+db.movies.aggregate([
+    { $group: {
+        _id: "$type",
+        total: { $sum:1}
+      }
+    }
+])
+```
+
+> Cuidado: La salida de `$group` esta desordenada
+
+La salida de `$group` depende de cómo se definan los grupos. Se empieza especificando un identificador (por ejemplo, un campo `_id`) para el grupo que creamos con el *pipeline*. Para este campo `_id`, podemos especificar varias expresiones, incluyendo un único campo proveniente de un documento del *pipeline*, un valor calculado de una fase anterior, un documento con muchos campos y otras expresiones válidas, tales como constantes o campos de subdocumentos. 
+
+> Cuando referenciemos al valor de un campo lo haremos poniendo entre comillas un $ delante del nombre del campo. Así pues, para referenciar al fabricante de un producto lo haremos mediante `$fabricante`.
+
+
+Si lo que queremos es que el valor del identificador contenga un objeto, lo podemos asociar como valor:
+
+```js
+db.movies.aggregate([
+    { $group: {
+        _id: { "Tipo" : "$type"},
+        total: { $sum:1}
+      }
+    }
+])
+```
+
+<div align="center">
+    <img src="../img/MongoDB/MongoDB32.png" alt="MongoDB Aggregate" width="70%" />
+</div>
+
+
+También podemos agrupar más de un atributo, de tal modo que tengamos un `_id` compuesto. Por ejemplo:
+
+```js
+db.movies.aggregate([
+    { $group: {
+        _id: { 
+            "Tipo" : "$type",
+            "Género": "$genres"},
+        total: { $sum:1}
+      }
+    }
+])
+```
+
+
+El operador `$sum` acumula los valores y devuelve la suma. En los ejemplos anteriores, sumaba 1 por cada elemento contrado, pero podría sumar cualquier valor numérico. 
+
+Por ejemplo, calculamos las nominaciones y premios ganados de las peliculas según el tipo: 
+
+```js
+db.movies.aggregate([
+    { $group: {
+        _id: { "Tipo" : "$type"},
+        Nominaciones: { $sum: "$awards.nominations"},
+        Ganadas: { $sum: "$awards.wins"}
+        
+      }
+    }
+])
+```
+
+<div align="center">
+    <img src="../img/MongoDB/MongoDB33.png" alt="MongoDB Aggregate" width="70%" />
+</div>
+
+Mediante `$avg `podemos obtener el promedio de los valores de un campo numérico.
+
+Por ejemplo calculamos la media de la puntuación por país
+
+```js
+db.movies.aggregate([
+    { $group: {
+        _id: { "Pais" : "$countries"},
+        Cantidad: { $sum: 1},
+        Puntuación: { $avg: "$imdb.rating"}
+      }
+    }
+])
+```
+
+El operador `$sort` ordena los documentos recibidos por el campo, y el orden indicado por la expresión indicada al pipeline.
+
+Si queremos ordenar el listado anterior por la cantidad de películas descendentemente (-1):
+
+```js
+db.movies.aggregate([
+    { $group: {
+        _id: { "Pais" : "$countries"},
+        Cantidad: { $sum: 1},
+        Puntuación: { $avg: "$imdb.rating"}
+      }
+    },
+    { $sort: {Cantidad: -1}}
+])
+```
+
+El operador `$match` se utiliza principalmente para filtrar los documentos que pasarán a la siguiente etapa del pipeline o a la salida final.
+
+Por ejemplo, filtramos las películas que lanzadas a partir de 2015:
+
+```js
+db.movies.aggregate([
+    { $match: { 
+        released: {$gt: new Date('2015-01-01')}
+      }
+    },
+    { $group: {
+        _id: { "Pais" : "$countries"},
+        Cantidad: { $sum: 1},
+        Puntuación: { $avg: "$imdb.rating"}
+      }
+    },
+    { $sort: {Cantidad: -1}}
+])
+```
+
+Observar el concepto de *pipeline* con el siguiente ejemplo. Vamos a contabilizar las películas lanzadas desde 2015 por paises, pero solo si hay al menos 30 peliculas de cada pais. Para esto, añadimos tras el cálculo de la `Cantidad` un nuevo filtro:
+
+```js
+db.movies.aggregate([
+    { $match: { 
+        released: {$gt: new Date('2015-01-01')}
+      }
+    },
+    { $group: {
+        _id: { "Pais" : "$countries"},
+        Cantidad: { $sum: 1},
+        Puntuación: { $avg: "$imdb.rating"}
+      }
+    },
+    { $match: { 
+        Cantidad: { $gt: 30 }
+      }
+    },
+    { $sort: {Cantidad: -1}}
+])
+```
+
+<div align="center">
+    <img src="../img/MongoDB/MongoDB34.png" alt="MongoDB Aggregate" width="70%" />
+</div>
+
+Si queremos realizar una proyección sobre el conjunto de resultados y quedarnos con un subconjunto de los campos usaremos el operador `$project`. Como resultado obtendremos el mismo número de documentos, y en el orden indicado en la proyección.
+
+Veamos el resultado del siguiente ejemplo:
+
+<div align="center">
+    <img src="../img/MongoDB/MongoDB35.png" alt="MongoDB Aggregate" width="70%" />
+</div>
+
+Donde:
+
+1. Ocultamos el campo `_id`
+2. Pasamos un campo a mayúsculas
+3. Agrupamos varios campos
+4. Renombramos un campo
+5. Realizamos operaciones matemáticas
+6. Obtenemos un número determinado de documentos, aunque el método `$limit` no es un modificador de `$project`
+
+En definitiva, el abanico de posiblidades es muy extensonuevo en muy extenso. Para más información en el [Manual de MongoDB: Aggregation Operations](https://www.mongodb.com/docs/manual/aggregation/#aggregation-operations)
+
+
+<hr>
+
 **Fuentes**:
 
+- [Manual oficial de MongoDB](https://www.mongodb.com/docs/manual/)
 - [Aitor Medrano. Cursos Inteligencia Artificial y Big Data. MongoDB](https://aitor-medrano.github.io/iabd/sa/mongo.html)
 - Ejemplos extraídos de [aqui](https://www.w3resource.com/mongodb-exercises/mongodb-movies-collection-index.php)
+- [Manipulación de datos en MongoDB mediante Aggregation Pipeline](https://www.adictosaltrabajo.com/2013/12/16/mongodb-agregatte/)
