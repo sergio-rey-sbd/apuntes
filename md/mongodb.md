@@ -387,6 +387,15 @@ Un caso particular y muy común es importar datos que se encuentran en formato *
 mongoimport --type tsv -d test -c poblacion --headerline --drop poblacionEspanya2013.tsv
 ```
 
+Donde
+  - `--type` : indica el tipo de fichero; csv o tsv
+  - `-d` o `--db`: indica la base de datos
+  - `-c` o `--collection` : indica la colección
+  - `--headerline`: en un csv o tsv indica que la primera línea contiene los nombres de los campos
+  - `--drop`: elimina la colección si existe antes de la importación del fichero
+
+Mas información en el [Manual de MongoDB: mongoimport](https://www.mongodb.com/docs/database-tools/mongoimport/)
+
 En vez de realizar un *export*, es más conveniente realizar un ***backup*** en binario mediante `mongodump`, el cual genera ficheros *BSON*. Estos archivos posteriormente se restauran mediante `mongorestore`:
 
 ```bash

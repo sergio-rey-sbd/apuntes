@@ -138,7 +138,7 @@ En un *índice* se pueden almacenar todos los documentos que se requiera.
   - Permite subdividir/escalar la información almacenada.
   - Permite distribuir y paralelizar operaciones.
 
-**Réplica**: *Elasticsearch* permite realizar una o más copias de los shards. Su importancia recae en:
+- **Réplica**: *Elasticsearch* permite realizar una o más copias de los shards. Su importancia recae en:
   - Proporciona alta disponibilidad en el caso de que un shard/nodo falle. Importante que las réplicas no se encuentren en el mismo nodo.
   - Permite el escalado del volumen de búsquedas ya que estas pueden ejecutarse en paralelo en las réplicas.
 
@@ -457,6 +457,7 @@ sudo docker network create elastic
 sudo docker pull docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 sudo docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
+# Para la ejecución es recomendable asignar más de 1GB, para evitar problemas
 sudo docker run --name elasticsearch --net elastic -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" -it -m 2GB docker.elastic.co/elasticsearch/elasticsearch:8.12.0
 
 ```
