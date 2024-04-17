@@ -96,6 +96,8 @@ Existen varias razones que nos aconsejan dar un vistazo a *Elastic Stack* (Elast
 
 4. **Casos de uso prácticos**: ELK se utiliza en una amplia variedad de casos de uso, incluyendo monitoreo de infraestructura, análisis de logs, observabilidad de aplicaciones, análisis de seguridad, análisis de registros de aplicaciones y más. Estudiar cómo se implementa ELK en estos casos de uso proporciona una comprensión práctica de cómo se utilizan los sistemas de Big Data en entornos del mundo real.
 
+>>> *Elasticsearch ha sido adoptado por algunas marcas importantes, como: Tesco, Linkedin, Foursquare, Facebook, Netflix, Dell, Ebay, Wikipedia, The Guardian, New York Times, Salesforce, Docker, Orange, Groupon, Eventbrite y muchos otros.* [Usar Elasticsearch: ventajas, casos prácticos y libros](https://apiumhub.com/es/tech-blog-barcelona/usar-elasticsearch-ventajas-libros/)
+
 5. **Herramientas de código abierto**: ELK es una suite de herramientas de código abierto ampliamente utilizada en la industria. Estudiar ELK te expone a tecnologías de código abierto populares y te proporciona habilidades que son altamente valoradas en el mercado laboral de la tecnología.
 
 En resumen, estudiar ELK te proporciona una comprensión práctica de cómo funcionan y se utilizan los sistemas de Big Data en entornos del mundo real, desde la ingestión de datos hasta el almacenamiento, análisis y visualización de datos. Esto puede ser valioso para aquellos que desean desarrollar habilidades en el campo del análisis de datos y Big Data.
@@ -273,25 +275,25 @@ Una vez preparado nuestro sistema, vamos a ver diferentes instalaciones. Realiza
 
 Para instalar Docker y Docker Compose en Ubuntu 22.04, puedes seguir estos pasos:
 
-1. Actualiza el índice de paquetes de Ubuntu:
+1.- Actualiza el índice de paquetes de Ubuntu:
 
 ```bash
 sudo apt update
 ```
 
-2. Instala los paquetes necesarios para permitir que apt utilice un repositorio sobre HTTPS:
+2.- Instala los paquetes necesarios para permitir que apt utilice un repositorio sobre HTTPS:
 
 ```bash
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 ```
 
-3. Descarga e importa la clave GPG oficial de Docker:
+3.- Descarga e importa la clave GPG oficial de Docker:
 
 ```bash
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 ```
 
-4. Agrega el repositorio de Docker al sistema:
+4.- Agrega el repositorio de Docker al sistema:
 
 ```bash
 echo \
@@ -299,39 +301,39 @@ echo \
   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
 
-5. Actualiza el índice de paquetes nuevamente:
+5.- Actualiza el índice de paquetes nuevamente:
 
 ```bash
 sudo apt update
 ```
 
-6. Instala la versión de Docker que prefieras. Puedes elegir entre la versión comunitaria (Docker CE) o la versión empresarial (Docker EE). Para instalar la versión comunitaria, ejecuta:
+6.- Instala la versión de Docker que prefieras. Puedes elegir entre la versión comunitaria (Docker CE) o la versión empresarial (Docker EE). Para instalar la versión comunitaria, ejecuta:
 
 ```bash
 sudo apt install docker-ce docker-ce-cli containerd.io
 ```
 
-7. Instala docker-compose, ejecuta:
+7.- Instala *docker-compose*, ejecuta:
 
 ```bash
 sudo apt install docker-compose
 ```
 
 
-8. Verifica que Docker se haya instalado correctamente ejecutando el siguiente comando para verificar la versión:
+8.- Verifica que Docker se haya instalado correctamente ejecutando el siguiente comando para verificar la versión:
 
 ```bash
 docker --version
 docker-compose --version
 ```
 
-9. Para permitir que tu usuario actual ejecute comandos de Docker sin necesidad de usar `sudo`, agrega tu usuario al grupo `docker`:
+9.- Para permitir que tu usuario actual ejecute comandos de Docker sin necesidad de usar `sudo`, agrega tu usuario al grupo `docker`:
 
 ```bash
 sudo usermod -aG docker $USER
 ```
 
-10. Cierra la sesión actual y vuelve a iniciarla para que los cambios surtan efecto.
+10.- Cierra la sesión actual y vuelve a iniciarla para que los cambios surtan efecto.
 
 
 <div align="center">
@@ -471,7 +473,7 @@ Al terminal la instalación y puesta en marcha del contenedor nos aparece la sig
 
 ### 3.3.2. Comprobando la instalación
 
-Una vez llegados a este punto, dejamos el contenedor funcionando y nos *abrimos un nuevo contenedor*. 
+Una vez llegados a este punto, dejamos el contenedor funcionando y nos *abrimos un nuevo terminal*. 
 
 Nos preparamos para trabajar de creando una variable para guardar la contraseña anterior y copiando el certificado de autentificación en nuestro equipo.
 
@@ -531,13 +533,12 @@ sudo curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET 'https://local
 
 - Listado de nodos del cluster
 ```bash
-sudo curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_cat/health?pretty 
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD https://localhost:9200/_cat/nodes?v
 ```
 
 - Información sobre el listado de nodos
-
 ```bash
-sudo curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET 'https://localhost:9200/_nodes?pretty'
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET 'https://localhost:9200/_nodes?pretty'
 ```
 
 También podemos introducir nuestro primer índice con algunos datos (o documentos).
@@ -634,13 +635,13 @@ sudo docker-compose ps    # mediante este comando, podemos ver si los diferentes
     <img src="../img/ELK/ELK17.png" alt="ELK" width="60%" />
 </div>
 
-Con el comando `docker-compose ps` comprobamos que todos los nodos están activos y con esto, ya podemos intentar entrar en kibana de nuevo, pero ahora con la nueva contraseña: *changeme*
+Con el comando `docker-compose ps` comprobamos que todos los nodos están activos y con esto, ya podemos intentar entrar en kibana de nuevo (http://127.0.0.1:5601/), pero ahora con la nueva contraseña: *changeme*
 
 <div align="center">
     <img src="../img/ELK/ELK18.png" alt="ELK" width="40%" />
 </div>
 
-Por último, si queremos detener o eliminar  el sistema ejecutaremos
+Por último, si queremos detener o eliminar el sistema ejecutaremos
 
 ```bash
 sudo docker-compose stop    # detiene los servicios 
@@ -651,7 +652,7 @@ sudo docker-compose start   # si hemos parado, si hemos eliminado: up
 
 ```
 
-**Corespondencia de Volumenes de los contenedores y datos en local**
+**Correspondencia de Volúmenes de los contenedores y datos en local**
 
 Mediante la definición del `volume`, podemos almacenar los datos de los nodos en local, con la finalidad de preservar los datos en caso de que los nodos tengan cualquier problema. Esto se aplica a este ejemplo tal como se puede ver en el fichero de configuración [.docker-compose.yml](https://github.com/elastic/elasticsearch/blob/8.12/docs/reference/setup/install/docker/docker-compose.yml). 
 
@@ -926,10 +927,16 @@ En *Elasticsearch*, existen varios conceptos clave que son fundamentales para co
     <img src="../img/ELK/ELK37.png" alt="ELK" width="50%" />
 </div>
 
+Podemos comprobar los **indices** que tenemos en el cluster 
+
+```bash
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET 'https://localhost:9200/_cat/indices?v'
+```
+
 Podemos comprobar los diferentes **shards** de cada uno de los índices que hay en el sistema 
 
 ```bash
-curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET 'https://localhost:9200/_cat/shards/'
+curl --cacert http_ca.crt -u elastic:$ELASTIC_PASSWORD -XGET 'https://localhost:9200/_cat/shards?v'
 ```
 
 Ahora vamos a crear un índice llamado *test*, especificando que queremos almacenar los datos en dos **shards** primarios y tener una replica por *shard*:

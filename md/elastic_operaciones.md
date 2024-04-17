@@ -57,8 +57,19 @@ Nosotros para comenzar a conocer las operaciones o posibilidades de elasticserac
 
 - **Creación de un índice con `PUT`**
 
-```php
+```js
 PUT mi_indice
+```
+
+o especificando *shards* y réplicas
+```js
+PUT mi_indice 
+{ 
+  "settings": { 
+    "number_of_shards": 2, 
+    "number_of_replicas":2 
+  }
+}
 ```
 
 - **Eliminar un índice con `DELETE`**
@@ -203,10 +214,10 @@ POST mi_indice/_bulk
 ```
 
 Como se puede ver, en una misma ejecución, hemos realizado
-- Una actualización del `id` 3
+- Una actualización del `id` 3 (porque ya existía)
 - Un borrado del `id` 4
 - Una actualización del `id` 10
-- Una inserción del `id` 10
+- Una inserción del `id` 8
 - Una inserción con un `id` automático
 Observar que cada uno de estos elementos tiene una respuesta en su ejecución.
 
@@ -248,6 +259,11 @@ En apartados anteriores hemos visto como la API `GET` también se puede utilizar
 
 A continuación, se presentan algunos ejemplos de cómo se puede utilizar el método GET en Elasticsearch:
 
+- **Listado de los índices del cluster**
+```js
+GET _cat/indices/?v
+```
+
 - **Recuperar un documento por su ID:**
 ```js
 GET mi_indice/_doc/1
@@ -286,7 +302,7 @@ Si dentro de la búsqueda incluimos el siguiente JSON indicando `track_total_hit
 ```js
 GET vehiculos_test/_search
 {
-  "track_total_hits": true
+  "track_total_hits": true,
   "size": 5000
 }
 ```
@@ -424,6 +440,7 @@ GET restaurantes/_search
       "DESCRIPCION": {
         "query": "cocina tradicional",
         "operator": "and"
+      }
     }
   }
 }
@@ -619,7 +636,7 @@ Veamos como podemos operar con todo lo visto anteriormente media su combinación
 Para ello utilizaremos las **bool query** que están compuestas de varias clausulas como son: 
 - **must**, que establece condiciones que son de obligado cumplimiento
 - **must_not**, que es lo contrario del anterior. Elementos que no queremos encontrarnos.
-- **should**, clausula permisiva que abre la consulta a textos o numeros que pueden estar o no, o incluso que se asemejen auna condición ***or***. En este caso no se excluyen documentos y se pueden aplicar todas las clausulas vistas anteriorment.
+- **should**, clausula permisiva que abre la consulta a textos o números que pueden estar o no, o incluso que se asemejen a una condición ***or***. En este caso no se excluyen documentos y se pueden aplicar todas las clausulas vistas anteriormente.
 - **filter**, donde filtramos y ordenamos los documentos obtenidos. Esta clausula no afecta al `score` y se aplica una vez obtenidos los resultados. Es suele filtrar por fecha, números... 
 
 <div align="center">
@@ -805,7 +822,7 @@ Tipos de datos más comunes
 
 También podemos a encontrarnos con campos que puedan tener multi-tipado, se llaman **multi-fields**.
 
-Com puedes ver, se pueden definir tipos de datos especiales como, coordenadas, figuras, iso paises...
+Com puedes ver, se pueden definir tipos de datos especiales como, coordenadas, figuras, iso países...
 
 ### 3.1.1. Dynamic Mapping 
 
@@ -819,13 +836,17 @@ GET restaurantes/_mapping
 
 Como se puede ver, el mapeo se ha creado automáticamente aunque puede no ser muy eficiente y en ocasiones nos suele interesar especificar donde van textos (`text`) con descripciones largas o campos con claves (`keyword`) donde posteriormente habrá búsquedas.  
 
+> Los campos de tipo `text` **se analizan durante el proceso de indexación**. Esto significa que se descomponen en términos individuales (tokens) para permitir búsquedas parciales y coincidencias.
+
+> Los campos de tipo `keyword` **no** se analizan durante la indexación. Se almacenan tal como están.Son ideales para búsquedas exactas. Puedes buscar valores exactos sin descomponerlos en tokens.
+
 El mapeo dinámico permite que Elasticsearch detecte automáticamente la estructura de los datos cuando se indexa un documento por primera vez y genere el mapping en función de los campos encontrados en el documento. Esto puede ser conveniente, pero puede llevar a mapping no deseado o inconsistente si los documentos tienen diferentes estructuras.
 
 ###  3.1.2. Explicit mapping
 
 El **mapeo explícito** implica definir manualmente el mapping de un índice antes de indexar cualquier documento. Esto proporciona un control preciso sobre la estructura de los datos.
  
-Por ejemplo, para crear el mapping de nuestro índice de restaurantes, primero borramos el índice y después lo volvemos a crear. Comunmente lo que se hace es que se importa un conjuntos de datos, se obtienen el **mapeo dinámico** y a partir de este, se añaniza y optimiza generando un **mapeo explicito**
+Por ejemplo, para crear el mapping de nuestro índice de restaurantes, primero borramos el índice y después lo volvemos a crear. Comúnmente lo que se hace es que se importa un conjuntos de datos, se obtienen el **mapeo dinámico** y a partir de este, se analiza y optimiza generando un **mapeo explicito**
 
 
 ```js
@@ -951,13 +972,13 @@ Por otra parte, es posible actualizar el mapping de un índice existente para ag
 
 ## 3.2. Analizadores de textos
 
-Cuando realizamos una busqueda, podemos ver que en ocasiones dos consultas muy parecidas tiene un `score`idéntico: 
+Cuando realizamos una búsqueda, podemos ver que en ocasiones dos consultas muy parecidas tiene un `score`idéntico: 
 
 <div align="center">
     <img src="../img/ELK/ELK47.png" alt="ELK" width="50%" />
 </div>
 
-Esto ocurre porque hay un proceso de análisis que ocurre cuando se ingestan los datos. En este proceso, por ejemplo, se pasa todo a *minusculas*, por lo que realmente no importa si las consulta se realizan con mayúsculas o minúsculas. 
+Esto ocurre porque hay un proceso de análisis que ocurre cuando se ingestan los datos. En este proceso, por ejemplo, se pasa todo a *minúsculas*, por lo que realmente no importa si las consulta se realizan con mayúsculas o minúsculas. 
 
 Este análisis de datos proporciona la generación de unos **tokens** que son las *palabras principales* que podemos extraer de cualquier texto:
 
@@ -984,9 +1005,9 @@ Los analizadores en Elasticsearch se componen de varios componentes que trabajan
 
 ### 3.2.2. Analizadores personalizados
 
-Podemos crear un analizador personalizado a partir de una analizador estandar para optimizar las búsquedas en nuestro índice.
+Podemos crear un analizador personalizado a partir de una analizador estándar para optimizar las búsquedas en nuestro índice.
 
-Por ejemplo, los analizadores estandar tipo `stop` (que eliminan ciertos terminos), estan muy desarrollados para el idioma inglés en elasticsearch, pero no tanto para nuestro idioma., por lo que podemos definir un analizador personalizado para nuestro índice.
+Por ejemplo, los analizadores estándar tipo `stop` (que eliminan ciertos términos), están muy desarrollados para el idioma inglés en elasticsearch, pero no tanto para nuestro idioma., por lo que podemos definir un analizador personalizado para nuestro índice.
 
 Para crear un analizador personalizado, se realizará dentro de la sección `settings` en la definición del índice.
 
