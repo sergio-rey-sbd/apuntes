@@ -1,7 +1,7 @@
 ---
-title: Apache NiFi
-description: Apache NiFi
-permalink: /nifi/
+title: Oracle Data Integrator
+description: Oracle Data Integrator
+permalink: /odi/
 ---
 
 <h1>ODI: Oracle Data Integrator</h1>

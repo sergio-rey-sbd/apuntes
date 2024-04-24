@@ -77,7 +77,7 @@ Tarda un poco en ponerse en marcha, hasta 5 minutos.
 
 Luego accedemos en `https://localhost:8443/nifi`
 
-> **Nota**: Para su funcionamiento **es necesaria una máquina Java**. En ocasiones hay problemas con *java* y es necesario establecer la ubicación de Java, esto se hace en el fichero `./bin/nifi-env.sh` añadiendo antes de la definición de la variable `NIFI_HOME`
+> **Nota**: Para su funcionamiento **es necesaria una máquina Java**. En ocasiones hay problemas con *java* y es necesario establecer la ubicación de Java, esto se hace en el fichero `nano ` añadiendo antes de la definición de la variable `NIFI_HOME`
 > 
 > ```bash
 > # Instalar jre. Para nifi 2.0, debe ser jdk-21 o superior
