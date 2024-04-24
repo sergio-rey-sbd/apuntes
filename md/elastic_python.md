@@ -16,7 +16,7 @@ permalink: /elastic-python/
 - [2. Uso de Elasticsearch desde cliente en python](#2-uso-de-elasticsearch-desde-cliente-en-python)
 - [3. Ejemplo de uso guiado: Restaurantes de Nueva York](#3-ejemplo-de-uso-guiado-restaurantes-de-nueva-york)
 - [4. Caso de uso: Accidentes en Nueva York](#4-caso-de-uso-accidentes-en-nueva-york)
-- [Uso de `MongoDB` con `Apache Nifi`](#uso-de-mongodb-con-apache-nifi)
+- [5. Uso de `MongoDB` con `Apache Nifi`](#5-uso-de-mongodb-con-apache-nifi)
 
 
 
@@ -61,6 +61,15 @@ Aquí tienes el enlace al [ejemplo de ingestión de datos usando python; Bulk In
 
 Una vez introducidos los datos, los analizaremos desde el interface de Kibana.
 
+En este ejemplo hay un script que hace todo, lo único que se debe actualizar es la dirección del cliente
+
+```python
+    client = Elasticsearch(
+        "https://localhost:9200",
+        ca_certs="../http_ca.crt",
+        basic_auth=("elastic", "changeme")
+    )
+```
 
 
 # 4. Caso de uso: Accidentes en Nueva York
@@ -69,7 +78,7 @@ Vamos a utilizar la misma fuente de datos, para obtener otro conjunto de datos: 
 
 
 
-# Uso de `MongoDB` con `Apache Nifi`
+# 5. Uso de `MongoDB` con `Apache Nifi`
 
 Otros de los usos típicos que podemos tener es el almacenamiento de un ETL utilizando `Apache Nifi` y `MongoDB`
 
