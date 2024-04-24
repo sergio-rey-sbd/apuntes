@@ -12,13 +12,22 @@ Apuntes de **Sistemas de Big Data**  para el Curso de Especialización de *Intel
 
 Apartados:
 
+Apuntes de ETL:
+
+- [Apache Nifi](./nifi/)
+- [PostgreSQL](./postgres/)
+
+Apuntes NoSQL y MongoDB
 - [Bases de datos NoSQL](./nosql/)
 - [MongoDB](./mongodb/)
 
 
+Apuntes Elastic Stack
 - [Elastic Stack](./elastic_stack/)
 - [Elasticsearch. Operaciones](./elasticsearch/)
 - [Kibana](./kibana/)
+
+Usos
 - [Elasticsearch con clientes en Python](./elastic-python/)
 
 

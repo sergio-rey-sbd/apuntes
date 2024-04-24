@@ -45,7 +45,7 @@ Algunas características principales de Kibana son:
     <img src="../img/ELK/ELK61.png" alt="ELK - Kibana" width="40%" />
 </div>
 
-Para nosotros en concretos, Kibana representa el framework visual de elasticsearch que nos permitirá: 
+Para nosotros en concreto, Kibana representa el framework visual de elasticsearch que nos permitirá: 
 - Dar forma a los datos almacenados en Elasticsearch
 - Crear objetos visuales a partir de los índices llamados **indexPattern**
 - Crear *Visualizaciones*

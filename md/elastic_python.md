@@ -16,6 +16,7 @@ permalink: /elastic-python/
 - [2. Uso de Elasticsearch desde cliente en python](#2-uso-de-elasticsearch-desde-cliente-en-python)
 - [3. Ejemplo de uso guiado: Restaurantes de Nueva York](#3-ejemplo-de-uso-guiado-restaurantes-de-nueva-york)
 - [4. Caso de uso: Accidentes en Nueva York](#4-caso-de-uso-accidentes-en-nueva-york)
+- [Uso de `MongoDB` con `Apache Nifi`](#uso-de-mongodb-con-apache-nifi)
 
 
 
@@ -53,7 +54,7 @@ Aquí tienes el enlace al [ejemplo de ingestión de datos usando python; Bulk In
 
 > **Nota**: Observa que por defecto tenemos instalado `python3` en los sistemas actuales como Ubuntu, por lo que debes reemplazar el comando `python` por `python3`
 
-> **Nota**: si no tienes la herramienta `pip` instalada en tu sistema, por ejemplo para instalarla en Ubuntu lo haremos mediente el siguiente comando
+> **Nota**: si no tienes la herramienta `pip` instalada en tu sistema, por ejemplo para instalarla en Ubuntu lo haremos mediante el siguiente comando
 > ```bash
 > sudo apt install python3-pip
 > ```
@@ -66,8 +67,32 @@ Una vez introducidos los datos, los analizaremos desde el interface de Kibana.
 
 Vamos a utilizar la misma fuente de datos, para obtener otro conjunto de datos: [los accidente de tráfico en Nueva York](https://data.cityofnewyork.us/Public-Safety/Motor-Vehicle-Collisions-Crashes/h9gi-nx95/about_data)
 
-Con estos datos y a partir del ejemplo anterior vamos a realizar los siguiente pasos:
 
-1. Ingesta de datos, para lo cual realizaremos los siguientes cambios:
-   - La fecha debe ser completa
-   - campos heridos y fallecidos suma de todos.
+
+# Uso de `MongoDB` con `Apache Nifi`
+
+Otros de los usos típicos que podemos tener es el almacenamiento de un ETL utilizando `Apache Nifi` y `MongoDB`
+
+Veamos la configuración de `Nifi` para poder almacenar datos en `MongoDB`
+
+En primer lugar para la ingesta de datos en MongoDB, utilizamos el Processor `PutMongoRecord` o `PutMongo`
+
+<div align="center">
+    <img src="../img/NoSQLUsos/UsosNoSQL01.png" alt="Nifi - Elastic" width="30%" />
+</div>
+
+Dentro del processor, debemos configurar dos servicios: 
+
+<div align="center">
+    <img src="../img/NoSQLUsos/UsosNoSQL02.png" alt="Nifi - Elastic" width="50%" />
+</div>
+
+Los cuales quedan configurados como sigue:
+
+<div align="center">
+    <img src="../img/NoSQLUsos/UsosNoSQL03.png" alt="Nifi - Elastic" width="40%" />
+    <img src="../img/NoSQLUsos/UsosNoSQL04.png" alt="Nifi - Elastic" width="40%" />
+</div>
+
+El servicio `JsonTreeReader` no es necesario modificarlo, y el `MongoDBControllerService` simplemente asignamos la propiedad de **Mongo URL**
+

@@ -967,7 +967,6 @@ Puede haber problemas con los datos de fechas y similares. En caso de problema, 
 Lo adecuado es analizar los datos y crear el mapping antes de su ingesta. Podemos ir cambiado campo a campo y realizar la ingesta de una parte pequeña de los campos tras cada modificación para verificar que todo funciona correctamente. 
 
 Por otra parte, es posible actualizar el mapping de un índice existente para agregar nuevos campos, cambiar tipos de datos, ajustar propiedades de campo, etc.
-   - Sin embargo, 
 
 
 ## 3.2. Analizadores de textos
